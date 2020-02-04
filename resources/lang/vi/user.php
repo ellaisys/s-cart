@@ -4,6 +4,7 @@ return [
     'name' => 'Tên đầy đủ',
     'user_name' => 'Tên đăng nhập',
     'username' => 'Tên đăng nhập',
+    'email' => 'Email',
     'password' => 'Mật khẩu',
     'avatar' => 'Hình đại diện',
     'roles' => 'vai trò',

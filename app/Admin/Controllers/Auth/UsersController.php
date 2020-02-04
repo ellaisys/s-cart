@@ -207,6 +207,7 @@ class UsersController extends Controller
             'username' => 'required|regex:/(^([0-9A-Za-z@\._]+)$)/|unique:admin_user,username|string|max:100|min:3',
             'avatar' => 'nullable|string|max:255',
             'password' => 'required|string|max:60|min:6|confirmed',
+            'email' => 'required|string|email|max:255|unique:admin_user,email',
         ], [
             'username.regex' => trans('user.username_validate'),
         ]);
@@ -221,6 +222,7 @@ class UsersController extends Controller
             'name' => $data['name'],
             'username' => strtolower($data['username']),
             'avatar' => $data['avatar'],
+            'email' => strtolower($data['email']),
             'password' => bcrypt($data['password']),
         ];
 
@@ -277,6 +279,7 @@ class UsersController extends Controller
             'username' => 'required|regex:/(^([0-9A-Za-z@\._]+)$)/|unique:admin_user,username,' . $user->id . '|string|max:100|min:3',
             'avatar' => 'nullable|string|max:255',
             'password' => 'nullable|string|max:60|min:6|confirmed',
+            'email' => 'required|string|email|max:255|unique:admin_user,email,' . $user->id,
         ], [
             'username.regex' => trans('user.username_validate'),
         ]);
@@ -292,23 +295,28 @@ class UsersController extends Controller
             'name' => $data['name'],
             'username' => strtolower($data['username']),
             'avatar' => $data['avatar'],
+            'email' => strtolower($data['email']),
         ];
         if ($data['password']) {
             $dataUpdate['password'] = bcrypt($data['password']);
         }
         AdminUser::updateInfo($dataUpdate, $id);
-        $roles = $data['roles'] ?? [];
-        $permission = $data['permission'] ?? [];
-        $user->roles()->detach();
-        $user->permissions()->detach();
-        //Insert roles
-        if ($roles) {
-            $user->roles()->attach($roles);
+
+        if(!in_array($user->id, SC_GUARD_ADMIN)) {
+            $roles = $data['roles'] ?? [];
+            $permission = $data['permission'] ?? [];
+            $user->roles()->detach();
+            $user->permissions()->detach();
+            //Insert roles
+            if ($roles) {
+                $user->roles()->attach($roles);
+            }
+            //Insert permission
+            if ($permission) {
+                $user->permissions()->attach($permission);
+            }
         }
-        //Insert permission
-        if ($permission) {
-            $user->permissions()->attach($permission);
-        }
+
 
 //
         return redirect()->route('admin_user.index')->with('success', trans('user.admin.edit_success'));

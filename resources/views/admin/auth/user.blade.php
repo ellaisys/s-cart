@@ -51,6 +51,21 @@
                                 </div>
                             </div>
 
+                            <div class="form-group   {{ $errors->has('email') ? ' has-error' : '' }}">
+                                <label for="email" class="col-sm-2  control-label">{{ trans('user.email') }}</label>
+                                <div class="col-sm-8">
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-pencil fa-fw"></i></span>
+                                        <input type="text"   id="email" name="email" value="{{ old('email',$user['email']??'') }}" class="form-control email" placeholder="" />
+                                    </div>
+                                        @if ($errors->has('email'))
+                                            <span class="help-block">
+                                                {{ $errors->first('email') }}
+                                            </span>
+                                        @endif
+                                </div>
+                            </div>
+
                             <div class="form-group   {{ $errors->has('avatar') ? ' has-error' : '' }}">
                                 <label for="avatar" class="col-sm-2  control-label">{{ trans('user.avatar') }}</label>
                                 <div class="col-sm-8">
@@ -67,7 +82,11 @@
                                                 {{ $errors->first('avatar') }}
                                             </span>
                                         @endif
-                                    <div id="preview_avatar" class="img_holder"><img src="{{ old('avatar',$user['avatar']??'') }}"></div>
+                                        <div id="preview_avatar" class="img_holder">
+                                        @if (old('avatar',$user['avatar']??''))
+                                            <img src="{{ asset(old('avatar',$user['avatar']??'')) }}">
+                                        @endif
+                                        </div>
                                 </div>
                             </div>
 
@@ -126,17 +145,26 @@
         @endphp
                                 <label for="roles" class="col-sm-2  control-label">{{ trans('user.admin.select_roles') }}</label>
                                 <div class="col-sm-8">
-                                    <select class="form-control input-sm roles select2"  multiple="multiple" data-placeholder="{{ trans('user.admin.select_roles') }}" style="width: 100%;" name="roles[]" >
-                                        <option value=""></option>
-                                        @foreach ($roles as $k => $v)
-                                            <option value="{{ $k }}"  {{ (count($listRoles) && in_array($k, $listRoles))?'selected':'' }}>{{ $v }}</option>
-                                        @endforeach
-                                    </select>
-                                        @if ($errors->has('roles'))
-                                            <span class="help-block">
-                                                {{ $errors->first('roles') }}
-                                            </span>
-                                        @endif
+
+                            @if (isset($user['id']) && in_array($user['id'], SC_GUARD_ADMIN))
+                                @if (count($listRoles))
+                                @foreach ($listRoles as $role)
+                                    {!! '<span class="label label-primary">'.($roles[$role]??'').'</span>' !!}
+                                @endforeach
+                                @endif
+                            @else
+                                <select class="form-control input-sm roles select2"  multiple="multiple" data-placeholder="{{ trans('user.admin.select_roles') }}" style="width: 100%;" name="roles[]" >
+                                    <option value=""></option>
+                                    @foreach ($roles as $k => $v)
+                                        <option value="{{ $k }}"  {{ (count($listRoles) && in_array($k, $listRoles))?'selected':'' }}>{{ $v }}</option>
+                                    @endforeach
+                                </select>
+                                    @if ($errors->has('roles'))
+                                        <span class="help-block">
+                                            {{ $errors->first('roles') }}
+                                        </span>
+                                    @endif
+                            @endif
                                 </div>
                             </div>
 {{-- //select roles --}}
@@ -154,17 +182,26 @@
         @endphp
                                 <label for="permission" class="col-sm-2  control-label">{{ trans('user.admin.select_permission') }}</label>
                                 <div class="col-sm-8">
-                                    <select class="form-control input-sm permission select2"  multiple="multiple" data-placeholder="{{ trans('user.admin.select_permission') }}" style="width: 100%;" name="permission[]" >
-                                        <option value=""></option>
-                                        @foreach ($permission as $k => $v)
-                                            <option value="{{ $k }}"  {{ (count($listPermission) && in_array($k, $listPermission))?'selected':'' }}>{{ $v }}</option>
-                                        @endforeach
-                                    </select>
-                                        @if ($errors->has('permission'))
-                                            <span class="help-block">
-                                                {{ $errors->first('permission') }}
-                                            </span>
+                                    @if (isset($user['id']) && in_array($user['id'], SC_GUARD_ADMIN))
+                                        @if (count($listPermission))
+                                            @foreach ($listPermission as $p)
+                                                {!! '<span class="label label-primary">'.($permission[$p]??'').'</span>' !!}
+                                            @endforeach
                                         @endif
+                                    @else
+                                        <select class="form-control input-sm permission select2"  multiple="multiple" data-placeholder="{{ trans('user.admin.select_permission') }}" style="width: 100%;" name="permission[]" >
+                                            <option value=""></option>
+                                            @foreach ($permission as $k => $v)
+                                                <option value="{{ $k }}"  {{ (count($listPermission) && in_array($k, $listPermission))?'selected':'' }}>{{ $v }}</option>
+                                            @endforeach
+                                        </select>
+                                            @if ($errors->has('permission'))
+                                                <span class="help-block">
+                                                    {{ $errors->first('permission') }}
+                                                </span>
+                                            @endif
+                                    @endif
+
                                 </div>
                             </div>
 {{-- //select permission --}}
