@@ -9,6 +9,7 @@ class AdminConfig extends Model
     public $timestamps = false;
     public $table = 'admin_config';
     protected static $getAll = null;
+    protected $connection = SC_CONNECTION;
 
 /**
  * [getExtensionsGroup description]

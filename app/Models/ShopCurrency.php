@@ -25,6 +25,8 @@ class ShopCurrency extends Model
     protected static $getCodeActive     = null;
     protected static $checkListCurrency = [];
     protected $guarded                  = [];
+    protected $connection = SC_CONNECTION;
+
     public static function getList()
     {
         if (!self::$list) {

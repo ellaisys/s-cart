@@ -8,6 +8,7 @@ class ShopSubscribe extends Model
 {
     public $table           = 'shop_subscribe';
     protected $guarded      = [];
+    protected $connection = SC_CONNECTION;
     private static $getList = null;
     public static function getList()
     {

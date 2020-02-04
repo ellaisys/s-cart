@@ -13,6 +13,7 @@ class ShopOrder extends Model
 {
     public $table = 'shop_order';
     protected $guarded = [];
+    protected $connection = SC_CONNECTION;
     public static $mapStyleStatus = [
         '1' => 'info', //new
         '2' => 'primary', //processing
@@ -119,7 +120,7 @@ class ShopOrder extends Model
     public function createOrder($dataOrder, $dataTotal, $arrCartDetail)
     {
         try {
-            DB::connection('mysql')->beginTransaction();
+            DB::connection(SC_CONNECTION)->beginTransaction();
             $uID = sc_clean($dataOrder['user_id']);
             $currency = sc_clean($dataOrder['currency']);
             $exchange_rate = sc_clean($dataOrder['exchange_rate']);
@@ -225,10 +226,10 @@ class ShopOrder extends Model
             }
             // End process Discount
 
-            DB::connection('mysql')->commit();
+            DB::connection(SC_CONNECTION)->commit();
             $return = ['error' => 0, 'orderID' => $orderID, 'msg' => ""];
         } catch (\Exception $e) {
-            DB::connection('mysql')->rollBack();
+            DB::connection(SC_CONNECTION)->rollBack();
             $return = ['error' => 1, 'msg' => $e->getMessage()];
         }
         return $return;

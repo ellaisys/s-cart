@@ -13,6 +13,7 @@ class CmsCategory extends Model
     public $timestamps = false;
     public $table = 'cms_category';
     protected $guarded = [];
+    protected $connection = SC_CONNECTION;
     protected $appends = [
         'title',
         'keyword',

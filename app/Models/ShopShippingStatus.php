@@ -10,6 +10,7 @@ class ShopShippingStatus extends Model
     public $table                = 'shop_shipping_status';
     protected $guarded           = [];
     protected static $listStatus = null;
+    protected $connection = SC_CONNECTION;
     public static function getListStatus()
     {
         if (!self::$listStatus) {

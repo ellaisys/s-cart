@@ -17,6 +17,7 @@ class ShopUser extends Authenticatable
      */
     protected $table = 'shop_user';
     protected $guarded = [];
+    protected $connection = SC_CONNECTION;
     private static $getList = null;
     /**
      * The attributes that should be hidden for arrays.

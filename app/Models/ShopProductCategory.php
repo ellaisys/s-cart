@@ -11,4 +11,5 @@ class ShopProductCategory extends Model
     protected $guarded    = [];
     public $timestamps    = false;
     public $table         = 'shop_product_category';
+    protected $connection = SC_CONNECTION;
 }

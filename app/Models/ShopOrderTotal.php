@@ -10,6 +10,7 @@ class ShopOrderTotal extends Model
 {
     protected $table = 'shop_order_total';
     protected $fillable = ['order_id', 'title', 'code', 'value', 'text', 'sort'];
+    protected $connection = SC_CONNECTION;
     protected $guarded = [];
     const POSITION_SUBTOTAL = 1;
     const POSITION_SHIPPING = 10;

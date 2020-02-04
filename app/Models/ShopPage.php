@@ -8,6 +8,7 @@ class ShopPage extends Model
 {
     public $timestamps = false;
     public $table = 'shop_page';
+    protected $connection = SC_CONNECTION;
     protected $guarded = [];
     protected $appends = [
         'title',

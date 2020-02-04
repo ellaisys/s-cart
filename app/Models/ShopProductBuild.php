@@ -12,6 +12,7 @@ class ShopProductBuild extends Model
     protected $guarded    = [];
     public $timestamps    = false;
     public $table         = 'shop_product_build';
+    protected $connection = SC_CONNECTION;
     public function product()
     {
         return $this->belongsTo(ShopProduct::class, 'product_id', 'id');

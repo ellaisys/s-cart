@@ -52,19 +52,20 @@ if (request()->method() == 'POST' && request()->ajax()) {
             echo json_encode(['error' => 1, 'msg' => $e->getMessage()]);
             exit();
         }
-        session(['infoInstall' => [
+
+        $infoInstall =  [
             'timezone_default' => request('timezone_default'),
             'language_default' => request('language_default'),
             'admin_user' => request('admin_user'),
-            'admin_password' => request('admin_password'),
+            'admin_password' => bcrypt(request('admin_password')),
             'admin_email' => request('admin_email'),
-        ]]);
-            echo json_encode(['error' => 0, 'msg' => trans('install.env.process_sucess')]);
+        ];
+            echo json_encode(['error' => 0, 'msg' => trans('install.env.process_sucess'), 'infoInstall' => $infoInstall]);
             break;
 
     case 'step2-1':
         try {
-            Artisan::call('migrate --path=/database/migrations/2020_00_00_step1_create_admin_tables.php');
+            Artisan::call('migrate --path=/database/migrations/2020_00_00_step1_create_tables.php');
         } catch(\Exception $e) {
             echo json_encode([
                 'error' => '1',
@@ -75,12 +76,14 @@ if (request()->method() == 'POST' && request()->ajax()) {
         echo json_encode([
             'error' => '0',
             'msg' => trans('install.database.process_sucess_1'),
+            'infoInstall' => request('infoInstall')
         ]);
         break;
 
         case 'step2-2':
+            session(['infoInstall'=> request('infoInstall')]);
             try {
-                Artisan::call('migrate --path=/database/migrations/2020_00_00_step2_create_shop_tables.php');
+                Artisan::call('migrate --path=/database/migrations/2020_00_00_step2_insert_database.php');
             } catch(\Exception $e) {
                 echo json_encode([
                     'error' => '1',

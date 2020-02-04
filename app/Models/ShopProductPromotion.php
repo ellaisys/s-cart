@@ -10,6 +10,7 @@ class ShopProductPromotion extends Model
     protected $guarded    = [];
     protected $primaryKey = ['product_id'];
     public $incrementing  = false;
+    protected $connection = SC_CONNECTION;
 
     public function product()
     {

@@ -4,8 +4,13 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateShopTables extends Migration
+class InsertDatabase extends Migration
 {
+    public $adminUser = 'admin';
+    public $adminPassword = '$2y$10$JcmAHe5eUZ2rS0jU1GWr/.xhwCnh2RU13qwjTPcqfmtZXjZxcryPO';
+    public $adminEmail = 'your-email@your-domain.com';
+    public $timezone_default = 'Asia/Ho_Chi_Minh';
+    public $language_default = 'vi';
 
     /**
      * Run the migrations.
@@ -14,456 +19,8 @@ class CreateShopTables extends Migration
      */
     public function up()
     {
-        Schema::create('shop_banner', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('image', 255)->nullable();
-            $table->string('url', 100)->nullable();
-            $table->string('target', 50)->nullable();
-            $table->text('html')->nullable();
-            $table->tinyInteger('status')->default(0);
-            $table->tinyInteger('sort')->default(0);
-            $table->tinyInteger('click')->default(0);
-            $table->tinyInteger('type')->default(0);
-            $table->timestamps();
-        });
-
-        Schema::create('admin_config', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('group', 50)->nullable();
-            $table->string('code', 50)->index();
-            $table->string('key', 50)->unique();
-            $table->string('value', 200)->nullable();
-            $table->string('store_id', 200)->default(1);
-            $table->tinyInteger('sort')->default(0);
-            $table->string('detail', 300)->nullable();
-
-        });
-
-        Schema::create('admin_store', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('logo', 255)->nullable();
-            $table->tinyInteger('site_status')->default(1);
-            $table->string('phone', 20)->nullable();
-            $table->string('long_phone', 100)->nullable();
-            $table->string('email', 150)->nullable();
-            $table->string('time_active', 200);
-            $table->string('address', 300);
-            $table->string('office', 300)->nullable();
-            $table->string('warehouse', 300)->nullable();
-            $table->string('template', 100)->nullable();
-        });
-
-        Schema::create('admin_store_description', function (Blueprint $table) {
-            $table->integer('config_id');
-            $table->string('lang', 10)->index();
-            $table->string('title', 200)->nullable();
-            $table->string('description', 300)->nullable();
-            $table->string('keyword', 200)->nullable();
-            $table->text('maintain_content')->nullable();
-            $table->primary(['config_id', 'lang']);
-        });
-
-        Schema::create('shop_email_template', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('name', 50);
-            $table->string('group', 50);
-            $table->text('text');
-            $table->tinyInteger('status')->default(0);
-        });
-
-        Schema::create('shop_language', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('name', 100);
-            $table->string('code', 50)->unique();
-            $table->string('icon', 100)->nullable();
-            $table->tinyInteger('status')->default(0);
-            $table->tinyInteger('sort')->default(0);
-        });
-
-        Schema::create('shop_block_content', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('name', 100);
-            $table->string('position', 100);
-            $table->string('page', 200)->nullable();
-            $table->string('type', 200);
-            $table->text('text')->nullable();
-            $table->tinyInteger('status')->default(0);
-            $table->tinyInteger('sort')->default(0);
-        });
-
-        Schema::create('shop_layout_page', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('key', 100)->unique();
-            $table->string('name', 100);
-        });
-
-        Schema::create('shop_layout_position', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('key', 100)->unique();
-            $table->string('name', 100);
-        });
-
-        Schema::create('shop_layout_type', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('key', 100)->unique();
-            $table->string('name', 100);
-        });
-
-        Schema::create('shop_link', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('name', 100);
-            $table->string('url', 100);
-            $table->string('target', 100);
-            $table->string('group', 100);
-            $table->string('module', 100)->nullable();
-            $table->tinyInteger('status')->default(0);
-            $table->tinyInteger('sort')->default(0);
-        });
-
-        Schema::create('password_resets', function (Blueprint $table) {
-            $table->string('email', 150);
-            $table->string('token', 255);
-            $table->dateTime('created_at');
-            $table->index('email');
-        });
-
-        Schema::create('shipping_standard', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('fee');
-            $table->integer('shipping_free');
-        });
-
-        Schema::create('shop_brand', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('name', 100);
-            $table->string('alias', 120)->unique();
-            $table->string('image', 255)->nullable();
-            $table->string('url', 100)->nullable();
-            $table->tinyInteger('status')->default(0);
-            $table->tinyInteger('sort')->default(0);
-        });
-
-        Schema::create('shop_category', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('image', 255)->nullable();
-            $table->string('alias', 120)->unique();
-            $table->integer('parent')->default(0);
-            $table->integer('top')->nullable()->default(0);
-            $table->tinyInteger('status')->default(0);
-            $table->tinyInteger('sort')->default(0);
-        });
-
-        Schema::create('shop_category_description', function (Blueprint $table) {
-            $table->integer('category_id');
-            $table->string('lang', 10)->index();
-            $table->string('name', 200)->nullable();
-            $table->string('keyword', 200)->nullable();
-            $table->string('description', 300)->nullable();
-            $table->primary(['category_id', 'lang']);
-        });
-
-        Schema::create('shop_currency', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('name', 100);
-            $table->string('code', 10)->unique();
-            $table->string('symbol', 10);
-            $table->float('exchange_rate');
-            $table->tinyInteger('precision')->default(2);
-            $table->tinyInteger('symbol_first')->default(0);
-            $table->string('thousands')->default(',');
-            $table->tinyInteger('status')->default(0);
-            $table->tinyInteger('sort')->default(0);
-        });
-
-        Schema::create('shop_discount', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('code', 50)->unique();
-            $table->integer('reward')->default(2);
-            $table->string('type', 10)->default('point')->comment('point - Point; percent - %');
-            $table->string('data', 300)->nullable();
-            $table->integer('limit')->default(1);
-            $table->integer('used')->default(0);
-            $table->integer('login')->default(0);
-            $table->tinyInteger('status')->default(0);
-            $table->dateTime('expires_at')->nullable();
-        });
-
-        Schema::create('shop_discount_user', function (Blueprint $table) {
-            $table->integer('user_id');
-            $table->integer('discount_id');
-            $table->string('log', 300);
-            $table->dateTime('used_at');
-        });
-
-        Schema::create('shop_order', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('user_id');
-            $table->integer('subtotal')->nullable()->default(0);
-            $table->integer('shipping')->nullable()->default(0);
-            $table->integer('discount')->nullable()->default(0);
-            $table->integer('payment_status')->default(1);
-            $table->integer('shipping_status')->default(1);
-            $table->integer('status')->default(0);
-            $table->integer('tax')->nullable()->default(0);
-            $table->integer('total')->nullable()->default(0);
-            $table->string('currency', 10);
-            $table->float('exchange_rate')->nullable();
-            $table->integer('received')->nullable()->default(0);
-            $table->integer('balance')->nullable()->default(0);
-            $table->string('first_name', 100);
-            $table->string('last_name', 100);
-            $table->string('address1', 100);
-            $table->string('address2', 100);
-            $table->string('country', 10)->default('VN');
-            $table->string('company', 100)->nullable();
-            $table->string('postcode', 10)->nullable();
-            $table->string('phone', 20);
-            $table->string('email', 150);
-            $table->string('comment', 300)->nullable();
-            $table->string('payment_method', 100)->nullable();
-            $table->string('shipping_method', 100)->nullable();
-            $table->string('user_agent', 255)->nullable();
-            $table->string('ip', 100)->nullable();
-            $table->string('transaction', 100)->nullable();
-            $table->timestamps();
-        });
-
-        Schema::create('shop_order_detail', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('order_id');
-            $table->integer('product_id');
-            $table->string('name', 100);
-            $table->integer('price')->default(0);
-            $table->integer('qty')->default(0);
-            $table->integer('total_price')->default(0);
-            $table->string('sku', 50);
-            $table->string('currency', 10);
-            $table->float('exchange_rate')->nullable();
-            $table->string('attribute', 100)->nullable();
-            $table->timestamps();
-        });
-
-        Schema::create('shop_order_history', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('order_id');
-            $table->string('content', 300);
-            $table->integer('admin_id')->default(0);
-            $table->integer('user_id')->default(0);
-            $table->integer('order_status_id')->default(0);
-            $table->dateTime('add_date');
-        });
-
-        Schema::create('shop_order_status', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('name', 100);
-
-        });
-
-        Schema::create('shop_order_total', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('order_id');
-            $table->string('title', 100);
-            $table->string('code', 100);
-            $table->integer('value')->default(0);
-            $table->string('text', 200)->nullable();
-            $table->integer('sort')->default(1);
-            $table->timestamps();
-        });
-
-        Schema::create('shop_page', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('image', 255)->nullable();
-            $table->string('alias', 120)->unique();
-            $table->integer('status')->default(0);
-        });
-
-        Schema::create('shop_page_description', function (Blueprint $table) {
-            $table->integer('page_id');
-            $table->string('lang', 10)->index();
-            $table->string('title', 200)->nullable();
-            $table->string('keyword', 200)->nullable();
-            $table->string('description', 300)->nullable();
-            $table->text('content')->nullable();
-            $table->primary(['page_id', 'lang']);
-        });
-
-        Schema::create('shop_news', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('image', 200)->nullable();
-            $table->string('alias', 120)->unique();
-            $table->tinyInteger('sort')->default(0);
-            $table->tinyInteger('status')->default(0);
-            $table->timestamp('created_at')->nullable();
-            $table->timestamp('updated_at')->nullable();
-        });
-
-        Schema::create('shop_news_description', function (Blueprint $table) {
-            $table->integer('shop_news_id');
-            $table->string('lang', 10);
-            $table->string('title', 200)->nullable();
-            $table->string('keyword', 200)->nullable();
-            $table->string('description', 300)->nullable();
-            $table->text('content')->nullable();
-            $table->primary(['shop_news_id', 'lang']);
-        });
-
-        Schema::create('shop_payment_status', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('name', 100);
-
-        });
-
-        Schema::create('shop_product', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('sku', 50)->unique();
-            $table->string('image', 255)->nullable();
-            $table->integer('brand_id')->nullable()->default(0)->index();
-            $table->integer('vendor_id')->nullable()->default(0)->index();
-            $table->integer('price')->nullable()->default(0);
-            $table->integer('cost')->nullable()->nullable()->default(0);
-            $table->integer('stock')->nullable()->default(0);
-            $table->integer('sold')->nullable()->default(0);
-            $table->tinyInteger('type')->nullable()->default(0)->index();
-            $table->tinyInteger('kind')->nullable()->default(0)->comment('0:single, 1:bundle, 2:group')->index();
-            $table->tinyInteger('virtual')->nullable()->default(0)->comment('0:physical, 1:download, 2:only view, 3: Service')->index();
-            $table->tinyInteger('status')->default(0)->index();
-            $table->tinyInteger('sort')->default(0);
-            $table->integer('view')->default(0);
-            $table->string('alias', 120)->unique();
-            $table->dateTime('date_lastview')->nullable();
-            $table->date('date_available')->nullable();
-            $table->timestamps();
-        });
-
-        Schema::create('shop_product_description', function (Blueprint $table) {
-            $table->integer('product_id');
-            $table->string('lang', 10)->index();
-            $table->string('name', 200)->nullable();
-            $table->string('keyword', 200)->nullable();
-            $table->string('description', 300)->nullable();
-            $table->text('content')->nullable();
-            $table->primary(['product_id', 'lang']);
-        });
-
-        Schema::create('shop_product_image', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('image', 255);
-            $table->integer('product_id')->default(0)->index();
-        });
-
-        Schema::create('shop_product_build', function (Blueprint $table) {
-            $table->integer('build_id');
-            $table->integer('product_id');
-            $table->integer('quantity');
-            $table->primary(['build_id', 'product_id']);
-        });
-
-        Schema::create('shop_product_group', function (Blueprint $table) {
-            $table->integer('group_id');
-            $table->integer('product_id');
-            $table->primary(['group_id', 'product_id']);
-        });
-
-        Schema::create('shop_product_category', function (Blueprint $table) {
-            $table->integer('product_id');
-            $table->integer('category_id');
-            $table->primary(['product_id', 'category_id']);
-        });
-
-        Schema::create('shop_attribute_group', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('name', 100);
-            $table->tinyInteger('status')->default(0);
-            $table->tinyInteger('sort')->default(0);
-            $table->string('type', 50)->comment('radio,select,checkbox');
-        });
-
-        Schema::create('shop_product_attribute', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('name', 100);
-            $table->integer('attribute_group_id');
-            $table->integer('product_id');
-            $table->tinyInteger('sort')->default(0);
-            $table->index(['product_id', 'attribute_group_id']);
-        });
-
-        Schema::create('shop_shipping', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('type')->default(0);
-            $table->integer('value')->default(0);
-            $table->integer('free')->default(0);
-            $table->integer('status')->default(1);
-        });
-
-        Schema::create('shop_shipping_status', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('name', 100);
-
-        });
-
-        Schema::create('shop_shoppingcart', function (Blueprint $table) {
-            $table->string('identifier', 100);
-            $table->string('instance', 100);
-            $table->text('content');
-            $table->timestamps();
-            $table->index(['identifier', 'instance']);
-        });
-
-        Schema::create('shop_product_promotion', function (Blueprint $table) {
-            $table->integer('product_id')->primary();
-            $table->integer('price_promotion');
-            $table->dateTime('date_start')->nullable();
-            $table->dateTime('date_end')->nullable();
-            $table->integer('status_promotion')->default(1);
-            $table->timestamps();
-        });
-
-        Schema::create('shop_user', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('first_name', 100);
-            $table->string('last_name', 100)->nullable();
-            $table->string('email', 150)->unique();
-            $table->tinyInteger('sex')->default(0)->comment('0:women, 1:men');
-            $table->date('birthday')->nullable();
-            $table->string('password', 100);
-            $table->string('postcode', 10)->nullable();
-            $table->string('address1', 100)->nullable();
-            $table->string('address2', 100)->nullable();
-            $table->string('company', 100)->nullable();
-            $table->string('country', 10)->default('VN');
-            $table->string('phone', 20);
-            $table->string('remember_token', 100)->nullable();
-            $table->tinyInteger('status')->default(1);
-            $table->tinyInteger('group')->default(1);
-            $table->timestamps();
-        });
-
-        Schema::create('shop_vendor', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('name', 100);
-            $table->string('alias', 120)->unique();
-            $table->string('email', 150)->nullable();
-            $table->string('phone', 20)->nullable();
-            $table->string('image', 255)->nullable();
-            $table->string('address', 100)->nullable();
-            $table->string('url', 100)->nullable();
-            $table->tinyInteger('sort')->default(0);
-        });
-
-        Schema::create('shop_subscribe', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('email', 150)->unique();
-            $table->tinyInteger('status')->default(1);
-            $table->timestamps();
-        });
-
-        Schema::create('shop_country', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('code', 10)->unique();
-            $table->string('name', 100);
-        });
-
-        $this->importData();
+        $this->importDataAdmin();
+        $this->importDataShop();
     }
 
     /**
@@ -473,61 +30,179 @@ class CreateShopTables extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('shop_banner');
-        Schema::dropIfExists('admin_config');
-        Schema::dropIfExists('admin_store');
-        Schema::dropIfExists('admin_store_description');
-        Schema::dropIfExists('shop_email_template');
-        Schema::dropIfExists('shop_language');
-        Schema::dropIfExists('shop_block_content');
-        Schema::dropIfExists('shop_layout_page');
-        Schema::dropIfExists('shop_layout_position');
-        Schema::dropIfExists('shop_layout_type');
-        Schema::dropIfExists('shop_link');
-        Schema::dropIfExists('password_resets');
-        Schema::dropIfExists('shipping_standard');
-        Schema::dropIfExists('shop_api');
-        Schema::dropIfExists('shop_api_process');
-        Schema::dropIfExists('shop_brand');
-        Schema::dropIfExists('shop_category');
-        Schema::dropIfExists('shop_category_description');
-        Schema::dropIfExists('shop_currency');
-        Schema::dropIfExists('shop_discount');
-        Schema::dropIfExists('shop_discount_user');
-        Schema::dropIfExists('shop_order');
-        Schema::dropIfExists('shop_order_detail');
-        Schema::dropIfExists('shop_order_history');
-        Schema::dropIfExists('shop_order_status');
-        Schema::dropIfExists('shop_order_total');
-        Schema::dropIfExists('shop_page');
-        Schema::dropIfExists('shop_page_description');
-        Schema::dropIfExists('shop_payment_status');
-        Schema::dropIfExists('shop_product');
-        Schema::dropIfExists('shop_product_description');
-        Schema::dropIfExists('shop_product_image');
-        Schema::dropIfExists('shop_product_build');
-        Schema::dropIfExists('shop_product_attribute');
-        Schema::dropIfExists('shop_attribute_group');
-        Schema::dropIfExists('shop_product_group');
-        Schema::dropIfExists('shop_product_category');
-        Schema::dropIfExists('shop_shipping');
-        Schema::dropIfExists('shop_shipping_status');
-        Schema::dropIfExists('shop_shoppingcart');
-        Schema::dropIfExists('shop_product_promotion');
-        Schema::dropIfExists('shop_user');
-        Schema::dropIfExists('shop_vendor');
-        Schema::dropIfExists('shop_subscribe');
-        Schema::dropIfExists('shop_country');
+//
     }
 
-    public function importData()
+    public function importDataAdmin()
+    {
+        DB::table('admin_menu')->insert([
+            ['id' => 1, 'parent_id' => 6, 'sort' => 11, 'title' => 'lang::admin.menu_titles.order_manager', 'icon' => 'fa-cart-arrow-down', 'uri' => '', 'type' => 0],
+            ['id' => 2, 'parent_id' => 6, 'sort' => 12, 'title' => 'lang::admin.menu_titles.catalog_mamager', 'icon' => 'fa-folder-open', 'uri' => '', 'type' => 0],
+            ['id' => 3, 'parent_id' => 6, 'sort' => 13, 'title' => 'lang::admin.menu_titles.customer_manager', 'icon' => 'fa-group', 'uri' => '', 'type' => 0],
+            ['id' => 4, 'parent_id' => 8, 'sort' => 201, 'title' => 'lang::admin.menu_titles.template_layout', 'icon' => 'fa-object-ungroup', 'uri' => '', 'type' => 0],
+            ['id' => 5, 'parent_id' => 9, 'sort' => 301, 'title' => 'lang::admin.menu_titles.config_manager', 'icon' => 'fa-cogs', 'uri' => '', 'type' => 0],
+            ['id' => 6, 'parent_id' => 0, 'sort' => 10, 'title' => 'lang::ADMIN SHOP', 'icon' => 'fa-minus', 'uri' => '', 'type' => 0],
+            ['id' => 7, 'parent_id' => 0, 'sort' => 100, 'title' => 'lang::ADMIN CONTENT', 'icon' => 'fa-minus', 'uri' => '', 'type' => 0],
+            ['id' => 8, 'parent_id' => 0, 'sort' => 200, 'title' => 'lang::ADMIN EXTENSION', 'icon' => 'fa-minus', 'uri' => '', 'type' => 0],
+            ['id' => 9, 'parent_id' => 0, 'sort' => 300, 'title' => 'lang::ADMIN SYSTEM', 'icon' => 'fa-minus', 'uri' => '', 'type' => 0],
+            ['id' => 10, 'parent_id' => 7, 'sort' => 102, 'title' => 'lang::page.admin.title', 'icon' => 'fa-clone', 'uri' => 'admin::page', 'type' => 0],
+            ['id' => 11, 'parent_id' => 1, 'sort' => 6, 'title' => 'lang::shipping_status.admin.title', 'icon' => 'fa-truck', 'uri' => 'admin::shipping_status', 'type' => 0],
+            ['id' => 12, 'parent_id' => 1, 'sort' => 3, 'title' => 'lang::order.admin.title', 'icon' => 'fa-shopping-cart', 'uri' => 'admin::order', 'type' => 0],
+            ['id' => 13, 'parent_id' => 1, 'sort' => 4, 'title' => 'lang::order_status.admin.title', 'icon' => 'fa-asterisk', 'uri' => 'admin::order_status', 'type' => 0],
+            ['id' => 14, 'parent_id' => 1, 'sort' => 5, 'title' => 'lang::payment_status.admin.title', 'icon' => 'fa-recycle', 'uri' => 'admin::payment_status', 'type' => 0],
+            ['id' => 15, 'parent_id' => 2, 'sort' => 0, 'title' => 'lang::category.admin.title', 'icon' => 'fa-folder-open-o', 'uri' => 'admin::category', 'type' => 0],
+            ['id' => 16, 'parent_id' => 2, 'sort' => 0, 'title' => 'lang::product.admin.title', 'icon' => 'fa-file-photo-o', 'uri' => 'admin::product', 'type' => 0],
+            ['id' => 17, 'parent_id' => 2, 'sort' => 0, 'title' => 'lang::vendor.admin.title', 'icon' => 'fa-user-secret', 'uri' => 'admin::vendor', 'type' => 0],
+            ['id' => 18, 'parent_id' => 2, 'sort' => 0, 'title' => 'lang::brand.admin.title', 'icon' => 'fa-bank', 'uri' => 'admin::brand', 'type' => 0],
+            ['id' => 19, 'parent_id' => 2, 'sort' => 0, 'title' => 'lang::attribute_group.admin.title', 'icon' => 'fa-bars', 'uri' => 'admin::attribute_group', 'type' => 0],
+            ['id' => 20, 'parent_id' => 3, 'sort' => 0, 'title' => 'lang::customer.admin.title', 'icon' => 'fa-user', 'uri' => 'admin::customer', 'type' => 0],
+            ['id' => 21, 'parent_id' => 3, 'sort' => 0, 'title' => 'lang::subscribe.admin.title', 'icon' => 'fa-user-circle-o', 'uri' => 'admin::subscribe', 'type' => 0],
+            ['id' => 22, 'parent_id' => 4, 'sort' => 0, 'title' => 'lang::block_content.admin.title', 'icon' => 'fa-newspaper-o', 'uri' => 'admin::block_content', 'type' => 0],
+            ['id' => 23, 'parent_id' => 4, 'sort' => 0, 'title' => 'lang::link.admin.title', 'icon' => 'fa-chrome', 'uri' => 'admin::link', 'type' => 0],
+            ['id' => 24, 'parent_id' => 4, 'sort' => 0, 'title' => 'lang::template.admin.title', 'icon' => 'fa-columns', 'uri' => 'admin::template', 'type' => 0],
+            ['id' => 25, 'parent_id' => 5, 'sort' => 2, 'title' => 'lang::store_value.admin.title', 'icon' => 'fa-code', 'uri' => 'admin::store_value', 'type' => 0],
+            ['id' => 26, 'parent_id' => 5, 'sort' => 1, 'title' => 'lang::store_info.admin.title', 'icon' => 'fa-h-square', 'uri' => 'admin::store_info', 'type' => 0],
+            ['id' => 27, 'parent_id' => 5, 'sort' => 4, 'title' => 'lang::admin.menu_titles.email_setting', 'icon' => 'fa-envelope', 'uri' => '', 'type' => 0],
+            ['id' => 28, 'parent_id' => 27, 'sort' => 0, 'title' => 'lang::email.admin.title', 'icon' => 'fa-cog', 'uri' => 'admin::email', 'type' => 0],
+            ['id' => 29, 'parent_id' => 27, 'sort' => 0, 'title' => 'lang::email_template.admin.title', 'icon' => 'fa-bars', 'uri' => 'admin::email_template', 'type' => 0],
+            ['id' => 30, 'parent_id' => 5, 'sort' => 5, 'title' => 'lang::admin.menu_titles.localisation', 'icon' => 'fa-shirtsinbulk', 'uri' => '', 'type' => 0],
+            ['id' => 31, 'parent_id' => 30, 'sort' => 0, 'title' => 'lang::language.admin.title', 'icon' => 'fa-pagelines', 'uri' => 'admin::language', 'type' => 0],
+            ['id' => 32, 'parent_id' => 30, 'sort' => 0, 'title' => 'lang::currency.admin.title', 'icon' => 'fa-dollar', 'uri' => 'admin::currency', 'type' => 0],
+            ['id' => 33, 'parent_id' => 7, 'sort' => 101, 'title' => 'lang::banner.admin.title', 'icon' => 'fa-image', 'uri' => 'admin::banner', 'type' => 0],
+            ['id' => 34, 'parent_id' => 5, 'sort' => 5, 'title' => 'lang::backup.admin.title', 'icon' => 'fa-save', 'uri' => 'admin::backup', 'type' => 0],
+            ['id' => 35, 'parent_id' => 8, 'sort' => 202, 'title' => 'lang::admin.menu_titles.extensions', 'icon' => 'fa-puzzle-piece', 'uri' => '', 'type' => 0],
+            ['id' => 36, 'parent_id' => 8, 'sort' => 202, 'title' => 'lang::admin.menu_titles.modules', 'icon' => 'fa-codepen', 'uri' => '', 'type' => 0],
+            ['id' => 37, 'parent_id' => 9, 'sort' => 302, 'title' => 'lang::admin.menu_titles.report_manager', 'icon' => 'fa-pie-chart', 'uri' => '', 'type' => 0],
+            ['id' => 38, 'parent_id' => 9, 'sort' => 0, 'title' => 'lang::admin.menu_titles.admin', 'icon' => 'fa-sitemap', 'uri' => '', 'type' => 0],
+            ['id' => 39, 'parent_id' => 35, 'sort' => 0, 'title' => 'admin.extension_manager.Payment', 'icon' => 'fa-money', 'uri' => 'admin::extension/payment', 'type' => 0],
+            ['id' => 40, 'parent_id' => 35, 'sort' => 0, 'title' => 'admin.extension_manager.Shipping', 'icon' => 'fa-ambulance', 'uri' => 'admin::extension/shipping', 'type' => 0],
+            ['id' => 41, 'parent_id' => 35, 'sort' => 0, 'title' => 'admin.extension_manager.Total', 'icon' => 'fa-cog', 'uri' => 'admin::extension/total', 'type' => 0],
+            ['id' => 42, 'parent_id' => 35, 'sort' => 0, 'title' => 'admin.extension_manager.Other', 'icon' => 'fa-circle-thin', 'uri' => 'admin::extension/other', 'type' => 0],
+            ['id' => 43, 'parent_id' => 36, 'sort' => 0, 'title' => 'admin.module_manager.Cms', 'icon' => 'fa-modx', 'uri' => 'admin::module/cms', 'type' => 0],
+            ['id' => 44, 'parent_id' => 36, 'sort' => 0, 'title' => 'admin.module_manager.Block', 'icon' => 'fa-cube', 'uri' => 'admin::module/block', 'type' => 0],
+            ['id' => 45, 'parent_id' => 36, 'sort' => 0, 'title' => 'admin.module_manager.Other', 'icon' => 'fa-circle-thin', 'uri' => 'admin::module/other', 'type' => 0],
+            ['id' => 46, 'parent_id' => 38, 'sort' => 0, 'title' => 'lang::admin.menu_titles.users', 'icon' => 'fa-users', 'uri' => 'admin::user', 'type' => 0],
+            ['id' => 47, 'parent_id' => 38, 'sort' => 0, 'title' => 'lang::admin.menu_titles.roles', 'icon' => 'fa-user', 'uri' => 'admin::role', 'type' => 0],
+            ['id' => 48, 'parent_id' => 38, 'sort' => 0, 'title' => 'lang::admin.menu_titles.permission', 'icon' => 'fa-ban', 'uri' => 'admin::permission', 'type' => 0],
+            ['id' => 49, 'parent_id' => 38, 'sort' => 0, 'title' => 'lang::admin.menu_titles.menu', 'icon' => 'fa-bars', 'uri' => 'admin::menu', 'type' => 0],
+            ['id' => 50, 'parent_id' => 38, 'sort' => 0, 'title' => 'lang::admin.menu_titles.operation_log', 'icon' => 'fa-history', 'uri' => 'admin::log', 'type' => 0],
+            ['id' => 52, 'parent_id' => 7, 'sort' => 103, 'title' => 'lang::news.admin.title', 'icon' => 'fa-file-powerpoint-o', 'uri' => 'admin::news', 'type' => 0],
+            ['id' => 53, 'parent_id' => 5, 'sort' => 3, 'title' => 'lang::env.title', 'icon' => 'fa-cog', 'uri' => 'admin::env', 'type' => 0],
+            ['id' => 54, 'parent_id' => 37, 'sort' => 0, 'title' => 'lang::admin.menu_titles.report_product', 'icon' => 'fa-bars', 'uri' => 'admin::report/product', 'type' => 0],
+            ['id' => 55, 'parent_id' => 5, 'sort' => 2, 'title' => 'lang::product.config_manager.title', 'icon' => 'fa-product-hunt', 'uri' => 'admin::product_config', 'type' => 0],
+            ['id' => 56, 'parent_id' => 5, 'sort' => 2, 'title' => 'lang::customer.config_manager.title', 'icon' => 'fa-address-card-o', 'uri' => 'admin::customer_config', 'type' => 0],
+            ['id' => 57, 'parent_id' => 5, 'sort' => 2, 'title' => 'lang::link.config_manager.title', 'icon' => 'fa-gg', 'uri' => 'admin::url_config', 'type' => 0],
+        ]
+        );
+
+        DB::table('admin_permission')->insert([
+            ['id' => '1', 'name' => 'Admin manager', 'slug' => 'admin.manager', 'http_uri' => 'GET::sc_admin/user,GET::sc_admin/role,GET::sc_admin/permission,ANY::sc_admin/log/*,ANY::sc_admin/menu/*', 'created_at' => date('Y-m-d H:i:s')],
+            ['id' => '2', 'name' => 'Dashboard', 'slug' => 'dashboard', 'http_uri' => 'GET::sc_admin', 'created_at' => date('Y-m-d H:i:s')],
+            ['id' => '3', 'name' => 'Auth manager', 'slug' => 'auth.full', 'http_uri' => 'ANY::sc_admin/auth/*', 'created_at' => date('Y-m-d H:i:s')],
+            ['id' => '4', 'name' => 'Setting manager', 'slug' => 'setting.full', 'http_uri' => 'ANY::sc_admin/store_info/*,ANY::sc_admin/store_value/*,ANY::sc_admin/url_config/*,ANY::sc_admin/product_config/*, ANY::sc_admin/customer_config/*, ANY::sc_admin/env/*,ANY::sc_admin/email/*,ANY::sc_admin/email_template/*,ANY::sc_admin/language/*,ANY::sc_admin/currency/*,ANY::sc_admin/backup/*', 'created_at' => date('Y-m-d H:i:s')],
+            ['id' => '5', 'name' => 'Upload management', 'slug' => 'upload.full', 'http_uri' => 'ANY::sc_admin/uploads/*', 'created_at' => date('Y-m-d H:i:s')],
+            ['id' => '6', 'name' => 'Module manager', 'slug' => 'module.full', 'http_uri' => 'ANY::sc_admin/module/*', 'created_at' => date('Y-m-d H:i:s')],
+            ['id' => '7', 'name' => 'Extension manager', 'slug' => 'extension.full', 'http_uri' => 'ANY::sc_admin/extension/*', 'created_at' => date('Y-m-d H:i:s')],
+            ['id' => '8', 'name' => 'CMS manager', 'slug' => 'cms.full', 'http_uri' => 'ANY::sc_admin/page/*,ANY::sc_admin/banner/*,ANY::sc_admin/cms_category/*,ANY::sc_admin/cms_content/*,ANY::sc_admin/news/*', 'created_at' => date('Y-m-d H:i:s')],
+            ['id' => '11', 'name' => 'Discount manager', 'slug' => 'discount.full', 'http_uri' => 'ANY::sc_admin/shop_discount/*', 'created_at' => date('Y-m-d H:i:s')],
+            ['id' => '14', 'name' => 'Shipping status', 'slug' => 'shipping_status.full', 'http_uri' => 'ANY::sc_admin/shipping_status/*', 'created_at' => date('Y-m-d H:i:s')],
+            ['id' => '15', 'name' => 'Payment  status', 'slug' => 'payment_status.full', 'http_uri' => 'ANY::sc_admin/payment_status/*', 'created_at' => date('Y-m-d H:i:s')],
+            ['id' => '17', 'name' => 'Customer manager', 'slug' => 'customer.full', 'http_uri' => 'ANY::sc_admin/customer/*,ANY::sc_admin/subscribe/*', 'created_at' => date('Y-m-d H:i:s')],
+            ['id' => '18', 'name' => 'Order status', 'slug' => 'order_status.full', 'http_uri' => 'ANY::sc_admin/order_status/*', 'created_at' => date('Y-m-d H:i:s')],
+            ['id' => '19', 'name' => 'Product manager', 'slug' => 'product.full', 'http_uri' => 'ANY::sc_admin/category/*,ANY::sc_admin/vendor/*,ANY::sc_admin/brand/*,ANY::sc_admin/attribute_group/*,ANY::sc_admin/product/*', 'created_at' => date('Y-m-d H:i:s')],
+            ['id' => '20', 'name' => 'Order Manager', 'slug' => 'order.full', 'http_uri' => 'ANY::sc_admin/order/*', 'created_at' => date('Y-m-d H:i:s')],
+            ['id' => '21', 'name' => 'Report manager', 'slug' => 'report.full', 'http_uri' => 'ANY::sc_admin/report/*', 'created_at' => date('Y-m-d H:i:s')],
+            ['id' => '22', 'name' => 'Template manager', 'slug' => 'template.full', 'http_uri' => 'ANY::sc_admin/block_content/*,ANY::sc_admin/link/*,ANY::sc_admin/template/*', 'created_at' => date('Y-m-d H:i:s')],
+        ]
+        );
+
+        DB::table('admin_role')->insert([
+            ['id' => '1', 'name' => 'Administrator', 'slug' => 'administrator', 'created_at' => date('Y-m-d H:i:s')],
+            ['id' => '2', 'name' => 'Group only View', 'slug' => 'view.all', 'created_at' => date('Y-m-d H:i:s')],
+            ['id' => '3', 'name' => 'Manager', 'slug' => 'manager', 'created_at' => date('Y-m-d H:i:s')],
+            ['id' => '4', 'name' => 'Cms manager', 'slug' => 'cms', 'created_at' => date('Y-m-d H:i:s')],
+            ['id' => '5', 'name' => 'Accountant', 'slug' => 'accountant', 'created_at' => date('Y-m-d H:i:s')],
+            ['id' => '6', 'name' => 'Marketing', 'slug' => 'maketing', 'created_at' => date('Y-m-d H:i:s')]]
+        );
+
+        DB::table('admin_role_menu')->insert([
+            ['menu_id' => '38', 'role_id' => '1', 'created_at' => date('Y-m-d H:i:s')],
+            ['menu_id' => '38', 'role_id' => '2', 'created_at' => date('Y-m-d H:i:s')],
+            ['menu_id' => '38', 'role_id' => '3', 'created_at' => date('Y-m-d H:i:s')],
+        ]
+        );
+
+        DB::table('admin_role_permission')->insert([
+            ['role_id' => 3, 'permission_id' => 5, 'created_at' => date('Y-m-d H:i:s')],
+            ['role_id' => 3, 'permission_id' => 1, 'created_at' => date('Y-m-d H:i:s')],
+            ['role_id' => 3, 'permission_id' => 3, 'created_at' => date('Y-m-d H:i:s')],
+            ['role_id' => 3, 'permission_id' => 8, 'created_at' => date('Y-m-d H:i:s')],
+            ['role_id' => 3, 'permission_id' => 17, 'created_at' => date('Y-m-d H:i:s')],
+            ['role_id' => 3, 'permission_id' => 2, 'created_at' => date('Y-m-d H:i:s')],
+            ['role_id' => 3, 'permission_id' => 11, 'created_at' => date('Y-m-d H:i:s')],
+            ['role_id' => 3, 'permission_id' => 20, 'created_at' => date('Y-m-d H:i:s')],
+            ['role_id' => 3, 'permission_id' => 18, 'created_at' => date('Y-m-d H:i:s')],
+            ['role_id' => 3, 'permission_id' => 15, 'created_at' => date('Y-m-d H:i:s')],
+            ['role_id' => 3, 'permission_id' => 19, 'created_at' => date('Y-m-d H:i:s')],
+            ['role_id' => 3, 'permission_id' => 21, 'created_at' => date('Y-m-d H:i:s')],
+            ['role_id' => 3, 'permission_id' => 4, 'created_at' => date('Y-m-d H:i:s')],
+            ['role_id' => 3, 'permission_id' => 22, 'created_at' => date('Y-m-d H:i:s')],
+            ['role_id' => 3, 'permission_id' => 14, 'created_at' => date('Y-m-d H:i:s')],
+            ['role_id' => 4, 'permission_id' => 3, 'created_at' => date('Y-m-d H:i:s')],
+            ['role_id' => 4, 'permission_id' => 8, 'created_at' => date('Y-m-d H:i:s')],
+            ['role_id' => 5, 'permission_id' => 2, 'created_at' => date('Y-m-d H:i:s')],
+            ['role_id' => 5, 'permission_id' => 20, 'created_at' => date('Y-m-d H:i:s')],
+            ['role_id' => 5, 'permission_id' => 3, 'created_at' => date('Y-m-d H:i:s')],
+            ['role_id' => 5, 'permission_id' => 21, 'created_at' => date('Y-m-d H:i:s')],
+            ['role_id' => 6, 'permission_id' => 5, 'created_at' => date('Y-m-d H:i:s')],
+            ['role_id' => 6, 'permission_id' => 3, 'created_at' => date('Y-m-d H:i:s')],
+            ['role_id' => 6, 'permission_id' => 8, 'created_at' => date('Y-m-d H:i:s')],
+            ['role_id' => 6, 'permission_id' => 17, 'created_at' => date('Y-m-d H:i:s')],
+            ['role_id' => 6, 'permission_id' => 2, 'created_at' => date('Y-m-d H:i:s')],
+            ['role_id' => 6, 'permission_id' => 11, 'created_at' => date('Y-m-d H:i:s')],
+            ['role_id' => 6, 'permission_id' => 20, 'created_at' => date('Y-m-d H:i:s')],
+            ['role_id' => 6, 'permission_id' => 15, 'created_at' => date('Y-m-d H:i:s')],
+            ['role_id' => 6, 'permission_id' => 19, 'created_at' => date('Y-m-d H:i:s')],
+            ['role_id' => 6, 'permission_id' => 21, 'created_at' => date('Y-m-d H:i:s')],
+            ['role_id' => 6, 'permission_id' => 14, 'created_at' => date('Y-m-d H:i:s')],
+            ['role_id' => 6, 'permission_id' => 18, 'created_at' => date('Y-m-d H:i:s')],
+            ['role_id' => 4, 'permission_id' => 5, 'created_at' => date('Y-m-d H:i:s')],
+        ]
+        );
+        
+        DB::table('admin_role_user')->insert(
+            ['role_id' => '1', 'user_id' => '1']
+        );
+
+        if(!empty(session('infoInstall')['admin_user'])) {
+            $this->adminUser = session('infoInstall')['admin_user'];
+        }
+        if(!empty(session('infoInstall')['admin_password'])) {
+            $this->adminPassword = session('infoInstall')['admin_password'];
+        }
+        if(!empty(session('infoInstall')['admin_email'])) {
+            $this->adminEmail = session('infoInstall')['admin_email'];
+        }
+        DB::table('admin_user')->insert(
+            ['id' => '1', 'username' => $this->adminUser, 'password' => $this->adminPassword, 'email' => $this->adminEmail, 'name' => 'Administrator', 'avatar' => '/admin/avatar/user.jpg', 'created_at' => date('Y-m-d H:i:s')]
+        );
+
+    }
+
+
+    public function importDataShop()
     {
         DB::table('shop_banner')->insert([
             ['image' => '/data/banner/Main-banner-1-1903x600.jpg', 'html' => '', 'target' => '_self',  'status' => 1, 'type' => 0],
             ['image' => '/data/banner/Main-banner-3-1903x600.jpg', 'html' => '', 'target' => '_self',  'status' => 1, 'type' => 0],
         ]
         );
-
+        if(!empty(session('infoInstall')['timezone_default'])) {
+            $this->timezone_default = session('infoInstall')['timezone_default'];
+        }
+        if(!empty(session('infoInstall')['language_default'])) {
+            $this->language_default = session('infoInstall')['language_default'];
+        }
         DB::table('admin_config')->insert([
             ['group' => '', 'code' => 'config', 'key' => 'shop_allow_guest', 'value' => '1', 'sort' => '11', 'detail' => 'lang::admin.shop_allow_guest', 'store_id' => '1'],
             ['group' => '', 'code' => 'config', 'key' => 'product_preorder', 'value' => '1', 'sort' => '18', 'detail' => 'lang::admin.product_preorder', 'store_id' => '1'],
@@ -566,8 +241,8 @@ class CreateShopTables extends Migration
             ['group' => '', 'code' => 'upload', 'key' => 'upload_watermark_path', 'value' => 'images/watermark.png', 'sort' => '0', 'detail' => '', 'store_id' => '1'],
 
             ['group' => '', 'code' => 'env', 'key' => 'SITE_STATUS', 'value' => 'on', 'sort' => '0', 'detail' => 'lang::env.SITE_STATUS', 'store_id' => '1'],
-            ['group' => '', 'code' => 'env', 'key' => 'SITE_TIMEZONE', 'value' => 'Asia/Ho_Chi_Minh', 'sort' => '0', 'detail' => 'lang::env.SITE_TIMEZONE', 'store_id' => '1'],
-            ['group' => '', 'code' => 'env', 'key' => 'SITE_LANGUAGE', 'value' => 'en', 'sort' => '0', 'detail' => 'lang::env.SITE_LANGUAGE', 'store_id' => '1'],
+            ['group' => '', 'code' => 'env', 'key' => 'SITE_TIMEZONE', 'value' => $this->timezone_default, 'sort' => '0', 'detail' => 'lang::env.SITE_TIMEZONE', 'store_id' => '1'],
+            ['group' => '', 'code' => 'env', 'key' => 'SITE_LANGUAGE', 'value' => $this->language_default, 'sort' => '0', 'detail' => 'lang::env.SITE_LANGUAGE', 'store_id' => '1'],
             ['group' => '', 'code' => 'env', 'key' => 'SITE_CURRENCY', 'value' => 'USD', 'sort' => '0', 'detail' => 'lang::env.SITE_CURRENCY', 'store_id' => '1'],
             ['group' => '', 'code' => 'env', 'key' => 'APP_DEBUG', 'value' => 'off', 'sort' => '0', 'detail' => 'lang::env.APP_DEBUG', 'store_id' => '1'],
             ['group' => '', 'code' => 'env', 'key' => 'ADMIN_LOG', 'value' => 'on', 'sort' => '0', 'detail' => 'lang::env.ADMIN_LOG', 'store_id' => '1'],
@@ -773,8 +448,8 @@ class CreateShopTables extends Migration
         ]);
 
         DB::table('shop_language')->insert([
-            ['id' => '1', 'name' => 'English', 'code' => 'en', 'icon' => '/data/language/flag_uk.png', 'status' => '1', 'sort' => '1'],
-            ['id' => '2', 'name' => 'Tiếng Việt', 'code' => 'vi', 'icon' => '/data/language/flag_vn.png', 'status' => '1', 'sort' => '1'],
+            ['id' => '1', 'name' => 'English', 'code' => 'en', 'icon' => '/data/language/flag_uk.png', 'status' => '1', 'rtl' => '0','sort' => '1'],
+            ['id' => '2', 'name' => 'Tiếng Việt', 'code' => 'vi', 'icon' => '/data/language/flag_vn.png', 'status' => '1', 'rtl' => '0','sort' => '1'],
         ]);
 
         DB::table('shop_block_content')->insert([

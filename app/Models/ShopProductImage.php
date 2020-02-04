@@ -9,6 +9,7 @@ class ShopProductImage extends Model
     public $timestamps = false;
     public $table = 'shop_product_image';
     protected $guarded = [];
+    protected $connection = SC_CONNECTION;
 
 /*
 Get thumb

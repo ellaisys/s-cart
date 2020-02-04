@@ -13,6 +13,7 @@ class CmsContentDescription extends Model
     protected $guarded    = [];
     public $timestamps    = false;
     public $table         = 'cms_content_description';
+    protected $connection = SC_CONNECTION;
     protected $fillable   = ['lang', 'title', 'description', 'keyword', 'cms_content_id', 'content'];
 //=========================
 

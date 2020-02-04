@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class ShopOrderDetail extends Model
 {
     protected $table = 'shop_order_detail';
+    protected $connection = SC_CONNECTION;
     protected $guarded = [];
     public function order()
     {

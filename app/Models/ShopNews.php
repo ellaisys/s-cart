@@ -9,6 +9,7 @@ class ShopNews extends Model
 {
     public $table = 'shop_news';
     protected $guarded = [];
+    protected $connection = SC_CONNECTION;
     protected $appends = [
         'title',
         'keyword',

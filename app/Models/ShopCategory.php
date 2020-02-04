@@ -12,6 +12,7 @@ class ShopCategory extends Model
     public $timestamps = false;
     public $table = 'shop_category';
     protected $guarded = [];
+    protected $connection = SC_CONNECTION;
     public $appends = [
         'name',
         'keyword',

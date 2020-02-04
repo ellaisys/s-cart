@@ -18,7 +18,7 @@ class CmsContent extends Model
         'description',
         'content',
     ];
-
+    protected $connection = SC_CONNECTION;
     public function category()
     {
         return $this->belongsTo(CmsCategory::class, 'category_id', 'id');

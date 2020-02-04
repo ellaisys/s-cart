@@ -13,7 +13,7 @@ class CmsCategoryDescription extends Model
     protected $guarded    = [];
     public $timestamps    = false;
     public $table         = 'cms_category_description';
-
+    protected $connection = SC_CONNECTION;
 //=========================
 
     public function uninstall()

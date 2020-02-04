@@ -12,6 +12,7 @@ class ShopProductGroup extends Model
     protected $guarded    = [];
     public $timestamps    = false;
     public $table         = 'shop_product_group';
+    protected $connection = SC_CONNECTION;
 
     public function product()
     {

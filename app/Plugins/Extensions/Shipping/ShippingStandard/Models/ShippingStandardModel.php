@@ -11,6 +11,7 @@ class ShippingStandardModel extends Model
     public $timestamps = false;
     public $table      = 'shipping_standard';
     protected $guarded = [];
+    protected $connection = SC_CONNECTION;
     public function uninstallExtension()
     {
         if (Schema::hasTable($this->table)) {

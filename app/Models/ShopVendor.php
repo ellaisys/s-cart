@@ -10,6 +10,7 @@ class ShopVendor extends Model
     public $table = 'shop_vendor';
     protected $guarded = [];
     private static $getList = null;
+    protected $connection = SC_CONNECTION;
     public static function getList()
     {
         if (self::$getList == null) {

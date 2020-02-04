@@ -104,14 +104,14 @@ Re-sort menu
     public function reSort(array $data)
     {
         try {
-            DB::connection('mysql')->beginTransaction();
+            DB::connection(SC_CONNECTION)->beginTransaction();
             foreach ($data as $key => $menu) {
                 $this->where('id', $key)->update($menu);
             }
-            DB::connection('mysql')->commit();
+            DB::connection(SC_CONNECTION)->commit();
             $return = ['error' => 0, 'msg' => ""];
         } catch (\Exception $e) {
-            DB::connection('mysql')->rollBack();
+            DB::connection(SC_CONNECTION)->rollBack();
             $return = ['error' => 1, 'msg' => $e->getMessage()];
         }
         return $return;

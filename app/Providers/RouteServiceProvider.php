@@ -23,8 +23,6 @@ class RouteServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
-
         parent::boot();
     }
 
@@ -36,9 +34,10 @@ class RouteServiceProvider extends ServiceProvider
     public function map()
     {
         $this->mapApiRoutes();
-        $this->mapExtensionsRoutes();
+        if(!file_exists(public_path('install.php'))) {
+            $this->mapExtensionsRoutes();
+        }
         $this->mapWebRoutes();
-        //
     }
 
     /**

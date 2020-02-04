@@ -10,6 +10,7 @@ class ShopBlockContent extends Model
     public $table = 'shop_block_content';
     protected $guarded = [];
     private static $getLayout = null;
+    protected $connection = SC_CONNECTION;
 
     public static function getLayout()
     {

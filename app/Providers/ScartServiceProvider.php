@@ -13,7 +13,16 @@ class ScartServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        foreach (glob(app_path() . '/Library/Helpers/*.php') as $filename) {
+            require_once $filename;
+        }
         if(!file_exists(public_path('install.php'))) {
+            foreach (glob(app_path() . '/Plugins/Extensions/*/*/Provider.php') as $filename) {
+                require_once $filename;
+            }
+            foreach (glob(app_path() . '/Plugins/Modules/*/*/Provider.php') as $filename) {
+                require_once $filename;
+            }
             $this->bootScart();
         }
 
@@ -28,19 +37,6 @@ class ScartServiceProvider extends ServiceProvider
     {
         if(file_exists(app_path().'/Library/Const.php')) {
             require_once (app_path().'/Library/Const.php');
-        }
-        if(!file_exists(public_path('install.php'))) {
-            foreach (glob(app_path() . '/Library/Helpers/*.php') as $filename) {
-                require_once $filename;
-            }
-
-            foreach (glob(app_path() . '/Plugins/Extensions/*/*/Provider.php') as $filename) {
-                require_once $filename;
-            }
-            foreach (glob(app_path() . '/Plugins/Modules/*/*/Provider.php') as $filename) {
-                require_once $filename;
-            }
-
         }
         $this->app->bind('cart', 'App\Library\ShoppingCart\Cart');
 

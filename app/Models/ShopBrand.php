@@ -11,6 +11,7 @@ class ShopBrand extends Model
     public $table = 'shop_brand';
     protected $guarded = [];
     private static $getList = null;
+    protected $connection = SC_CONNECTION;
     public static function getList()
     {
         if (self::$getList == null) {

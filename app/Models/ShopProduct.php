@@ -21,7 +21,7 @@ class ShopProduct extends Model
         'description',
         'content',
     ];
-
+    protected $connection = SC_CONNECTION;
     protected static $listSingle = null;
 
 

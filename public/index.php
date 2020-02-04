@@ -1,4 +1,11 @@
 <?php
+//Check install
+if (is_file('install.php')) {
+    $pathInstall = str_replace('index.php','install.php',$_SERVER['PHP_SELF']);
+    header('Location: '.$pathInstall);
+    exit;
+}
+//End install
 
 /**
  * Laravel - A PHP Framework For Web Artisans
@@ -54,12 +61,7 @@ $kernel = $app->make(Illuminate\Contracts\Http\Kernel::class);
 $response = $kernel->handle(
     $request = Illuminate\Http\Request::capture()
 );
-$pathInstall = str_replace('index.php','install.php',$_SERVER['PHP_SELF']);
-// Configuration
-if (is_file('install.php')) {
-    header('Location: '.$pathInstall);
-    exit;
-}
+
 $response->send();
 
 $kernel->terminate($request, $response);

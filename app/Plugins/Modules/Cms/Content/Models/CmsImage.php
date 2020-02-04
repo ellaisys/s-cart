@@ -12,6 +12,7 @@ class CmsImage extends Model
     public $timestamps  = false;
     public $table       = 'cms_image';
     protected $fillable = ['id', 'image', 'content_id', 'status'];
+    protected $connection = SC_CONNECTION;
     public function content()
     {
         return $this->belongsTo(CmsContent::class, 'content_id', 'id');

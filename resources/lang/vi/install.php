@@ -23,11 +23,11 @@ return [
     ],
     'database' => [
         'process' => 'Cài đặt dữ liệu',
-        'process_1' => 'Cài đặt table admin',
-        'process_2' => 'Cài đặt table shopping',
+        'process_1' => 'Cài đặt bảng dữ liệu',
+        'process_2' => 'Quá trình thêm dữ liệu mẫu',
         'process_sucess' => 'Cài đặt dữ liệu thành công!',
-        'process_sucess_1' => 'Hoàn thành cài đặt table admin!',
-        'process_sucess_2' => 'Hoàn thành cài đặt table shopping!',
+        'process_sucess_1' => 'Hoàn thành tạo bảng dữ liệu!',
+        'process_sucess_2' => 'Hoàn thành thêm dữ liệu mẫu!',
         'error' => 'Lỗi trong khi cài đặt dữ liệu',
     ],
     'permission' => [

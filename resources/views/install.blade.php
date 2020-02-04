@@ -249,11 +249,12 @@ $('#submit-install').click(function(event) {
                 }
                 else if(error ===0)
                 {
+                    var infoInstall = data.infoInstall;
                     $('#msg').addClass('success');
                     $('#msg').html(data.msg);
                     $('.progress-bar').css("width","25%");
                     $('.progress-bar').html("25%");
-                    setTimeout(installDatabaseStep1, 1000);
+                    setTimeout(installDatabaseStep1(infoInstall), 1000);
                 } else {
                     $('#msg').removeClass('success');
                     $('#msg').addClass('error');
@@ -269,12 +270,12 @@ $('#submit-install').click(function(event) {
     }
 });
 
-function installDatabaseStep1(){
+function installDatabaseStep1(infoInstall){
     $.ajax({
         url: 'install.php{{ $path_lang }}',
         type: 'POST',
         dataType: 'json',
-        data: {step: 'step2-1'},
+        data: {step: 'step2-1', 'infoInstall':infoInstall},
     })
     .done(function(data) {
 
@@ -286,11 +287,12 @@ function installDatabaseStep1(){
         }
         else if(error === 0)
         {
+            var infoInstall = data.infoInstall;
             $('#msg').addClass('success');
             $('#msg').html(data.msg);
             $('.progress-bar').css("width","45%");
             $('.progress-bar').html("45%");
-            setTimeout(installDatabaseStep2, 1000);
+            setTimeout(installDatabaseStep2(infoInstall), 1000);
         }else{
             $('#msg').removeClass('success');
             $('#msg').addClass('error');
@@ -305,12 +307,12 @@ function installDatabaseStep1(){
     })
 }
 
-function installDatabaseStep2(){
+function installDatabaseStep2(infoInstall){
     $.ajax({
         url: 'install.php{{ $path_lang }}',
         type: 'POST',
         dataType: 'json',
-        data: {step: 'step2-2'},
+        data: {step: 'step2-2', 'infoInstall':infoInstall},
     })
     .done(function(data) {
          error= parseInt(data.error);

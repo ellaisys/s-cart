@@ -10,5 +10,6 @@ class ShopCategoryDescription extends Model
     public $incrementing  = false;
     public $timestamps    = false;
     public $table         = 'shop_category_description';
+    protected $connection = SC_CONNECTION;
     protected $guarded    = [];
 }

@@ -10,6 +10,7 @@ class AdminStore extends Model
     public $table = 'admin_store';
     protected $guarded = [];
     protected static $getAll = null;
+    protected $connection = SC_CONNECTION;
     
     public function descriptions()
     {

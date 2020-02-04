@@ -10,6 +10,7 @@ class ShopAttributeGroup extends Model
     public $table             = 'shop_attribute_group';
     protected $guarded        = [];
     protected static $getList = null;
+    protected $connection = SC_CONNECTION;
 
     public static function getList()
     {

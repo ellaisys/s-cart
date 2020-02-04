@@ -9,6 +9,7 @@ class ShopLink extends Model
     public $timestamps = false;
     public $table = 'shop_link';
     protected $guarded = [];
+    protected $connection = SC_CONNECTION;
     protected static $getGroup = null;
 
     public static function getGroup()

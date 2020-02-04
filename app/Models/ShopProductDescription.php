@@ -11,4 +11,5 @@ class ShopProductDescription extends Model
     protected $guarded    = [];
     public $timestamps    = false;
     public $table         = 'shop_product_description';
+    protected $connection = SC_CONNECTION;
 }

@@ -12,6 +12,7 @@ class ShopLanguage extends Model
     private static $getLanguages      = null;
     private static $getArrayLanguages = null;
     private static $getCodeActive = null;
+    protected $connection = SC_CONNECTION;
 
     public static function getList()
     {

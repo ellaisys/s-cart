@@ -10,6 +10,7 @@ class ShopCountry extends Model
     public $timestamps               = false;
     private static $getCountries     = null;
     private static $getListCountries = null;
+    protected $connection = SC_CONNECTION;
 
     public static function getList()
     {

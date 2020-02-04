@@ -9,5 +9,6 @@ class ShopEmailTemplate extends Model
     public $timestamps = false;
     public $table      = 'shop_email_template';
     protected $guarded = [];
+    protected $connection = SC_CONNECTION;
 
 }

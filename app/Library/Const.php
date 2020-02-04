@@ -29,5 +29,5 @@ define('SC_GUARD_PAGES', ['1', '2']);
  */
 define('SC_ADMIN_MIDDLEWARE', ['web', 'admin', 'localization']);
 define('SC_ADMIN_PREFIX', config('app.admin_prefix'));
-define('SC_CONNECTION', 'mysql'));
-define('SC_CONNECTION_LOG', 'mysql'));
+define('SC_CONNECTION', 'mysql');
+define('SC_CONNECTION_LOG', 'mysql');

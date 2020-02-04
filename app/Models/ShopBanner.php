@@ -8,6 +8,7 @@ class ShopBanner extends Model
 {
     public $table = 'shop_banner';
     protected $guarded = [];
+    protected $connection = SC_CONNECTION;
 
 /*
 Get thumb
