@@ -98,6 +98,16 @@
                                     </div>
                                 </div>
 
+                                <div class="form-group   {{ $errors->has('rtl') ? ' has-error' : '' }}">
+                                    <label for="rtl"
+                                        class="col-sm-2  control-label">{{ trans('language.layout_rtl') }}</label>
+                                        <div class="col-sm-8">
+                                            <input type="checkbox" name="rtl" {!!
+                                                old('rtl',(empty($language['rtl'])?0:1))?'checked':''!!}>
+    
+                                        </div>
+                                </div>
+
                                 <div class="form-group   {{ $errors->has('sort') ? ' has-error' : '' }}">
                                     <label for="sort"
                                         class="col-sm-2  control-label">{{ trans('language.sort') }}</label>

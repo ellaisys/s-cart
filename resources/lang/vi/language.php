@@ -6,6 +6,7 @@ return [
     'code'   => 'Code',
     'sort'   => 'Sắp xếp',
     'status' => 'Status',
+    'layout_rtl' => 'Giao diện RTL',
     'admin'  => [
         'title'          => 'Ngôn ngữ',
         'create_success' => 'Tạo mới thành công!',

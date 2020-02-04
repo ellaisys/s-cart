@@ -35,6 +35,7 @@ class ShopLanguageController extends Controller
             'name' => trans('language.name'),
             'code' => trans('language.code'),
             'icon' => trans('language.icon'),
+            'rtl' => trans('language.layout_rtl'),
             'sort' => trans('language.sort'),
             'status' => trans('language.status'),
             'action' => trans('language.admin.action'),
@@ -70,6 +71,7 @@ class ShopLanguageController extends Controller
                 'name' => $row['name'],
                 'code' => $row['code'],
                 'icon' => sc_image_render($row['icon'], '30px', '30px'),
+                'rtl' => $row['rtl'],
                 'sort' => $row['sort'],
                 'status' => $row['status'] ? '<span class="label label-success">ON</span>' : '<span class="label label-danger">OFF</span>',
                 'action' => '
@@ -194,6 +196,7 @@ class ShopLanguageController extends Controller
             'icon' => $data['icon'],
             'name' => $data['name'],
             'code' => $data['code'],
+            'rtl' => empty($data['rtl']) ? 0 : 1,
             'status' => empty($data['status']) ? 0 : 1,
             'sort' => (int) $data['sort'],
         ];
@@ -250,6 +253,7 @@ class ShopLanguageController extends Controller
             'icon' => $data['icon'],
             'name' => $data['name'],
             'code' => $data['code'],
+            'rtl' => empty($data['rtl']) ? 0 : 1,
             'sort' => $data['sort'],
         ];
         //Check status before change

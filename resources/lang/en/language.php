@@ -6,6 +6,7 @@ return [
     'code'   => 'Code',
     'sort'   => 'Sort',
     'status' => 'Status',
+    'layout_rtl' => 'Layout RTL',
     'admin'  => [
         'title'          => 'Language',
         'create_success' => 'Create new item success!',
