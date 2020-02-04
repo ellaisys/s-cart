@@ -4,11 +4,11 @@
 
 <div class="row">
 
-  <div class="col-md-6">
+  <div class="col-md-12">
 
     <div class="box box-primary">
       <div class="box-header with-border">
-        <h3 class="box-title">{{ trans('store_info.admin.config_mode') }}</h3>
+        <h3 class="box-title">{{ trans('store_info.admin.title') }}</h3>
       </div>
 
       <div class="box-body table-responsive no-padding box-primary">
@@ -103,7 +103,7 @@
   </div>
 
 
-  <div class="col-md-6">
+  <div class="col-md-12">
     <div class="box box-primary">
         @foreach ($infosDescription as $obj => $infoDescription)
           @if ($obj =='maintain_content')
