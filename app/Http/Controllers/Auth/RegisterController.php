@@ -103,6 +103,13 @@ class RegisterController extends GeneralController
             'reg_postcode.min' => trans('validation.min',['attribute'=> trans('customer.postcode')]),
             'reg_password.min' => trans('validation.min',['attribute'=> trans('customer.password')]),
             'reg_country.min' => trans('validation.min',['attribute'=> trans('customer.country')]),
+            'reg_first_name.max' => trans('validation.max',['attribute'=> trans('customer.first_name')]),
+            'reg_email.max' => trans('validation.max',['attribute'=> trans('customer.email')]),
+            'reg_address1.max' => trans('validation.max',['attribute'=> trans('customer.address1')]),
+            'reg_address2.max' => trans('validation.max',['attribute'=> trans('customer.address2')]),
+            'reg_last_name.max' => trans('validation.max',['attribute'=> trans('customer.last_name')]),
+            'reg_birthday.date' => trans('validation.date',['attribute'=> trans('customer.birthday')]),
+            'reg_birthday.date_format' => trans('validation.date_format',['attribute'=> trans('customer.birthday')]),
         ];
         return Validator::make($data, $validate, $messages);
     }
