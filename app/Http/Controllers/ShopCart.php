@@ -191,6 +191,8 @@ class ShopCart extends GeneralController
             'last_name.max' => trans('validation.max',['attribute'=> trans('cart.last_name')]),
             'birthday.date' => trans('validation.date',['attribute'=> trans('cart.birthday')]),
             'birthday.date_format' => trans('validation.date_format',['attribute'=> trans('cart.birthday')]),
+            'shippingMethod.required' => trans('cart.validation.shippingMethod_required'),
+            'paymentMethod.required' => trans('cart.validation.paymentMethod_required'),
         ];
 
         $v = Validator::make(

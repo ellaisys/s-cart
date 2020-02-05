@@ -32,4 +32,8 @@ return [
     'company'          => 'Company',
     'postcode'         => 'Postcode',
     'cart_empty'       => 'Cart empty',
+    'validation' => [
+        'shippingMethod_required' => 'Shipping method is required',
+        'paymentMethod_required' => 'Payment method is required',
+    ],
 ];

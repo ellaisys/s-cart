@@ -32,4 +32,8 @@ return [
     'company'          => 'Công ty',
     'postcode'         => 'Mã bưu chính',
     'cart_empty'       => 'Giỏ hàng trống',
+    'validation' => [
+        'shippingMethod_required' => 'Bạn chưa chọn phương thức giao hàng',
+        'paymentMethod_required' => 'Bạn chưa chọn phương thức thanh toán',
+    ],
 ];
