@@ -7,7 +7,7 @@
 <h2 class="title text-center">{{ $title }}</h2>
 @if (count($cart) ==0)
     <div class="col-md-12 text-danger">
-        Cart empty!
+        {!! trans('cart.cart_empty') !!}!
     </div>
 @else
  

@@ -46,10 +46,15 @@ class LoginController extends GeneralController
 
     protected function validateLogin(Request $request)
     {
+        $messages = [
+            'email.email' => trans('validation.email',['attribute'=> trans('customer.email')]),
+            'email.required' => trans('validation.required',['attribute'=> trans('customer.email')]),
+            'password.required' => trans('validation.required',['attribute'=> trans('customer.password')]),
+            ];
         $this->validate($request, [
             'email' => 'required|string|email',
             'password' => 'required|string',
-        ]);
+        ], $messages);
     }
     public function showLoginForm()
     {

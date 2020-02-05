@@ -53,6 +53,7 @@ return [
     'products_last_view' => 'Xem gần đây',
     'products_build'     => 'Sản phẩm bộ',
     'products_group'     => 'Sản phẩm nhóm',
+    'submit_form'        => 'Gửi đi',
     'contact_form'       => [
         'title'   => 'Form liên hệ',
         'info'    => 'Thông tin liên hệ',

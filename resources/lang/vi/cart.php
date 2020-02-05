@@ -31,4 +31,5 @@ return [
     'name'             => 'Họ tên',
     'company'          => 'Công ty',
     'postcode'         => 'Mã bưu chính',
+    'cart_empty'       => 'Giỏ hàng trống',
 ];

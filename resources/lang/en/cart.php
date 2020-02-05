@@ -31,4 +31,5 @@ return [
     'name'             => 'Full name',
     'company'          => 'Company',
     'postcode'         => 'Postcode',
+    'cart_empty'       => 'Cart empty',
 ];
