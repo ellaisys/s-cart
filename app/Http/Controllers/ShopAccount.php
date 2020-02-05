@@ -86,7 +86,9 @@ class ShopAccount extends GeneralController
             }
         }
         $messages = [
-            'required' => trans('validation.required'),
+            'password.required' => trans('validation.required',['attribute'=> trans('account.password')]),
+            'password.confirmed' => trans('validation.confirmed',['attribute'=> trans('account.password')]),
+            'password_old.required' => trans('validation.required',['attribute'=> trans('account.password_old')]),
         ];
         $v = Validator::make(
             $request->all(), 
@@ -188,8 +190,30 @@ class ShopAccount extends GeneralController
 
 
         $messages = [
-            'required' => trans('validation.required'),
+            'last_name.required' => trans('validation.required',['attribute'=> trans('account.last_name')]),
+            'first_name.required' => trans('validation.required',['attribute'=> trans('account.first_name')]),
+            'email.required' => trans('validation.required',['attribute'=> trans('account.email')]),
+            'address1.required' => trans('validation.required',['attribute'=> trans('account.address1')]),
+            'address2.required' => trans('validation.required',['attribute'=> trans('account.address2')]),
+            'phone.required' => trans('validation.required',['attribute'=> trans('account.phone')]),
+            'country.required' => trans('validation.required',['attribute'=> trans('account.country')]),
+            'postcode.required' => trans('validation.required',['attribute'=> trans('account.postcode')]),
+            'company.required' => trans('validation.required',['attribute'=> trans('account.company')]),
+            'sex.required' => trans('validation.required',['attribute'=> trans('account.sex')]),
+            'birthday.required' => trans('validation.required',['attribute'=> trans('account.birthday')]),
+            'email.email' => trans('validation.email',['attribute'=> trans('account.email')]),
+            'phone.regex' => trans('validation.regex',['attribute'=> trans('account.phone')]),
+            'postcode.min' => trans('validation.min',['attribute'=> trans('account.postcode')]),
+            'country.min' => trans('validation.min',['attribute'=> trans('account.country')]),
+            'first_name.max' => trans('validation.max',['attribute'=> trans('account.first_name')]),
+            'email.max' => trans('validation.max',['attribute'=> trans('account.email')]),
+            'address1.max' => trans('validation.max',['attribute'=> trans('account.address1')]),
+            'address2.max' => trans('validation.max',['attribute'=> trans('account.address2')]),
+            'last_name.max' => trans('validation.max',['attribute'=> trans('account.last_name')]),
+            'birthday.date' => trans('validation.date',['attribute'=> trans('account.birthday')]),
+            'birthday.date_format' => trans('validation.date_format',['attribute'=> trans('account.birthday')]),
         ];
+
         $v = Validator::make(
             $dataUpdate, 
             $validate, 
