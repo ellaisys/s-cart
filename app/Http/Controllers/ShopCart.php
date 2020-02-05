@@ -141,10 +141,7 @@ class ShopCart extends GeneralController
             return redirect()->route('login');
         }
 
-        $messages = [
-            'max' => trans('validation.max.string'),
-            'required' => trans('validation.required'),
-        ];
+
         $validate = [
             'first_name' => 'required|max:100',
             'address1' => 'required|max:100',
@@ -169,7 +166,33 @@ class ShopCart extends GeneralController
         }
         if(sc_config('customer_company')) {
             $validate['company'] = 'required|min:3';
-        }        
+        }
+
+        $messages = [
+            'last_name.required' => trans('validation.required',['attribute'=> trans('cart.last_name')]),
+            'first_name.required' => trans('validation.required',['attribute'=> trans('cart.first_name')]),
+            'email.required' => trans('validation.required',['attribute'=> trans('cart.email')]),
+            'address1.required' => trans('validation.required',['attribute'=> trans('cart.address1')]),
+            'address2.required' => trans('validation.required',['attribute'=> trans('cart.address2')]),
+            'phone.required' => trans('validation.required',['attribute'=> trans('cart.phone')]),
+            'country.required' => trans('validation.required',['attribute'=> trans('cart.country')]),
+            'postcode.required' => trans('validation.required',['attribute'=> trans('cart.postcode')]),
+            'company.required' => trans('validation.required',['attribute'=> trans('cart.company')]),
+            'sex.required' => trans('validation.required',['attribute'=> trans('cart.sex')]),
+            'birthday.required' => trans('validation.required',['attribute'=> trans('cart.birthday')]),
+            'email.email' => trans('validation.email',['attribute'=> trans('cart.email')]),
+            'phone.regex' => trans('validation.regex',['attribute'=> trans('cart.phone')]),
+            'postcode.min' => trans('validation.min',['attribute'=> trans('cart.postcode')]),
+            'country.min' => trans('validation.min',['attribute'=> trans('cart.country')]),
+            'first_name.max' => trans('validation.max',['attribute'=> trans('cart.first_name')]),
+            'email.max' => trans('validation.max',['attribute'=> trans('cart.email')]),
+            'address1.max' => trans('validation.max',['attribute'=> trans('cart.address1')]),
+            'address2.max' => trans('validation.max',['attribute'=> trans('cart.address2')]),
+            'last_name.max' => trans('validation.max',['attribute'=> trans('cart.last_name')]),
+            'birthday.date' => trans('validation.date',['attribute'=> trans('cart.birthday')]),
+            'birthday.date_format' => trans('validation.date_format',['attribute'=> trans('cart.birthday')]),
+        ];
+
         $v = Validator::make(
             request()->all(), 
             $validate, 
