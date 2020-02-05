@@ -83,8 +83,28 @@ class RegisterController extends GeneralController
         } 
         if(sc_config('customer_group')) {
             $validate['reg_group'] = 'nullable';
-        }  
-        return Validator::make($data, $validate);
+        }
+        $messages = [
+            'reg_last_name.required' => trans('validation.required',['attribute'=> trans('customer.last_name')]),
+            'reg_first_name.required' => trans('validation.required',['attribute'=> trans('customer.first_name')]),
+            'reg_email.required' => trans('validation.required',['attribute'=> trans('customer.email')]),
+            'reg_password.required' => trans('validation.required',['attribute'=> trans('customer.password')]),
+            'reg_address1.required' => trans('validation.required',['attribute'=> trans('customer.address1')]),
+            'reg_address2.required' => trans('validation.required',['attribute'=> trans('customer.address2')]),
+            'reg_phone.required' => trans('validation.required',['attribute'=> trans('customer.phone')]),
+            'reg_country.required' => trans('validation.required',['attribute'=> trans('customer.country')]),
+            'reg_postcode.required' => trans('validation.required',['attribute'=> trans('customer.postcode')]),
+            'reg_company.required' => trans('validation.required',['attribute'=> trans('customer.company')]),
+            'reg_sex.required' => trans('validation.required',['attribute'=> trans('customer.sex')]),
+            'reg_birthday.required' => trans('validation.required',['attribute'=> trans('customer.birthday')]),
+            'reg_email.email' => trans('validation.email',['attribute'=> trans('customer.email')]),
+            'reg_phone.regex' => trans('validation.regex',['attribute'=> trans('customer.phone')]),
+            'reg_password.confirmed' => trans('validation.confirmed',['attribute'=> trans('customer.password')]),
+            'reg_postcode.min' => trans('validation.min',['attribute'=> trans('customer.postcode')]),
+            'reg_password.min' => trans('validation.min',['attribute'=> trans('customer.password')]),
+            'reg_country.min' => trans('validation.min',['attribute'=> trans('customer.country')]),
+        ];
+        return Validator::make($data, $validate, $messages);
     }
 
     /**
