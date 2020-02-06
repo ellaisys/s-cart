@@ -118,7 +118,10 @@ $(document).ready(function() {
         success: function(data) {
           if(data.stt == 1){
             if(data.field == 'ADMIN_PREFIX'){
-              window.location.replace("/"+data.value+'/env');
+              @php
+              $pathUrl = str_replace('index.php','',$_SERVER['PHP_SELF']);
+              @endphp
+              window.location.replace("{{ $pathUrl }}"+data.value+'/env');
             }
             const Toast = Swal.mixin({
               toast: true,

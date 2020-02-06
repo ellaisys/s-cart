@@ -87,6 +87,9 @@ class ScartServiceProvider extends ServiceProvider
             //Admin prefix
             config(['scart.admin_prefix' => (sc_config('ADMIN_PREFIX') ?: env('ADMIN_PREFIX', 'sc_admin'))]);
             //End Admin prefix
+            
+            //Prefix url admin
+            define('SC_ADMIN_PREFIX', config('scart.admin_prefix'));
     }
 
     /**
