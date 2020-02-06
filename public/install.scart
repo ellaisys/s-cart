@@ -27,10 +27,7 @@ if (request()->method() == 'POST' && request()->ajax()) {
             $database_user     = request('database_user') ?? '';
             $database_password = request('database_password') ?? '';
             $admin_url         = request('admin_url') ?? '';
-            $admin_url         = str_replace('/','',strip_tags(strtolower($admin_url)));
-            if (in_array($admin_url, ['','admin','css','data','images','js','packages','templates'])) {
-                $admin_url = 'sc_admin';
-            }
+            $admin_url         = strip_tags(strtolower($admin_url));
             
         try {
             $api_key = 'base64:' . base64_encode(
@@ -44,8 +41,10 @@ if (request()->method() == 'POST' && request()->ajax()) {
             $getEnv = str_replace('sc_database_user', $database_user, $getEnv);
             $getEnv = str_replace('sc_database_password', $database_password, $getEnv);
             $getEnv = str_replace('sc_api_key', $api_key, $getEnv);
-            $getEnv = str_replace('sc_admin', $admin_url, $getEnv);
 
+            if ($admin_url && !in_array($admin_url, ['admin','css','data','images','js','packages','templates'])) {
+                $getEnv = str_replace('sc_admin', $admin_url, $getEnv);
+            }
             $env = fopen(base_path() . "/.env", "w") or die(json_encode(['error' => 1, 'msg' => trans('install.env.error_open')]));
             fwrite($env, $getEnv);
             fclose($env);

@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="images/icon.png" type="image/png" sizes="16x16">
     <title>{{ $title }}</title>
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
     <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
@@ -28,7 +29,7 @@
                 font-size: 13px !important;
             }
             .info-install{
-                margin: 5px !important;
+                margin: 0 5px !important;
             }
         </style>
 </head>
@@ -149,6 +150,7 @@
                                 </select>
                             </div>
                         </div>
+                        <br>
                         <div id="div_timezone_default" class="form-group info-install required">
                             <label for="timezone_default"  required class="control-label col-md-4  requiredField"> {{ trans('install.timezone_default') }} </label>
                             <div class="controls col-md-8">
@@ -250,10 +252,11 @@ $('#submit-install').click(function(event) {
                 else if(error ===0)
                 {
                     var infoInstall = data.infoInstall;
+                    $('#admin_url').val(infoInstall.admin_url);
                     $('#msg').addClass('success');
                     $('#msg').html(data.msg);
-                    $('.progress-bar').css("width","25%");
-                    $('.progress-bar').html("25%");
+                    $('.progress-bar').css("width","15%");
+                    $('.progress-bar').html("15%");
                     setTimeout(installDatabaseStep1(infoInstall), 1000);
                 } else {
                     $('#msg').removeClass('success');
@@ -290,8 +293,8 @@ function installDatabaseStep1(infoInstall){
             var infoInstall = data.infoInstall;
             $('#msg').addClass('success');
             $('#msg').html(data.msg);
-            $('.progress-bar').css("width","45%");
-            $('.progress-bar').html("45%");
+            $('.progress-bar').css("width","25%");
+            $('.progress-bar').html("25%");
             setTimeout(installDatabaseStep2(infoInstall), 1000);
         }else{
             $('#msg').removeClass('success');
@@ -303,9 +306,10 @@ function installDatabaseStep1(infoInstall){
     .fail(function() {
         $('#msg').removeClass('success');
         $('#msg').addClass('error');
-        $('#msg').html('{{ trans('install.database.error') }}');
+        $('#msg').html('{{ trans('install.database.error_1') }}');
     })
 }
+
 
 function installDatabaseStep2(infoInstall){
     $.ajax({
@@ -313,6 +317,80 @@ function installDatabaseStep2(infoInstall){
         type: 'POST',
         dataType: 'json',
         data: {step: 'step2-2', 'infoInstall':infoInstall},
+    })
+    .done(function(data) {
+
+         error= parseInt(data.error);
+        if(error != 1 && error !=0){
+            $('#msg').removeClass('success');
+            $('#msg').addClass('error');
+            $('#msg').html(data);
+        }
+        else if(error === 0)
+        {
+            var infoInstall = data.infoInstall;
+            $('#msg').addClass('success');
+            $('#msg').html(data.msg);
+            $('.progress-bar').css("width","40%");
+            $('.progress-bar').html("40%");
+            setTimeout(installDatabaseStep3(infoInstall), 1000);
+        }else{
+            $('#msg').removeClass('success');
+            $('#msg').addClass('error');
+            $('#msg').html(data.msg);
+        }
+
+    })
+    .fail(function() {
+        $('#msg').removeClass('success');
+        $('#msg').addClass('error');
+        $('#msg').html('{{ trans('install.database.error_2') }}');
+    })
+}
+
+function installDatabaseStep3(infoInstall){
+    $.ajax({
+        url: 'install.php{{ $path_lang }}',
+        type: 'POST',
+        dataType: 'json',
+        data: {step: 'step2-3', 'infoInstall':infoInstall},
+    })
+    .done(function(data) {
+
+         error= parseInt(data.error);
+        if(error != 1 && error !=0){
+            $('#msg').removeClass('success');
+            $('#msg').addClass('error');
+            $('#msg').html(data);
+        }
+        else if(error === 0)
+        {
+            var infoInstall = data.infoInstall;
+            $('#msg').addClass('success');
+            $('#msg').html(data.msg);
+            $('.progress-bar').css("width","60%");
+            $('.progress-bar').html("60%");
+            setTimeout(installDatabaseStep4(infoInstall), 1000);
+        }else{
+            $('#msg').removeClass('success');
+            $('#msg').addClass('error');
+            $('#msg').html(data.msg);
+        }
+
+    })
+    .fail(function() {
+        $('#msg').removeClass('success');
+        $('#msg').addClass('error');
+        $('#msg').html('{{ trans('install.database.error_3') }}');
+    })
+}
+
+function installDatabaseStep4(infoInstall){
+    $.ajax({
+        url: 'install.php{{ $path_lang }}',
+        type: 'POST',
+        dataType: 'json',
+        data: {step: 'step2-4', 'infoInstall':infoInstall},
     })
     .done(function(data) {
          error= parseInt(data.error);
@@ -325,8 +403,8 @@ function installDatabaseStep2(infoInstall){
         {
             $('#msg').addClass('success');
             $('#msg').html(data.msg);
-            $('.progress-bar').css("width","75%");
-            $('.progress-bar').html("75%");
+            $('.progress-bar').css("width","80%");
+            $('.progress-bar').html("80%");
             setTimeout(completeInstall, 1000);
         }else{
             $('#msg').removeClass('success');
@@ -338,7 +416,7 @@ function installDatabaseStep2(infoInstall){
     .fail(function() {
         $('#msg').removeClass('success');
         $('#msg').addClass('error');
-        $('#msg').html('{{ trans('install.database.error') }}');
+        $('#msg').html('{{ trans('install.database.error_4') }}');
     })
 }
 
