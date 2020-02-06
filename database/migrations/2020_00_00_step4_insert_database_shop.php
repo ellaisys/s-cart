@@ -219,7 +219,7 @@ class InsertDatabaseShop extends Migration
             ['name' => 'lang::front.compare_page', 'url' => '/compare.html', 'target' => '_self', 'module' => '', 'group' => 'footer', 'status' => '1', 'sort' => '4'],
             ['name' => 'lang::front.wishlist_page', 'url' => 'route::wishlist', 'target' => '_self', 'module' => '', 'group' => 'footer', 'status' => '1', 'sort' => '3'],
         ]);
-        DB::table('shipping_standard')->insert([
+        DB::table('shop_shipping_standard')->insert([
             ['fee' => 20000, 'shipping_free' => 100000],
         ]);
 

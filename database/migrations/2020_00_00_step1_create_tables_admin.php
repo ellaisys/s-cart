@@ -14,8 +14,10 @@ class CreateTablesAdmin extends Migration
      */
     public function up()
     {
-        $this->down();
-
+        //Drop table if exist
+        if(!empty(session('infoInstall')['dropdb'])) {
+            $this->down();
+        }
         Schema::create('admin_user', function (Blueprint $table) {
             $table->increments('id');
             $table->string('username', 100)->unique();
@@ -107,6 +109,43 @@ class CreateTablesAdmin extends Migration
             $table->index('user_id');
             $table->timestamps();
         });
+
+        Schema::create('admin_config', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('group', 50)->nullable();
+            $table->string('code', 50)->index();
+            $table->string('key', 50)->unique();
+            $table->string('value', 200)->nullable();
+            $table->string('store_id', 200)->default(1);
+            $table->tinyInteger('sort')->default(0);
+            $table->string('detail', 300)->nullable();
+
+        });
+
+        Schema::create('admin_store', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('logo', 255)->nullable();
+            $table->tinyInteger('site_status')->default(1);
+            $table->string('phone', 20)->nullable();
+            $table->string('long_phone', 100)->nullable();
+            $table->string('email', 150)->nullable();
+            $table->string('time_active', 200);
+            $table->string('address', 300);
+            $table->string('office', 300)->nullable();
+            $table->string('warehouse', 300)->nullable();
+            $table->string('template', 100)->nullable();
+        });
+
+        Schema::create('admin_store_description', function (Blueprint $table) {
+            $table->integer('config_id');
+            $table->string('lang', 10)->index();
+            $table->string('title', 200)->nullable();
+            $table->string('description', 300)->nullable();
+            $table->string('keyword', 200)->nullable();
+            $table->text('maintain_content')->nullable();
+            $table->primary(['config_id', 'lang']);
+        });
+
     }
 
     /**
@@ -126,6 +165,9 @@ class CreateTablesAdmin extends Migration
         Schema::dropIfExists('admin_role_menu');
         Schema::dropIfExists('admin_menu_permission');
         Schema::dropIfExists('admin_log');
+        Schema::dropIfExists('admin_config');
+        Schema::dropIfExists('admin_store');
+        Schema::dropIfExists('admin_store_description');
     }
 
 }

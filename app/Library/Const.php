@@ -28,6 +28,9 @@ define('SC_GUARD_PAGES', ['1', '2']);
  * Admin define
  */
 define('SC_ADMIN_MIDDLEWARE', ['web', 'admin', 'localization']);
-define('SC_ADMIN_PREFIX', config('app.admin_prefix'));
+//Prefix url admin
+define('SC_ADMIN_PREFIX', config('scart.admin_prefix'));
 define('SC_CONNECTION', 'mysql');
 define('SC_CONNECTION_LOG', 'mysql');
+//Prefix database
+define('SC_DB_PREFIX', config('scart.db_prefix'));

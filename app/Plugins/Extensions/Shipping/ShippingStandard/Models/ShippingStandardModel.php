@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Schema;
 class ShippingStandardModel extends Model
 {
     public $timestamps = false;
-    public $table      = 'shipping_standard';
+    public $table      = 'shop_shipping_standard';
     protected $guarded = [];
     protected $connection = SC_CONNECTION;
     public function uninstallExtension()

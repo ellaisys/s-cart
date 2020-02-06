@@ -55,9 +55,6 @@ return [
     'url' => env('APP_URL', 'http://localhost'),
     'asset_url' => env('ASSET_URL', null),
 
-    //This value will re-define in database with App\Providers\ScartServiceProvider
-    'admin_prefix' => env('ADMIN_PREFIX', 'sc_admin'),
-
     /*
     |--------------------------------------------------------------------------
     | Application Timezone

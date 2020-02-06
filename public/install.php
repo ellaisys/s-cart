@@ -62,11 +62,13 @@ if (request()->method() == 'POST' && request()->ajax()) {
             'admin_password' => bcrypt(request('admin_password')),
             'admin_email' => request('admin_email'),
             'admin_url' => $admin_url,
+            'dropdb' => (request('dropdb') =='true')?1:0,
         ];
             echo json_encode(['error' => 0, 'msg' => trans('install.env.process_sucess'), 'infoInstall' => $infoInstall]);
             break;
 
     case 'step2-1':
+        session(['infoInstall'=> request('infoInstall')]);
         try {
             Artisan::call('migrate --path=/database/migrations/2020_00_00_step1_create_tables_admin.php');
         } catch(\Exception $e) {
@@ -84,6 +86,7 @@ if (request()->method() == 'POST' && request()->ajax()) {
         break;
 
         case 'step2-2':
+            session(['infoInstall'=> request('infoInstall')]);
             try {
                 Artisan::call('migrate --path=/database/migrations/2020_00_00_step2_create_tables_shop.php');
             } catch(\Exception $e) {

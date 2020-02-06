@@ -56,7 +56,7 @@
 
           <tr>
             <td>{{ trans('env.ADMIN_PREFIX') }}</td>
-            <td><a href="#" class="fied-required editable editable-click" data-name="ADMIN_PREFIX" data-type="text" data-pk="" data-source="" data-url="{{ route('admin_store_value.update') }}" data-title="{{ trans('env.ADMIN_PREFIX') }}" data-value="{{ config('app.admin_prefix') }}" data-original-title="" title=""></a></td>
+            <td><a href="#" class="fied-required editable editable-click" data-name="ADMIN_PREFIX" data-type="text" data-pk="" data-source="" data-url="{{ route('admin_store_value.update') }}" data-title="{{ trans('env.ADMIN_PREFIX') }}" data-value="{{ config('scart.admin_prefix') }}" data-original-title="" title=""></a></td>
           </tr>
           <tr>
             <td>{{ trans('env.ADMIN_NAME') }}</td>

@@ -81,4 +81,5 @@ return [
     'check_writable' => 'Kiểm tra quyền ghi',
     'check_failed' => 'Thất bại',
     'check_ok' => 'OK',
+    'drop_db' => 'Xóa bảng dữ liệu nếu có sẵn',
 ];

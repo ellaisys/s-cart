@@ -37,8 +37,8 @@ class Authenticate
 
         $routeName = $request->path();
         $excepts = [
-            config('app.admin_prefix') . '/auth/login',
-            config('app.admin_prefix') . '/auth/logout',
+            SC_ADMIN_PREFIX . '/auth/login',
+            SC_ADMIN_PREFIX . '/auth/logout',
         ];
         return in_array($routeName, $excepts);
 

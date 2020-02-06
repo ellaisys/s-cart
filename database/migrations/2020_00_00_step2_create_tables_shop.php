@@ -14,7 +14,10 @@ class CreateTablesShop extends Migration
      */
     public function up()
     {
-        $this->down();
+        //Drop table if exist
+        if(!empty(session('infoInstall')['dropdb'])) {
+            $this->down();
+        }
 
         Schema::create('shop_banner', function (Blueprint $table) {
             $table->increments('id');
@@ -27,42 +30,6 @@ class CreateTablesShop extends Migration
             $table->tinyInteger('click')->default(0);
             $table->tinyInteger('type')->default(0);
             $table->timestamps();
-        });
-
-        Schema::create('admin_config', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('group', 50)->nullable();
-            $table->string('code', 50)->index();
-            $table->string('key', 50)->unique();
-            $table->string('value', 200)->nullable();
-            $table->string('store_id', 200)->default(1);
-            $table->tinyInteger('sort')->default(0);
-            $table->string('detail', 300)->nullable();
-
-        });
-
-        Schema::create('admin_store', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('logo', 255)->nullable();
-            $table->tinyInteger('site_status')->default(1);
-            $table->string('phone', 20)->nullable();
-            $table->string('long_phone', 100)->nullable();
-            $table->string('email', 150)->nullable();
-            $table->string('time_active', 200);
-            $table->string('address', 300);
-            $table->string('office', 300)->nullable();
-            $table->string('warehouse', 300)->nullable();
-            $table->string('template', 100)->nullable();
-        });
-
-        Schema::create('admin_store_description', function (Blueprint $table) {
-            $table->integer('config_id');
-            $table->string('lang', 10)->index();
-            $table->string('title', 200)->nullable();
-            $table->string('description', 300)->nullable();
-            $table->string('keyword', 200)->nullable();
-            $table->text('maintain_content')->nullable();
-            $table->primary(['config_id', 'lang']);
         });
 
         Schema::create('shop_email_template', function (Blueprint $table) {
@@ -123,14 +90,14 @@ class CreateTablesShop extends Migration
             $table->tinyInteger('sort')->default(0);
         });
 
-        Schema::create('password_resets', function (Blueprint $table) {
+        Schema::create('shop_password_resets', function (Blueprint $table) {
             $table->string('email', 150);
             $table->string('token', 255);
             $table->dateTime('created_at');
             $table->index('email');
         });
 
-        Schema::create('shipping_standard', function (Blueprint $table) {
+        Schema::create('shop_shipping_standard', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('fee');
             $table->integer('shipping_free');
@@ -476,9 +443,6 @@ class CreateTablesShop extends Migration
     public function down()
     {
         Schema::dropIfExists('shop_banner');
-        Schema::dropIfExists('admin_config');
-        Schema::dropIfExists('admin_store');
-        Schema::dropIfExists('admin_store_description');
         Schema::dropIfExists('shop_email_template');
         Schema::dropIfExists('shop_language');
         Schema::dropIfExists('shop_block_content');
@@ -486,8 +450,8 @@ class CreateTablesShop extends Migration
         Schema::dropIfExists('shop_layout_position');
         Schema::dropIfExists('shop_layout_type');
         Schema::dropIfExists('shop_link');
-        Schema::dropIfExists('password_resets');
-        Schema::dropIfExists('shipping_standard');
+        Schema::dropIfExists('shop_password_resets');
+        Schema::dropIfExists('shop_shipping_standard');
         Schema::dropIfExists('shop_api');
         Schema::dropIfExists('shop_api_process');
         Schema::dropIfExists('shop_brand');

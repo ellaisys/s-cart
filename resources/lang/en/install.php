@@ -85,4 +85,5 @@ return [
     'check_writable' => 'Check writable',
     'check_failed' => 'Failed',
     'check_ok' => 'OK',
+    'drop_db' => 'Drop table database if exist',
 ];

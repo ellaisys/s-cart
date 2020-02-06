@@ -18,8 +18,8 @@ class PermissionController extends Controller
     {
         $routes = app()->routes->getRoutes();
         foreach ($routes as $value) {
-            if (\Illuminate\Support\Str::startsWith($value->getPrefix(), config('app.admin_prefix'))) {
-                $prefix = config('app.admin_prefix')?$value->getPrefix():ltrim($value->getPrefix(),'/');
+            if (\Illuminate\Support\Str::startsWith($value->getPrefix(), SC_ADMIN_PREFIX)) {
+                $prefix = SC_ADMIN_PREFIX?$value->getPrefix():ltrim($value->getPrefix(),'/');
                 $routeAdmin[$prefix] = [
                     'uri' => 'ANY::' . $prefix . '/*',
                     'name' => $prefix . '/*',
@@ -309,7 +309,7 @@ Need mothod destroy to boot deleting in model
 
     public function without()
     {
-        $prefix = config('app.admin_prefix')?config('app.admin_prefix').'/':'';
+        $prefix = SC_ADMIN_PREFIX?SC_ADMIN_PREFIX.'/':'';
         return [
             $prefix . 'login',
             $prefix . 'logout',
