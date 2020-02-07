@@ -222,7 +222,6 @@ class InsertDatabaseAdmin extends Migration
             ['group' => '', 'code' => 'env', 'key' => 'APP_DEBUG', 'value' => 'off', 'sort' => '0', 'detail' => 'lang::env.APP_DEBUG', 'store_id' => '1'],
             ['group' => '', 'code' => 'env', 'key' => 'ADMIN_LOG', 'value' => 'on', 'sort' => '0', 'detail' => 'lang::env.ADMIN_LOG', 'store_id' => '1'],
             ['group' => '', 'code' => 'env', 'key' => 'ADMIN_LOG_EXP', 'value' => '', 'sort' => '0', 'detail' => 'lang::env.ADMIN_LOG_EXP', 'store_id' => '1'],
-            ['group' => '', 'code' => 'env', 'key' => 'ADMIN_PREFIX', 'value' => '', 'sort' => '0', 'detail' => 'lang::env.ADMIN_PREFIX', 'store_id' => '1'],
             ['group' => '', 'code' => 'env', 'key' => 'ADMIN_NAME', 'value' => 'S-Cart System', 'sort' => '0', 'detail' => 'lang::env.ADMIN_NAME', 'store_id' => '1'],
             ['group' => '', 'code' => 'env', 'key' => 'ADMIN_TITLE', 'value' => 'S-Cart System', 'sort' => '0', 'detail' => 'lang::env.ADMIN_TITLE', 'store_id' => '1'],
             ['group' => '', 'code' => 'env', 'key' => 'ADMIN_LOGO', 'value' => 'S-Cart Admin', 'sort' => '0', 'detail' => 'lang::env.ADMIN_LOGO', 'store_id' => '1'],

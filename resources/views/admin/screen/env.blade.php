@@ -55,10 +55,6 @@
           </tr>
 
           <tr>
-            <td>{{ trans('env.ADMIN_PREFIX') }}</td>
-            <td><a href="#" class="fied-required editable editable-click" data-name="ADMIN_PREFIX" data-type="text" data-pk="" data-source="" data-url="{{ route('admin_store_value.update') }}" data-title="{{ trans('env.ADMIN_PREFIX') }}" data-value="{{ config('scart.admin_prefix') }}" data-original-title="" title=""></a></td>
-          </tr>
-          <tr>
             <td>{{ trans('env.ADMIN_NAME') }}</td>
             <td><a href="#" class="fied-required editable editable-click" data-name="ADMIN_NAME" data-type="text" data-pk="" data-source="" data-url="{{ route('admin_store_value.update') }}" data-title="{{ trans('env.ADMIN_NAME') }}" data-value="{{ sc_config('ADMIN_NAME') }}" data-original-title="" title=""></a></td>
           </tr>
@@ -117,12 +113,6 @@ $(document).ready(function() {
         },
         success: function(data) {
           if(data.stt == 1){
-            if(data.field == 'ADMIN_PREFIX'){
-              @php
-              $pathUrl = str_replace('index.php','',$_SERVER['PHP_SELF']);
-              @endphp
-              window.location.replace("{{ $pathUrl }}"+data.value+'/env');
-            }
             const Toast = Swal.mixin({
               toast: true,
               position: 'top-end',

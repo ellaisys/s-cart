@@ -30,5 +30,7 @@ define('SC_GUARD_PAGES', ['1', '2']);
 define('SC_ADMIN_MIDDLEWARE', ['web', 'admin', 'localization']);
 define('SC_CONNECTION', 'mysql');
 define('SC_CONNECTION_LOG', 'mysql');
+//Prefix url admin
+define('SC_ADMIN_PREFIX', config('scart.admin_prefix'));
 //Prefix database
 define('SC_DB_PREFIX', config('scart.db_prefix'));
