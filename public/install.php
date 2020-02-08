@@ -26,6 +26,7 @@ if (request()->method() == 'POST' && request()->ajax()) {
             $database_name     = request('database_name') ?? '';
             $database_user     = request('database_user') ?? '';
             $database_password = request('database_password') ?? '';
+            $database_prefix   = request('database_prefix') ?? '';
             $admin_url         = request('admin_url') ?? '';
             $admin_url         = str_replace('/','',strip_tags(strtolower($admin_url)));
             if (in_array($admin_url, ['','admin','css','data','images','js','packages','templates'])) {
@@ -42,6 +43,9 @@ if (request()->method() == 'POST' && request()->ajax()) {
             $getEnv = str_replace('sc_database_port', $database_port, $getEnv);
             $getEnv = str_replace('sc_database_name', $database_name, $getEnv);
             $getEnv = str_replace('sc_database_user', $database_user, $getEnv);
+            if($database_prefix) {
+                $getEnv = str_replace('DB_PREFIX=', 'DB_PREFIX='.$database_prefix, $getEnv);
+            }
             $getEnv = str_replace('sc_database_password', $database_password, $getEnv);
             $getEnv = str_replace('sc_api_key', $api_key, $getEnv);
             $getEnv = str_replace('sc_admin', $admin_url, $getEnv);
@@ -64,6 +68,7 @@ if (request()->method() == 'POST' && request()->ajax()) {
             'admin_url' => $admin_url,
             'dropdb' => (request('dropdb') =='true')?1:0,
         ];
+
             echo json_encode(['error' => 0, 'msg' => trans('install.env.process_sucess'), 'infoInstall' => $infoInstall]);
             break;
 
