@@ -43,9 +43,7 @@ if (request()->method() == 'POST' && request()->ajax()) {
             $getEnv = str_replace('sc_database_port', $database_port, $getEnv);
             $getEnv = str_replace('sc_database_name', $database_name, $getEnv);
             $getEnv = str_replace('sc_database_user', $database_user, $getEnv);
-            if($database_prefix) {
-                $getEnv = str_replace('DB_PREFIX=', 'DB_PREFIX='.$database_prefix, $getEnv);
-            }
+            $getEnv = str_replace('DB_PREFIX=sc_', 'DB_PREFIX='.$database_prefix, $getEnv);
             $getEnv = str_replace('sc_database_password', $database_password, $getEnv);
             $getEnv = str_replace('sc_api_key', $api_key, $getEnv);
             $getEnv = str_replace('sc_admin', $admin_url, $getEnv);

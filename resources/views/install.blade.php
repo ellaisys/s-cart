@@ -142,7 +142,7 @@
                         <div id="div_database_prefix" class="form-group info-install">
                             <label for="database_prefix"  class="control-label col-md-4 "> {{ trans('install.database_prefix') }} </label>
                             <div class="controls col-md-8 ">
-                                <input class="input-md  textInput form-control" id="database_prefix"  name="database_prefix" placeholder="{{ trans('install.database_prefix_help') }}" style="margin-bottom: 10px" type="text" />
+                                <input class="input-md  textInput form-control" id="database_prefix"  name="database_prefix" placeholder="{{ trans('install.database_prefix_help') }}" style="margin-bottom: 10px" type="text"  value="sc_" />
                             </div>
                         </div>
                         <div class="form-group info-install required">
