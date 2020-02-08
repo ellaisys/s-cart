@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 class AdminUser extends Model implements AuthenticatableContract
 {
     use Authenticatable;
-    public $table      = 'admin_user';
+    public $table      = SC_DB_PREFIX.'admin_user';
     protected $guarded = [];
     protected $hidden  = [
         'password', 'remember_token',
@@ -24,7 +24,7 @@ class AdminUser extends Model implements AuthenticatableContract
      */
     public function roles()
     {
-        return $this->belongsToMany(AdminRole::class, 'admin_role_user', 'user_id', 'role_id');
+        return $this->belongsToMany(AdminRole::class, SC_DB_PREFIX.'admin_role_user', 'user_id', 'role_id');
     }
 
     /**
@@ -34,7 +34,7 @@ class AdminUser extends Model implements AuthenticatableContract
      */
     public function permissions()
     {
-        return $this->belongsToMany(AdminPermission::class, 'admin_user_permission', 'user_id', 'permission_id');
+        return $this->belongsToMany(AdminPermission::class, SC_DB_PREFIX.'admin_user_permission', 'user_id', 'permission_id');
     }
 
     /**

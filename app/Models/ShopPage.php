@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class ShopPage extends Model
 {
     public $timestamps = false;
-    public $table = 'shop_page';
+    public $table = SC_DB_PREFIX.'shop_page';
     protected $connection = SC_CONNECTION;
     protected $guarded = [];
     protected $appends = [

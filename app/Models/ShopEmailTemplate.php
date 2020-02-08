@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class ShopEmailTemplate extends Model
 {
     public $timestamps = false;
-    public $table      = 'shop_email_template';
+    public $table = SC_DB_PREFIX.'shop_email_template';
     protected $guarded = [];
     protected $connection = SC_CONNECTION;
 

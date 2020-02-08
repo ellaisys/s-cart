@@ -183,7 +183,7 @@ class ShopBrandController extends Controller
 
         $validator = Validator::make($data, [
             'name' => 'required|string|max:100',
-            'alias' => 'required|regex:/(^([0-9A-Za-z\-_]+)$)/|unique:shop_brand,alias|string|max:100',
+            'alias' => 'required|regex:/(^([0-9A-Za-z\-_]+)$)/|unique:'.SC_DB_PREFIX.'shop_brand,alias|string|max:100',
             'image' => 'required',
             'sort' => 'numeric|min:0',
             'url' => 'url|nullable',
@@ -245,7 +245,7 @@ class ShopBrandController extends Controller
 
         $validator = Validator::make($data, [
             'name' => 'required|string|max:100',
-            'alias' => 'required|regex:/(^([0-9A-Za-z\-_]+)$)/|unique:shop_brand,alias,' . $brand->id . ',id|string|max:100',
+            'alias' => 'required|regex:/(^([0-9A-Za-z\-_]+)$)/|unique:'.SC_DB_PREFIX.'shop_brand,alias,' . $brand->id . ',id|string|max:100',
             'image' => 'required',
             'sort' => 'numeric|min:0',
         ], [

@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class AdminLog extends Model
 {
     protected $guarded = [];
-    public $table = 'admin_log';
+    public $table = SC_DB_PREFIX.'admin_log';
     public static $methodColors = [
         'GET' => 'green',
         'POST' => 'yellow',

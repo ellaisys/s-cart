@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class ShopBanner extends Model
 {
-    public $table = 'shop_banner';
+    public $table = SC_DB_PREFIX.'shop_banner';
     protected $guarded = [];
     protected $connection = SC_CONNECTION;
 

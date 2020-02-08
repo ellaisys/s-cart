@@ -10,6 +10,6 @@ class ShopProductCategory extends Model
     public $incrementing  = false;
     protected $guarded    = [];
     public $timestamps    = false;
-    public $table         = 'shop_product_category';
+    public $table = SC_DB_PREFIX.'shop_product_category';
     protected $connection = SC_CONNECTION;
 }

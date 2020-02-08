@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Model;
 class ShopCategory extends Model
 {
     public $timestamps = false;
-    public $table = 'shop_category';
+    public $table = SC_DB_PREFIX.'shop_category';
     protected $guarded = [];
     protected $connection = SC_CONNECTION;
     public $appends = [
@@ -21,7 +21,7 @@ class ShopCategory extends Model
 
     public function products()
     {
-        return $this->belongsToMany(ShopProduct::class, 'shop_product_category', 'category_id', 'product_id');
+        return $this->belongsToMany(ShopProduct::class, SC_DB_PREFIX.'shop_product_category', 'category_id', 'product_id');
     }
 
     public function descriptions()

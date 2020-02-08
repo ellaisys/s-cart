@@ -196,7 +196,7 @@ class DiscountAdminController extends Controller
     {
         $data = request()->all();
         $validator = Validator::make($data, [
-            'code' => 'required|regex:/(^([0-9A-Za-z\-\._]+)$)/|unique:shop_discount,code|string|max:50',
+            'code' => 'required|regex:/(^([0-9A-Za-z\-\._]+)$)/|unique:'.SC_DB_PREFIX.'shop_discount,code|string|max:50',
             'limit' => 'required|numeric|min:1',
             'reward' => 'required|numeric|min:0',
             'type' => 'required',
@@ -255,7 +255,7 @@ class DiscountAdminController extends Controller
         $discount = DiscountModel::find($id);
         $data = request()->all();
         $validator = Validator::make($data, [
-            'code' => 'required|regex:/(^([0-9A-Za-z\-\._]+)$)/|unique:shop_discount,code,' . $discount->id . ',id|string|max:50',
+            'code' => 'required|regex:/(^([0-9A-Za-z\-\._]+)$)/|unique:'.SC_DB_PREFIX.'shop_discount,code,' . $discount->id . ',id|string|max:50',
             'limit' => 'required|numeric|min:1',
             'reward' => 'required|numeric|min:0',
             'type' => 'required',

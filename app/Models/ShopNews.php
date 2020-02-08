@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class ShopNews extends Model
 {
-    public $table = 'shop_news';
+    public $table = SC_DB_PREFIX.'shop_news';
     protected $guarded = [];
     protected $connection = SC_CONNECTION;
     protected $appends = [

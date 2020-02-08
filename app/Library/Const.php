@@ -31,6 +31,6 @@ define('SC_ADMIN_MIDDLEWARE', ['web', 'admin', 'localization']);
 define('SC_CONNECTION', 'mysql');
 define('SC_CONNECTION_LOG', 'mysql');
 //Prefix url admin
-define('SC_ADMIN_PREFIX', config('scart.admin_prefix'));
+define('SC_ADMIN_PREFIX', env('ADMIN_PREFIX', 'sc_admin'));
 //Prefix database
-define('SC_DB_PREFIX', config('scart.db_prefix'));
+define('SC_DB_PREFIX', env('DB_PREFIX', ''));

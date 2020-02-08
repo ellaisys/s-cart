@@ -101,10 +101,10 @@ class ShopProductController extends Controller
         $obj = new ShopProduct;
 
         $obj = $obj
-            ->leftJoin('shop_product_description', 'shop_product_description.product_id', 'shop_product.id')
-            ->where('shop_product_description.lang', sc_get_locale());
+            ->leftJoin(SC_DB_PREFIX.'shop_product_description', SC_DB_PREFIX.'shop_product_description.product_id', SC_DB_PREFIX.'shop_product.id')
+            ->where(SC_DB_PREFIX.'shop_product_description.lang', sc_get_locale());
         if ($keyword) {
-            $obj = $obj->whereRaw('(id = ' . (int) $keyword . ' OR shop_product_description.name like "%' . $keyword . '%" )');
+            $obj = $obj->whereRaw('(id = ' . (int) $keyword . ' OR '.SC_DB_PREFIX.'shop_product_description.name like "%' . $keyword . '%" )');
         }
         if ($sort_order && array_key_exists($sort_order, $arrSort)) {
             $field = explode('__', $sort_order)[0];
@@ -342,8 +342,8 @@ class ShopProductController extends Controller
                     'descriptions.*.description' => 'nullable|string|max:100',
                     'descriptions.*.content' => 'required|string',
                     'category' => 'required',
-                    'sku' => 'required|regex:/(^([0-9A-Za-z\-_]+)$)/|unique:shop_product,sku',
-                    'alias' => 'required|regex:/(^([0-9A-Za-z\-_]+)$)/|unique:shop_product,alias|string|max:100',
+                    'sku' => 'required|regex:/(^([0-9A-Za-z\-_]+)$)/|unique:'.SC_DB_PREFIX.'shop_product,sku',
+                    'alias' => 'required|regex:/(^([0-9A-Za-z\-_]+)$)/|unique:'.SC_DB_PREFIX.'shop_product,alias|string|max:100',
                 ];
                 $arrMsg = [
                     'descriptions.*.name.required' => trans('validation.required', ['attribute' => trans('product.name')]),
@@ -362,8 +362,8 @@ class ShopProductController extends Controller
                     'descriptions.*.keyword' => 'nullable|string|max:100',
                     'descriptions.*.description' => 'nullable|string|max:100',
                     'category' => 'required',
-                    'sku' => 'required|regex:/(^([0-9A-Za-z\-_]+)$)/|unique:shop_product,sku',
-                    'alias' => 'required|regex:/(^([0-9A-Za-z\-_]+)$)/|unique:shop_product,alias|string|max:100',
+                    'sku' => 'required|regex:/(^([0-9A-Za-z\-_]+)$)/|unique:'.SC_DB_PREFIX.'shop_product,sku',
+                    'alias' => 'required|regex:/(^([0-9A-Za-z\-_]+)$)/|unique:'.SC_DB_PREFIX.'shop_product,alias|string|max:100',
                     'productBuild' => 'required',
                     'productBuildQty' => 'required',
 
@@ -380,8 +380,8 @@ class ShopProductController extends Controller
                 $arrValidation = [
                     'kind' => 'required',
                     'productInGroup' => 'required',
-                    'sku' => 'required|regex:/(^([0-9A-Za-z\-_]+)$)/|unique:shop_product,sku',
-                    'alias' => 'required|regex:/(^([0-9A-Za-z\-_]+)$)/|unique:shop_product,alias|string|max:100',
+                    'sku' => 'required|regex:/(^([0-9A-Za-z\-_]+)$)/|unique:'.SC_DB_PREFIX.'shop_product,sku',
+                    'alias' => 'required|regex:/(^([0-9A-Za-z\-_]+)$)/|unique:'.SC_DB_PREFIX.'shop_product,alias|string|max:100',
                     'sort' => 'numeric|min:0',
                     'descriptions.*.name' => 'required|string|max:200',
                     'descriptions.*.keyword' => 'nullable|string|max:200',
@@ -599,8 +599,8 @@ class ShopProductController extends Controller
                     'descriptions.*.description' => 'nullable|string|max:300',
                     'descriptions.*.content' => 'required|string',
                     'category' => 'required',
-                    'sku' => 'required|regex:/(^([0-9A-Za-z\-_]+)$)/|unique:shop_product,sku,' . $product->id . ',id',
-                    'alias' => 'required|regex:/(^([0-9A-Za-z\-_]+)$)/|unique:shop_product,alias,' . $product->id . ',id|string|max:100',
+                    'sku' => 'required|regex:/(^([0-9A-Za-z\-_]+)$)/|unique:'.SC_DB_PREFIX.'shop_product,sku,' . $product->id . ',id',
+                    'alias' => 'required|regex:/(^([0-9A-Za-z\-_]+)$)/|unique:'.SC_DB_PREFIX.'shop_product,alias,' . $product->id . ',id|string|max:100',
                 ];
                 $arrMsg = [
                     'descriptions.*.name.required' => trans('validation.required', ['attribute' => trans('product.name')]),
@@ -617,8 +617,8 @@ class ShopProductController extends Controller
                     'descriptions.*.keyword' => 'nullable|string|max:200',
                     'descriptions.*.description' => 'nullable|string|max:300',
                     'category' => 'required',
-                    'sku' => 'required|regex:/(^([0-9A-Za-z\-_]+)$)/|unique:shop_product,sku,' . $product->id . ',id',
-                    'alias' => 'required|regex:/(^([0-9A-Za-z\-_]+)$)/|unique:shop_product,alias,' . $product->id . ',id|string|max:100',
+                    'sku' => 'required|regex:/(^([0-9A-Za-z\-_]+)$)/|unique:'.SC_DB_PREFIX.'shop_product,sku,' . $product->id . ',id',
+                    'alias' => 'required|regex:/(^([0-9A-Za-z\-_]+)$)/|unique:'.SC_DB_PREFIX.'shop_product,alias,' . $product->id . ',id|string|max:100',
                     'productBuild' => 'required',
                     'productBuildQty' => 'required',
                 ];
@@ -632,8 +632,8 @@ class ShopProductController extends Controller
 
             case SC_PRODUCT_GROUP: //product group
                 $arrValidation = [
-                    'sku' => 'required|regex:/(^([0-9A-Za-z\-_]+)$)/|unique:shop_product,sku,' . $product->id . ',id',
-                    'alias' => 'required|regex:/(^([0-9A-Za-z\-_]+)$)/|unique:shop_product,alias,' . $product->id . ',id|string|max:100',
+                    'sku' => 'required|regex:/(^([0-9A-Za-z\-_]+)$)/|unique:'.SC_DB_PREFIX.'shop_product,sku,' . $product->id . ',id',
+                    'alias' => 'required|regex:/(^([0-9A-Za-z\-_]+)$)/|unique:'.SC_DB_PREFIX.'shop_product,alias,' . $product->id . ',id|string|max:100',
                     'productInGroup' => 'required',
                     'sort' => 'numeric|min:0',
                     'descriptions.*.name' => 'required|string|max:200',

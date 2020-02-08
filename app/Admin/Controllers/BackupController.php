@@ -61,7 +61,6 @@ class BackupController extends Controller
                 $return = ['error' => 0, 'msg' => trans('backup.restore_success')];
                 // });
             } catch (\Exception $e) {
-                admin_toastr($e->getMessage(), 'error');
                 $return = ['error' => 1, 'msg' => $e->getMessage()];
             }
         }

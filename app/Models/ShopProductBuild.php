@@ -11,7 +11,7 @@ class ShopProductBuild extends Model
     public $incrementing  = false;
     protected $guarded    = [];
     public $timestamps    = false;
-    public $table         = 'shop_product_build';
+    public $table = SC_DB_PREFIX.'shop_product_build';
     protected $connection = SC_CONNECTION;
     public function product()
     {

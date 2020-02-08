@@ -457,7 +457,7 @@ class Cart
      */
     private function getTableName()
     {
-        return 'shop_shoppingcart';
+        return SC_DB_PREFIX.'shop_shoppingcart';
     }
 
 

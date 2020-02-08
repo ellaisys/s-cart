@@ -207,7 +207,7 @@ class ShopCustomerController extends Controller
         $data = request()->all();
         $dataOrigin = request()->all();
         $validator = Validator::make($dataOrigin, [
-            'email' => 'required|email|unique:shop_user,email',
+            'email' => 'required|email|unique:'.SC_DB_PREFIX.'shop_user,email',
             'address1' => 'required|string|max:100',
             'address2' => 'required|string|max:100',
             'first_name' => 'required|string|max:100',
@@ -272,7 +272,7 @@ class ShopCustomerController extends Controller
         $data = request()->all();
         $dataOrigin = request()->all();
         $validator = Validator::make($dataOrigin, [
-            'email' => 'required|email|unique:shop_user,email,' . $customer->id . ',id',
+            'email' => 'required|email|unique:'.SC_DB_PREFIX.'shop_user,email,' . $customer->id . ',id',
             'address1' => 'required|string|max:100',
             'address2' => 'required|string|max:100',
             'first_name' => 'required|string|max:100',

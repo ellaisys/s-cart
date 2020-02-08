@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class ShopProductImage extends Model
 {
     public $timestamps = false;
-    public $table = 'shop_product_image';
+    public $table = SC_DB_PREFIX.'shop_product_image';
     protected $guarded = [];
     protected $connection = SC_CONNECTION;
 

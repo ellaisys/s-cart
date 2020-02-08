@@ -13,13 +13,13 @@ class InsertDatabaseShop extends Migration
      */
     public function up()
     {
-        DB::table('shop_banner')->insert([
+        DB::table(SC_DB_PREFIX.'shop_banner')->insert([
             ['image' => '/data/banner/Main-banner-1-1903x600.jpg', 'html' => '', 'target' => '_self',  'status' => 1, 'type' => 0],
             ['image' => '/data/banner/Main-banner-3-1903x600.jpg', 'html' => '', 'target' => '_self',  'status' => 1, 'type' => 0],
         ]
         );
 
-        DB::table('shop_email_template')->insert([
+        DB::table(SC_DB_PREFIX.'shop_email_template')->insert([
             ['name' => 'Reset password', 'group' => 'forgot_password', 'text' => '<h1 style="font-family:Avenir,Helvetica,sans-serif;box-sizing:border-box;color:#2f3133;font-size:19px;font-weight:bold;margin-top:0;text-align:left">{{$title}}</h1>
 <p style="font-family:Avenir,Helvetica,sans-serif;box-sizing:border-box;color:#74787e;font-size:16px;line-height:1.5em;margin-top:0;text-align:left">{{$reason_sendmail}}</p>
                     <table class="action" align="center" width="100%" cellpadding="0" cellspacing="0" style="font-family:Avenir,Helvetica,sans-serif;box-sizing:border-box;margin:30px auto;padding:0;text-align:center;width:100%">
@@ -153,12 +153,12 @@ class InsertDatabaseShop extends Migration
                     </table>', 'status' => '1'],
         ]);
 
-        DB::table('shop_language')->insert([
+        DB::table(SC_DB_PREFIX.'shop_language')->insert([
             ['id' => '1', 'name' => 'English', 'code' => 'en', 'icon' => '/data/language/flag_uk.png', 'status' => '1', 'rtl' => '0','sort' => '1'],
             ['id' => '2', 'name' => 'Tiếng Việt', 'code' => 'vi', 'icon' => '/data/language/flag_vn.png', 'status' => '1', 'rtl' => '0','sort' => '1'],
         ]);
 
-        DB::table('shop_block_content')->insert([
+        DB::table(SC_DB_PREFIX.'shop_block_content')->insert([
             ['name' => 'Facebook code', 'position' => 'top', 'page' => '*', 'type' => 'html', 'text' => '<div id="fb-root"></div>
 <script>(function(d, s, id) {
   var js, fjs = d.getElementsByTagName(s)[0];
@@ -185,7 +185,7 @@ class InsertDatabaseShop extends Migration
 
         ]);
 
-        DB::table('shop_layout_page')->insert([
+        DB::table(SC_DB_PREFIX.'shop_layout_page')->insert([
             ['key' => 'home', 'name' => 'Home page'],
             ['key' => 'product_list', 'name' => 'Product list'],
             ['key' => 'product_detail', 'name' => 'Product detail'],
@@ -196,7 +196,7 @@ class InsertDatabaseShop extends Migration
             ['key' => 'shop_wishlist', 'name' => 'Wishlist page'],
             ['key' => 'item_list', 'name' => 'Item list'],
         ]);
-        DB::table('shop_layout_position')->insert([
+        DB::table(SC_DB_PREFIX.'shop_layout_position')->insert([
             ['key' => 'meta', 'name' => 'Meta'],
             ['key' => 'header', 'name' => 'Header'],
             ['key' => 'top', 'name' => 'Top'],
@@ -206,12 +206,12 @@ class InsertDatabaseShop extends Migration
             ['key' => 'right', 'name' => 'Column right'],
             ['key' => 'banner_top', 'name' => 'Banner top'],
         ]);
-        DB::table('shop_layout_type')->insert([
+        DB::table(SC_DB_PREFIX.'shop_layout_type')->insert([
             ['key' => 'html', 'name' => 'Html'],
             ['key' => 'view', 'name' => 'View'],
             ['key' => 'module', 'name' => 'Module'],
         ]);
-        DB::table('shop_link')->insert([
+        DB::table(SC_DB_PREFIX.'shop_link')->insert([
             ['name' => 'lang::front.contact', 'url' => 'route::pages::contact', 'target' => '_self', 'module' => '', 'group' => 'menu', 'status' => '1', 'sort' => '3'],
             ['name' => 'lang::front.about', 'url' => 'route::pages::about', 'target' => '_self', 'module' => '', 'group' => 'menu', 'status' => '1', 'sort' => '4'],
             ['name' => 'S-Cart', 'url' => 'https://s-cart.org', 'target' => '_blank', 'module' => '', 'group' => 'menu', 'status' => '1', 'sort' => '0'],
@@ -219,11 +219,11 @@ class InsertDatabaseShop extends Migration
             ['name' => 'lang::front.compare_page', 'url' => '/compare.html', 'target' => '_self', 'module' => '', 'group' => 'footer', 'status' => '1', 'sort' => '4'],
             ['name' => 'lang::front.wishlist_page', 'url' => 'route::wishlist', 'target' => '_self', 'module' => '', 'group' => 'footer', 'status' => '1', 'sort' => '3'],
         ]);
-        DB::table('shop_shipping_standard')->insert([
+        DB::table(SC_DB_PREFIX.'shop_shipping_standard')->insert([
             ['fee' => 20000, 'shipping_free' => 100000],
         ]);
 
-        DB::table('shop_product')->insert([
+        DB::table(SC_DB_PREFIX.'shop_product')->insert([
             ['id' => 1, 'sku' => 'ABCZZ','alias' => 'demo-alias-name-product-1', 'image' => '/data/product/img-1.jpg', 'brand_id' => '1', 'vendor_id' => '1', 'price' => '15000', 'cost' => '10000', 'stock' => '99', 'type' => '2', 'status' => '1', 'kind' => 0, 'date_available' => '2020-02-03', 'sold' => '1'],
             ['id' => 2, 'sku' => 'LEDFAN1','alias' => 'demo-alias-name-product-2', 'image' => '/data/product/img-4.jpg', 'brand_id' => '1', 'vendor_id' => '1', 'price' => '15000', 'cost' => '10000', 'stock' => '100', 'type' => '1', 'status' => '1', 'kind' => 0, 'date_available' => null, 'sold' => '0'],
             ['id' => 3, 'sku' => 'CLOCKFAN1','alias' => 'demo-alias-name-product-3', 'image' => '/data/product/img-11.jpg', 'brand_id' => '2', 'vendor_id' => '1', 'price' => '15000', 'cost' => '10000', 'stock' => '100', 'type' => '0', 'status' => '1', 'kind' => 0, 'date_available' => null, 'sold' => '0'],
@@ -243,7 +243,7 @@ class InsertDatabaseShop extends Migration
             ['id' => 17, 'sku' => 'ALOKK1-AY','alias' => 'demo-alias-name-product-17', 'image' => '/data/product/img-26.jpg', 'brand_id' => '3', 'vendor_id' => '1', 'price' => '15000', 'cost' => '10000', 'stock' => '100', 'type' => '0', 'status' => '1', 'kind' => 0, 'date_available' => null, 'sold' => '0'],
         ]);
 
-        DB::table('shop_product_description')->insert([
+        DB::table(SC_DB_PREFIX.'shop_product_description')->insert([
             ['product_id' => '1', 'lang' => 'en', 'name' => 'Easy Polo Black Edition 1', 'keyword' => '', 'description' => '', 'content' => '<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.<img alt="" src="/data/product/img-21.jpg" style="width: 262px; height: 262px; float: right; margin: 10px;" /></p>
 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>'],
             ['product_id' => '2', 'lang' => 'en', 'name' => 'Easy Polo Black Edition 2', 'keyword' => '', 'description' => '', 'content' => '<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.<img alt="" src="/data/product/img-21.jpg" style="width: 262px; height: 262px; float: right; margin: 10px;" /></p>
@@ -314,7 +314,7 @@ class InsertDatabaseShop extends Migration
 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>'],
         ]);
 
-        DB::table('shop_product_category')->insert([
+        DB::table(SC_DB_PREFIX.'shop_product_category')->insert([
             ['product_id' => '1', 'category_id' => '13'],
             ['product_id' => '2', 'category_id' => '13'],
             ['product_id' => '3', 'category_id' => '11'],
@@ -334,7 +334,7 @@ class InsertDatabaseShop extends Migration
             ['product_id' => '17', 'category_id' => '9'],
         ]);
 
-        DB::table('shop_product_image')->insert([
+        DB::table(SC_DB_PREFIX.'shop_product_image')->insert([
             ['image' => '/data/product/img-32.jpg', 'product_id' => '1'],
             ['image' => '/data/product/img-33.jpg', 'product_id' => '1'],
             ['image' => '/data/product/img-22.jpg', 'product_id' => '11'],
@@ -357,7 +357,7 @@ class InsertDatabaseShop extends Migration
             ['image' => '/data/product/img-32.jpg', 'product_id' => '17'],
         ]);
 
-        DB::table('shop_product_attribute')->insert([
+        DB::table(SC_DB_PREFIX.'shop_product_attribute')->insert([
             ['name' => 'Blue', 'attribute_group_id' => '1', 'product_id' => '17', 'sort' => '0'],
             ['name' => 'White', 'attribute_group_id' => '1', 'product_id' => '17', 'sort' => '0'],
             ['name' => 'S', 'attribute_group_id' => '2', 'product_id' => '17', 'sort' => '0'],
@@ -367,25 +367,25 @@ class InsertDatabaseShop extends Migration
             ['name' => 'S', 'attribute_group_id' => '2', 'product_id' => '10', 'sort' => '0'],
             ['name' => 'M', 'attribute_group_id' => '2', 'product_id' => '10', 'sort' => '0'],
         ]);
-        DB::table('shop_product_build')->insert([
+        DB::table(SC_DB_PREFIX.'shop_product_build')->insert([
             ['build_id' => '15', 'product_id' => '6', 'quantity' => '1'],
             ['build_id' => '15', 'product_id' => '7', 'quantity' => '2'],
         ]);
 
-        DB::table('shop_product_group')->insert([
+        DB::table(SC_DB_PREFIX.'shop_product_group')->insert([
             ['group_id' => '16', 'product_id' => '1'],
             ['group_id' => '16', 'product_id' => '2'],
         ]);
 
-        DB::table('shop_product_promotion')->insert([
+        DB::table(SC_DB_PREFIX.'shop_product_promotion')->insert([
             ['product_id' => '11', 'price_promotion' => '5000'],
             ['product_id' => '1', 'price_promotion' => '5000'],
         ]);
-        DB::table('shop_attribute_group')->insert([
+        DB::table(SC_DB_PREFIX.'shop_attribute_group')->insert([
             ['name' => 'Color', 'status' => '1', 'sort' => '1', 'type' => 'radio'],
             ['name' => 'Size', 'status' => '1', 'sort' => '2', 'type' => 'select'],
         ]);
-        DB::table('shop_brand')->insert([
+        DB::table(SC_DB_PREFIX.'shop_brand')->insert([
             ['name' => 'Husq',  'alias'=> 'husq', 'image' => '/data/brand/01-181x52.png', 'url' => '', 'status' => '1', 'sort' => '0'],
             ['name' => 'Ideal',  'alias'=> 'ideal', 'image' => '/data/brand/02-181x52.png', 'url' => '', 'status' => '1', 'sort' => '0'],
             ['name' => 'Apex',  'alias'=> 'apex', 'image' => '/data/brand/03-181x52.png', 'url' => '', 'status' => '1', 'sort' => '0'],
@@ -395,7 +395,7 @@ class InsertDatabaseShop extends Migration
             ['name' => 'Avatar',  'alias'=> 'avatar', 'image' => '/data/brand/07-181x52.png', 'url' => '', 'status' => '1', 'sort' => '0'],
             ['name' => 'Brand KA',  'alias'=> 'brand-ka', 'image' => '/data/brand/08-181x52.png', 'url' => '', 'status' => '1', 'sort' => '0'],
         ]);
-        DB::table('shop_category')->insert([
+        DB::table(SC_DB_PREFIX.'shop_category')->insert([
             ['id' => '1', 'alias'=> 'electronics', 'image' => '/data/category/img-40.jpg', 'parent' => '0', 'top' => '1', 'sort' => '0', 'status' => '1'],
             ['id' => '2', 'alias'=> 'clothing-wears', 'image' => '/data/category/img-44.jpg', 'parent' => '0', 'top' => '1', 'sort' => '0', 'status' => '1'],
             ['id' => '3', 'alias'=> 'mobile', 'image' => '/data/category/img-42.jpg', 'parent' => '1', 'top' => '1', 'sort' => '0', 'status' => '1'],
@@ -410,7 +410,7 @@ class InsertDatabaseShop extends Migration
             ['id' => '12', 'alias'=> 'women-accessaries', 'image' => '/data/category/img-42.jpg4', 'parent' => '4', 'top' => '0', 'sort' => '3', 'status' => '1'],
             ['id' => '13', 'alias'=> 'men-accessaries', 'image' => '/data/category/img-40.jpg', 'parent' => '4', 'top' => '0', 'sort' => '3', 'status' => '1'],
         ]);
-        DB::table('shop_category_description')->insert([
+        DB::table(SC_DB_PREFIX.'shop_category_description')->insert([
             ['category_id' => '1', 'lang' => 'en', 'name' => 'Electronics', 'keyword' => '', 'description' => ''],
             ['category_id' => '2', 'lang' => 'en', 'name' => 'Clothing & Wears', 'keyword' => '', 'description' => ''],
             ['category_id' => '3', 'lang' => 'en', 'name' => 'Mobile', 'keyword' => '', 'description' => ''],
@@ -440,12 +440,12 @@ class InsertDatabaseShop extends Migration
             ['category_id' => '13', 'lang' => 'vi', 'name' => 'Phụ kiện nữ', 'keyword' => '', 'description' => ''],
         ]);
 
-        DB::table('shop_currency')->insert([
+        DB::table(SC_DB_PREFIX.'shop_currency')->insert([
             ['id' => '1', 'name' => 'USD Dola', 'code' => 'USD', 'symbol' => '$', 'exchange_rate' => '1', 'precision' => '0', 'symbol_first' => '1', 'thousands' => ',', 'status' => '1', 'sort' => '0'],
             ['id' => '2', 'name' => 'VietNam Dong', 'code' => 'VND', 'symbol' => '₫', 'exchange_rate' => '20', 'precision' => '0', 'symbol_first' => '0', 'thousands' => ',', 'status' => '1', 'sort' => '1'],
         ]);
 
-        DB::table('shop_order_status')->insert([
+        DB::table(SC_DB_PREFIX.'shop_order_status')->insert([
             ['id' => '1', 'name' => 'New'],
             ['id' => '2', 'name' => 'Processing'],
             ['id' => '3', 'name' => 'Hold'],
@@ -453,11 +453,11 @@ class InsertDatabaseShop extends Migration
             ['id' => '5', 'name' => 'Done'],
             ['id' => '6', 'name' => 'Failed'],
         ]);
-        DB::table('shop_page')->insert([
+        DB::table(SC_DB_PREFIX.'shop_page')->insert([
             ['id' => '1', 'image' => '', 'alias' => 'about', 'status' => '1'],
             ['id' => '2', 'image' => '', 'alias' => 'contact', 'status' => '1'],
         ]);
-        DB::table('shop_page_description')->insert([
+        DB::table(SC_DB_PREFIX.'shop_page_description')->insert([
             ['page_id' => '1', 'lang' => 'en', 'title' => 'About', 'keyword' => '', 'description' => '', 'content' => '<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.<img alt="" src="/data/product/img-21.jpg" style="width: 262px; height: 262px; float: right; margin: 10px;" /></p>
 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
 ', ],
@@ -472,44 +472,44 @@ class InsertDatabaseShop extends Migration
 ', ],
         ]);
 
-        DB::table('shop_payment_status')->insert([
+        DB::table(SC_DB_PREFIX.'shop_payment_status')->insert([
             ['id' => '1', 'name' => 'Unpaid'],
             ['id' => '2', 'name' => 'Partial payment'],
             ['id' => '3', 'name' => 'Paid'],
             ['id' => '4', 'name' => 'Refurn'],
         ]);
 
-        DB::table('shop_shipping_status')->insert([
+        DB::table(SC_DB_PREFIX.'shop_shipping_status')->insert([
             ['id' => '1', 'name' => 'Not sent'],
             ['id' => '2', 'name' => 'Sending'],
             ['id' => '3', 'name' => 'Shipping done'],
         ]);
 
-        DB::table('shop_shipping')->insert([
+        DB::table(SC_DB_PREFIX.'shop_shipping')->insert([
             ['type' => '0', 'value' => '20000', 'free' => '10000000', 'status' => '1'],
         ]);
 
-        DB::table('shop_vendor')->insert([
+        DB::table(SC_DB_PREFIX.'shop_vendor')->insert([
             ['id' => '1', 'alias' => 'abc-distributor',  'name' => 'ABC distributor', 'email' => 'abc@abc.com', 'phone' => '012496657567', 'image' => '/data/vendor/vendor.png', 'address' => '', 'url' => '', 'sort' => '0'],
         ]);
 
-        DB::table('shop_user')->insert([
+        DB::table(SC_DB_PREFIX.'shop_user')->insert([
             ['id' => '1', 'first_name' => 'Naruto', 'last_name' => 'Kun', 'email' => 'test@test.com', 'password' => bcrypt(123), 'address1' => 'HCM', 'address2' => 'HCM city', 'phone' => '0667151172', 'postcode' => 70000, 'company' => 'KTC', 'country' => 'VN', 'created_at' => date('Y-m-d H:i:s')],
         ]);
 
-        DB::table('shop_order')->insert([
+        DB::table(SC_DB_PREFIX.'shop_order')->insert([
             ['id' => '1', 'user_id' => '1', 'subtotal' => '5000', 'shipping' => '2000', 'discount' => '0', 'payment_status' => '1', 'shipping_status' => '1', 'status' => '1', 'tax' => '0', 'total' => '7000', 'currency' => 'USD', 'exchange_rate' => '1', 'received' => '0', 'balance' => '7000', 'first_name' => 'Naruto', 'last_name' => 'Kun', 'address1' => 'ADDRESS 1', 'address2' => 'ADDRESS 2', 'country' => 'VN', 'phone' => '667151172', 'email' => 'test@test.com', 'comment' => 'ok', 'payment_method' => 'Cash', 'shipping_method' => 'ShippingStandard', 'created_at' => date('Y-m-d H:i:s')],
         ]);
 
-        DB::table('shop_order_detail')->insert([
+        DB::table(SC_DB_PREFIX.'shop_order_detail')->insert([
             ['id' => '1', 'order_id' => '1', 'product_id' => '1', 'name' => 'Easy Polo Black Edition 1', 'price' => '5000', 'qty' => '1', 'total_price' => '5000', 'sku' => 'ABCZZ', 'currency' => 'USD', 'exchange_rate' => '1.00', 'attribute' => '[]'],
         ]);
 
-        DB::table('shop_order_history')->insert([
+        DB::table(SC_DB_PREFIX.'shop_order_history')->insert([
             ['id' => '1', 'order_id' => '1', 'content' => 'New order', 'admin_id' => '0', 'user_id' => '1', 'order_status_id' => '1', 'add_date' => date('Y-m-d H:i:s')],
         ]);
 
-        DB::table('shop_order_total')->insert([
+        DB::table(SC_DB_PREFIX.'shop_order_total')->insert([
             ['order_id' => '1', 'code' => 'subtotal', 'title' => 'Subtotal', 'value' => '5000', 'sort' => '1'],
             ['order_id' => '1', 'code' => 'shipping', 'title' => 'Shipping', 'value' => '2000', 'sort' => '10'],
             ['order_id' => '1', 'code' => 'discount', 'title' => 'Discount', 'value' => '0', 'sort' => '20'],
@@ -517,7 +517,7 @@ class InsertDatabaseShop extends Migration
             ['order_id' => '1', 'code' => 'received', 'title' => 'Received', 'value' => '0', 'sort' => '200'],
         ]);
 
-        DB::table('shop_country')->insert([
+        DB::table(SC_DB_PREFIX.'shop_country')->insert([
             ['code' => 'AL', 'name' => 'Albania'],
             ['code' => 'DZ', 'name' => 'Algeria'],
             ['code' => 'DS', 'name' => 'American Samoa'],

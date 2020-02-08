@@ -82,10 +82,10 @@ class ReportController extends Controller
         $obj = new ShopProduct;
 
         $obj = $obj
-            ->leftJoin('shop_product_description', 'shop_product_description.product_id', 'shop_product.id')
-            ->where('shop_product_description.lang', sc_get_locale());
+            ->leftJoin(SC_DB_PREFIX.'shop_product_description', SC_DB_PREFIX.'shop_product_description.product_id', SC_DB_PREFIX.'shop_product.id')
+            ->where(SC_DB_PREFIX.'shop_product_description.lang', sc_get_locale());
         if ($keyword) {
-            $obj = $obj->whereRaw('(shop_product_description.name like "%' . $keyword . '%"  OR sku like "%' . $keyword . '%")');
+            $obj = $obj->whereRaw('('.SC_DB_PREFIX.'shop_product_description.name like "%' . $keyword . '%"  OR sku like "%' . $keyword . '%")');
         }
         if ($sort_order && array_key_exists($sort_order, $arrSort)) {
             $field = explode('__', $sort_order)[0];

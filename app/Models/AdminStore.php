@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class AdminStore extends Model
 {
     public $timestamps = false;
-    public $table = 'admin_store';
+    public $table = SC_DB_PREFIX.'admin_store';
     protected $guarded = [];
     protected static $getAll = null;
     protected $connection = SC_CONNECTION;

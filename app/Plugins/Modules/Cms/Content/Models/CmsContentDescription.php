@@ -12,10 +12,9 @@ class CmsContentDescription extends Model
     public $incrementing  = false;
     protected $guarded    = [];
     public $timestamps    = false;
-    public $table         = 'cms_content_description';
+    public $table = SC_DB_PREFIX.'cms_content_description';
     protected $connection = SC_CONNECTION;
-    protected $fillable   = ['lang', 'title', 'description', 'keyword', 'cms_content_id', 'content'];
-//=========================
+
 
     public function uninstall()
     {

@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class ShopLayoutPage extends Model
 {
     public $timestamps = false;
-    public $table = 'shop_layout_page';
+    public $table = SC_DB_PREFIX.'shop_layout_page';
     protected $connection = SC_CONNECTION;
 
     public static function getPages()

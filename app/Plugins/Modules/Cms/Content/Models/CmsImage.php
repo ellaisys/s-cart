@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Schema;
 class CmsImage extends Model
 {
     public $timestamps  = false;
-    public $table       = 'cms_image';
+    public $table = SC_DB_PREFIX.'cms_image';
     protected $fillable = ['id', 'image', 'content_id', 'status'];
     protected $connection = SC_CONNECTION;
     public function content()

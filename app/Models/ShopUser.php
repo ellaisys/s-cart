@@ -15,7 +15,7 @@ class ShopUser extends Authenticatable
      *
      * @var array
      */
-    protected $table = 'shop_user';
+    protected $table = SC_DB_PREFIX.'shop_user';
     protected $guarded = [];
     protected $connection = SC_CONNECTION;
     private static $getList = null;

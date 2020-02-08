@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class ShopBrand extends Model
 {
     public $timestamps = false;
-    public $table = 'shop_brand';
+    public $table = SC_DB_PREFIX.'shop_brand';
     protected $guarded = [];
     private static $getList = null;
     protected $connection = SC_CONNECTION;

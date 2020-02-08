@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Schema;
 
 class CmsContent extends Model
 {
-    public $table = 'cms_content';
+    public $table = SC_DB_PREFIX.'cms_content';
     protected $guarded = [];
     protected $appends = [
         'title',

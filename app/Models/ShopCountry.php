@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class ShopCountry extends Model
 {
-    public $table                    = 'shop_country';
+    public $table = SC_DB_PREFIX.'shop_country';
     public $timestamps               = false;
     private static $getCountries     = null;
     private static $getListCountries = null;

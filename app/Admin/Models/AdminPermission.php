@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 
 class AdminPermission extends Model
 {
-    public $table = 'admin_permission';
+    public $table = SC_DB_PREFIX.'admin_permission';
     protected $fillable = ['name', 'slug', 'http_uri'];
 
     /**
@@ -19,7 +19,7 @@ class AdminPermission extends Model
      */
     public function roles()
     {
-        return $this->belongsToMany(AdminRole::class, 'admin_role_permission', 'permission_id', 'role_id');
+        return $this->belongsToMany(AdminRole::class, SC_DB_PREFIX.'admin_role_permission', 'permission_id', 'role_id');
     }
 
     /**

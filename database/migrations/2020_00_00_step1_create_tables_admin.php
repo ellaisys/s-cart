@@ -18,7 +18,7 @@ class CreateTablesAdmin extends Migration
         if(!empty(session('infoInstall')['dropdb'])) {
             $this->down();
         }
-        Schema::create('admin_user', function (Blueprint $table) {
+        Schema::create(SC_DB_PREFIX.'admin_user', function (Blueprint $table) {
             $table->increments('id');
             $table->string('username', 100)->unique();
             $table->string('password', 60);
@@ -29,14 +29,14 @@ class CreateTablesAdmin extends Migration
             $table->timestamps();
         });
 
-        Schema::create('admin_role', function (Blueprint $table) {
+        Schema::create(SC_DB_PREFIX.'admin_role', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name', 50)->unique();
             $table->string('slug', 50)->unique();
             $table->timestamps();
         });
 
-        Schema::create('admin_permission', function (Blueprint $table) {
+        Schema::create(SC_DB_PREFIX.'admin_permission', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name', 50)->unique();
             $table->string('slug', 50)->unique();
@@ -45,7 +45,7 @@ class CreateTablesAdmin extends Migration
 
         });
 
-        Schema::create('admin_menu', function (Blueprint $table) {
+        Schema::create(SC_DB_PREFIX.'admin_menu', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('parent_id')->default(0);
             $table->integer('sort')->default(0);
@@ -59,14 +59,14 @@ class CreateTablesAdmin extends Migration
             $table->timestamps();
         });
 
-        Schema::create('admin_role_user', function (Blueprint $table) {
+        Schema::create(SC_DB_PREFIX.'admin_role_user', function (Blueprint $table) {
             $table->integer('role_id');
             $table->integer('user_id');
             $table->index(['role_id', 'user_id']);
             $table->timestamps();
         });
 
-        Schema::create('admin_role_permission', function (Blueprint $table) {
+        Schema::create(SC_DB_PREFIX.'admin_role_permission', function (Blueprint $table) {
             $table->integer('role_id');
             $table->integer('permission_id');
             $table->index(['role_id', 'permission_id']);
@@ -74,7 +74,7 @@ class CreateTablesAdmin extends Migration
             $table->primary(['role_id', 'permission_id']);
         });
 
-        Schema::create('admin_role_menu', function (Blueprint $table) {
+        Schema::create(SC_DB_PREFIX.'admin_role_menu', function (Blueprint $table) {
             $table->integer('role_id');
             $table->integer('menu_id');
             $table->index(['role_id', 'menu_id']);
@@ -82,7 +82,7 @@ class CreateTablesAdmin extends Migration
             $table->primary(['role_id', 'menu_id']);
         });
 
-        Schema::create('admin_menu_permission', function (Blueprint $table) {
+        Schema::create(SC_DB_PREFIX.'admin_menu_permission', function (Blueprint $table) {
             $table->integer('menu_id');
             $table->integer('permission_id');
             $table->index(['menu_id', 'permission_id']);
@@ -90,7 +90,7 @@ class CreateTablesAdmin extends Migration
             $table->primary(['menu_id', 'permission_id']);
         });
 
-        Schema::create('admin_user_permission', function (Blueprint $table) {
+        Schema::create(SC_DB_PREFIX.'admin_user_permission', function (Blueprint $table) {
             $table->integer('user_id');
             $table->integer('permission_id');
             $table->index(['user_id', 'permission_id']);
@@ -98,7 +98,7 @@ class CreateTablesAdmin extends Migration
             $table->primary(['user_id', 'permission_id']);
         });
 
-        Schema::create('admin_log', function (Blueprint $table) {
+        Schema::create(SC_DB_PREFIX.'admin_log', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id');
             $table->string('path');
@@ -110,7 +110,7 @@ class CreateTablesAdmin extends Migration
             $table->timestamps();
         });
 
-        Schema::create('admin_config', function (Blueprint $table) {
+        Schema::create(SC_DB_PREFIX.'admin_config', function (Blueprint $table) {
             $table->increments('id');
             $table->string('group', 50)->nullable();
             $table->string('code', 50)->index();
@@ -122,7 +122,7 @@ class CreateTablesAdmin extends Migration
 
         });
 
-        Schema::create('admin_store', function (Blueprint $table) {
+        Schema::create(SC_DB_PREFIX.'admin_store', function (Blueprint $table) {
             $table->increments('id');
             $table->string('logo', 255)->nullable();
             $table->tinyInteger('site_status')->default(1);
@@ -136,7 +136,7 @@ class CreateTablesAdmin extends Migration
             $table->string('template', 100)->nullable();
         });
 
-        Schema::create('admin_store_description', function (Blueprint $table) {
+        Schema::create(SC_DB_PREFIX.'admin_store_description', function (Blueprint $table) {
             $table->integer('config_id');
             $table->string('lang', 10)->index();
             $table->string('title', 200)->nullable();
@@ -155,19 +155,19 @@ class CreateTablesAdmin extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('admin_user');
-        Schema::dropIfExists('admin_role');
-        Schema::dropIfExists('admin_permission');
-        Schema::dropIfExists('admin_menu');
-        Schema::dropIfExists('admin_user_permission');
-        Schema::dropIfExists('admin_role_user');
-        Schema::dropIfExists('admin_role_permission');
-        Schema::dropIfExists('admin_role_menu');
-        Schema::dropIfExists('admin_menu_permission');
-        Schema::dropIfExists('admin_log');
-        Schema::dropIfExists('admin_config');
-        Schema::dropIfExists('admin_store');
-        Schema::dropIfExists('admin_store_description');
+        Schema::dropIfExists(SC_DB_PREFIX.'admin_user');
+        Schema::dropIfExists(SC_DB_PREFIX.'admin_role');
+        Schema::dropIfExists(SC_DB_PREFIX.'admin_permission');
+        Schema::dropIfExists(SC_DB_PREFIX.'admin_menu');
+        Schema::dropIfExists(SC_DB_PREFIX.'admin_user_permission');
+        Schema::dropIfExists(SC_DB_PREFIX.'admin_role_user');
+        Schema::dropIfExists(SC_DB_PREFIX.'admin_role_permission');
+        Schema::dropIfExists(SC_DB_PREFIX.'admin_role_menu');
+        Schema::dropIfExists(SC_DB_PREFIX.'admin_menu_permission');
+        Schema::dropIfExists(SC_DB_PREFIX.'admin_log');
+        Schema::dropIfExists(SC_DB_PREFIX.'admin_config');
+        Schema::dropIfExists(SC_DB_PREFIX.'admin_store');
+        Schema::dropIfExists(SC_DB_PREFIX.'admin_store_description');
     }
 
 }

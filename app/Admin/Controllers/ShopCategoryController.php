@@ -60,10 +60,10 @@ class ShopCategoryController extends Controller
         $obj = new ShopCategory;
 
         $obj = $obj
-            ->leftJoin('shop_category_description', 'shop_category_description.category_id', 'shop_category.id')
-            ->where('shop_category_description.lang', sc_get_locale());
+            ->leftJoin(SC_DB_PREFIX.'shop_category_description', SC_DB_PREFIX.'shop_category_description.category_id', SC_DB_PREFIX'shop_category.id')
+            ->where(SC_DB_PREFIX.'shop_category_description.lang', sc_get_locale());
         if ($keyword) {
-            $obj = $obj->whereRaw('(id = ' . (int) $keyword . ' OR shop_category_description.name like "%' . $keyword . '%" )');
+            $obj = $obj->whereRaw('(id = ' . (int) $keyword . ' OR '.SC_DB_PREFIX.'shop_category_description.name like "%' . $keyword . '%" )');
         }
         if ($sort_order && array_key_exists($sort_order, $arrSort)) {
             $field = explode('__', $sort_order)[0];
@@ -210,7 +210,7 @@ class ShopCategoryController extends Controller
             'image' => 'required',
             'parent' => 'required',
             'sort' => 'numeric|min:0',
-            'alias' => 'required|regex:/(^([0-9A-Za-z\-_]+)$)/|unique:shop_category,alias|string|max:100',
+            'alias' => 'required|regex:/(^([0-9A-Za-z\-_]+)$)/|unique:'.SC_DB_PREFIX.'shop_category,alias|string|max:100',
             'descriptions.*.name' => 'required|string|max:200',
             'descriptions.*.keyword' => 'nullable|string|max:200',
             'descriptions.*.description' => 'nullable|string|max:300',
@@ -291,7 +291,7 @@ class ShopCategoryController extends Controller
             'image' => 'required',
             'parent' => 'required',
             'sort' => 'numeric|min:0',
-            'alias' => 'required|regex:/(^([0-9A-Za-z\-_]+)$)/|unique:shop_category,alias,' . $category->id . ',id|string|max:100',
+            'alias' => 'required|regex:/(^([0-9A-Za-z\-_]+)$)/|unique:'.SC_DB_PREFIX.'shop_category,alias,' . $category->id . ',id|string|max:100',
             'descriptions.*.name' => 'required|string|max:200',
             'descriptions.*.keyword' => 'nullable|string|max:200',
             'descriptions.*.description' => 'nullable|string|max:300',

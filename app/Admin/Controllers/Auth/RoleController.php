@@ -175,8 +175,8 @@ class RoleController extends Controller
         $data = request()->all();
         $dataOrigin = request()->all();
         $validator = Validator::make($dataOrigin, [
-            'name' => 'required|string|max:50|unique:admin_role,name',
-            'slug' => 'required|regex:/(^([0-9A-Za-z\._\-]+)$)/|unique:admin_role,slug|string|max:50|min:3',
+            'name' => 'required|string|max:50|unique:'.SC_DB_PREFIX.'admin_role,name',
+            'slug' => 'required|regex:/(^([0-9A-Za-z\._\-]+)$)/|unique:'.SC_DB_PREFIX.'admin_role,slug|string|max:50|min:3',
         ], [
             'slug.regex' => trans('role.slug_validate'),
         ]);
@@ -239,8 +239,8 @@ class RoleController extends Controller
         $data = request()->all();
         $dataOrigin = request()->all();
         $validator = Validator::make($dataOrigin, [
-            'name' => 'required|string|max:50|unique:admin_role,name,' . $role->id . '',
-            'slug' => 'required|regex:/(^([0-9A-Za-z\._\-]+)$)/|unique:admin_role,slug,' . $role->id . '|string|max:50|min:3',
+            'name' => 'required|string|max:50|unique:'.SC_DB_PREFIX.'admin_role,name,' . $role->id . '',
+            'slug' => 'required|regex:/(^([0-9A-Za-z\._\-]+)$)/|unique:'.SC_DB_PREFIX.'admin_role,slug,' . $role->id . '|string|max:50|min:3',
         ], [
             'slug.regex' => trans('role.slug_validate'),
         ]);

@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Schema;
 class CmsCategory extends Model
 {
     public $timestamps = false;
-    public $table = 'cms_category';
+    public $table = SC_DB_PREFIX.'cms_category';
     protected $guarded = [];
     protected $connection = SC_CONNECTION;
     protected $appends = [

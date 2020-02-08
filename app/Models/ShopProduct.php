@@ -13,7 +13,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class ShopProduct extends Model
 {
-    public $table = 'shop_product';
+    public $table = SC_DB_PREFIX.'shop_product';
     protected $guarded = [];
     protected $appends = [
         'name',

@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class ShopOrder extends Model
 {
-    public $table = 'shop_order';
+    public $table = SC_DB_PREFIX.'shop_order';
     protected $guarded = [];
     protected $connection = SC_CONNECTION;
     public static $mapStyleStatus = [

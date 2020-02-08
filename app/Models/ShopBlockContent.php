@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class ShopBlockContent extends Model
 {
     public $timestamps = false;
-    public $table = 'shop_block_content';
+    public $table = SC_DB_PREFIX.'shop_block_content';
     protected $guarded = [];
     private static $getLayout = null;
     protected $connection = SC_CONNECTION;

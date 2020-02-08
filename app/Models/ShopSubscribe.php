@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class ShopSubscribe extends Model
 {
-    public $table           = 'shop_subscribe';
+    public $table = SC_DB_PREFIX.'shop_subscribe';
     protected $guarded      = [];
     protected $connection = SC_CONNECTION;
     private static $getList = null;

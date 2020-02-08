@@ -10,8 +10,8 @@ use Illuminate\Support\Facades\Schema;
 class DiscountModel extends Model
 {
     public $timestamps    = false;
-    public $table         = 'shop_discount';
-    public $table_related = 'shop_discount_user';
+    public $table = SC_DB_PREFIX.'shop_discount';
+    public $table_related = SC_DB_PREFIX.'shop_discount_user';
     protected $connection = SC_CONNECTION;
     protected $guarded    = [];
     protected $dates      = ['expires_at'];

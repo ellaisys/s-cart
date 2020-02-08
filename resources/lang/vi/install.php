@@ -66,6 +66,8 @@ return [
     'database_name' => 'Tên dữ liệu',
     'database_user' => 'Tài khoản dữ liệu',
     'database_password' => 'Mật khẩu dữ liệu',
+    'database_prefix' => 'Tiền tố bảng dữ liệu',
+    'database_prefix_help' => 'Ví dụ: sc_, abc_',
     'admin_url' => 'Link admin',
     'admin_user' => 'Tài khoản admin',
     'admin_password' => 'Mật khẩu admin',

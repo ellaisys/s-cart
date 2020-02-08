@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class AdminConfig extends Model
 {
     public $timestamps = false;
-    public $table = 'admin_config';
+    public $table = SC_DB_PREFIX.'admin_config';
     protected static $getAll = null;
     protected $connection = SC_CONNECTION;
 

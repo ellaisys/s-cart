@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use App\Models\ShopProduct;
 class ShopProductPromotion extends Model
 {
-    public $table         = 'shop_product_promotion';
+    public $table = SC_DB_PREFIX.'shop_product_promotion';
     protected $guarded    = [];
     protected $primaryKey = ['product_id'];
     public $incrementing  = false;

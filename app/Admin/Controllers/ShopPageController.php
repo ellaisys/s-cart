@@ -56,10 +56,10 @@ class ShopPageController extends Controller
         $obj = new ShopPage;
 
         $obj = $obj
-            ->leftJoin('shop_page_description', 'shop_page_description.page_id', 'shop_page.id')
-            ->where('shop_page_description.lang', sc_get_locale());
+            ->leftJoin(SC_DB_PREFIX.'shop_page_description', SC_DB_PREFIX.'shop_page_description.page_id', SC_DB_PREFIX.'shop_page.id')
+            ->where(SC_DB_PREFIX.'shop_page_description.lang', sc_get_locale());
         if ($keyword) {
-            $obj = $obj->whereRaw('(shop_page_description.title like "%' . $keyword . '%" )');
+            $obj = $obj->whereRaw('('.SC_DB_PREFIX.'shop_page_description.title like "%' . $keyword . '%" )');
         }
         if ($sort_order && array_key_exists($sort_order, $arrSort)) {
             $field = explode('__', $sort_order)[0];
@@ -195,7 +195,7 @@ class ShopPageController extends Controller
         $data['alias'] = sc_word_format_url($data['alias']);
         $data['alias'] = sc_word_limit($data['alias'], 100);
         $validator = Validator::make($data, [
-            'alias' => 'required|regex:/(^([0-9A-Za-z\-_]+)$)/|unique:shop_page,alias|string|max:100',
+            'alias' => 'required|regex:/(^([0-9A-Za-z\-_]+)$)/|unique:'.SC_DB_PREFIX.'shop_page,alias|string|max:100',
             'descriptions.*.title' => 'required|string|max:200',
             'descriptions.*.keyword' => 'nullable|string|max:200',
             'descriptions.*.description' => 'nullable|string|max:300',
@@ -272,7 +272,7 @@ class ShopPageController extends Controller
             'descriptions.*.title' => 'required|string|max:200',
             'descriptions.*.keyword' => 'nullable|string|max:200',
             'descriptions.*.description' => 'nullable|string|max:300',
-            'alias' => 'required|regex:/(^([0-9A-Za-z\-_]+)$)/|unique:shop_page,alias,' . $page->id . ',id|string|max:100',
+            'alias' => 'required|regex:/(^([0-9A-Za-z\-_]+)$)/|unique:'.SC_DB_PREFIX.'shop_page,alias,' . $page->id . ',id|string|max:100',
         ], [
             'alias.regex' => trans('page.alias_validate'),
             'descriptions.*.title.required' => trans('validation.required', ['attribute' => trans('page.title')]),

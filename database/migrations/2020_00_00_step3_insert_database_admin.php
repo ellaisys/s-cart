@@ -19,7 +19,7 @@ class InsertDatabaseAdmin extends Migration
      */
     public function up()
     {
-        DB::table('admin_menu')->insert([
+        DB::table(SC_DB_PREFIX.'admin_menu')->insert([
             ['id' => 1, 'parent_id' => 6, 'sort' => 11, 'title' => 'lang::admin.menu_titles.order_manager', 'icon' => 'fa-cart-arrow-down', 'uri' => '', 'type' => 0],
             ['id' => 2, 'parent_id' => 6, 'sort' => 12, 'title' => 'lang::admin.menu_titles.catalog_mamager', 'icon' => 'fa-folder-open', 'uri' => '', 'type' => 0],
             ['id' => 3, 'parent_id' => 6, 'sort' => 13, 'title' => 'lang::admin.menu_titles.customer_manager', 'icon' => 'fa-group', 'uri' => '', 'type' => 0],
@@ -79,7 +79,7 @@ class InsertDatabaseAdmin extends Migration
         ]
         );
 
-        DB::table('admin_permission')->insert([
+        DB::table(SC_DB_PREFIX.'admin_permission')->insert([
             ['id' => '1', 'name' => 'Admin manager', 'slug' => 'admin.manager', 'http_uri' => 'GET::sc_admin/user,GET::sc_admin/role,GET::sc_admin/permission,ANY::sc_admin/log/*,ANY::sc_admin/menu/*', 'created_at' => date('Y-m-d H:i:s')],
             ['id' => '2', 'name' => 'Dashboard', 'slug' => 'dashboard', 'http_uri' => 'GET::sc_admin', 'created_at' => date('Y-m-d H:i:s')],
             ['id' => '3', 'name' => 'Auth manager', 'slug' => 'auth.full', 'http_uri' => 'ANY::sc_admin/auth/*', 'created_at' => date('Y-m-d H:i:s')],
@@ -100,7 +100,7 @@ class InsertDatabaseAdmin extends Migration
         ]
         );
 
-        DB::table('admin_role')->insert([
+        DB::table(SC_DB_PREFIX.'admin_role')->insert([
             ['id' => '1', 'name' => 'Administrator', 'slug' => 'administrator', 'created_at' => date('Y-m-d H:i:s')],
             ['id' => '2', 'name' => 'Group only View', 'slug' => 'view.all', 'created_at' => date('Y-m-d H:i:s')],
             ['id' => '3', 'name' => 'Manager', 'slug' => 'manager', 'created_at' => date('Y-m-d H:i:s')],
@@ -109,14 +109,14 @@ class InsertDatabaseAdmin extends Migration
             ['id' => '6', 'name' => 'Marketing', 'slug' => 'maketing', 'created_at' => date('Y-m-d H:i:s')]]
         );
 
-        DB::table('admin_role_menu')->insert([
+        DB::table(SC_DB_PREFIX.'admin_role_menu')->insert([
             ['menu_id' => '38', 'role_id' => '1', 'created_at' => date('Y-m-d H:i:s')],
             ['menu_id' => '38', 'role_id' => '2', 'created_at' => date('Y-m-d H:i:s')],
             ['menu_id' => '38', 'role_id' => '3', 'created_at' => date('Y-m-d H:i:s')],
         ]
         );
 
-        DB::table('admin_role_permission')->insert([
+        DB::table(SC_DB_PREFIX.'admin_role_permission')->insert([
             ['role_id' => 3, 'permission_id' => 5, 'created_at' => date('Y-m-d H:i:s')],
             ['role_id' => 3, 'permission_id' => 1, 'created_at' => date('Y-m-d H:i:s')],
             ['role_id' => 3, 'permission_id' => 3, 'created_at' => date('Y-m-d H:i:s')],
@@ -154,7 +154,7 @@ class InsertDatabaseAdmin extends Migration
         ]
         );
         
-        DB::table('admin_role_user')->insert(
+        DB::table(SC_DB_PREFIX.'admin_role_user')->insert(
             ['role_id' => '1', 'user_id' => '1']
         );
 
@@ -167,7 +167,7 @@ class InsertDatabaseAdmin extends Migration
         if(!empty(session('infoInstall')['admin_email'])) {
             $this->adminEmail = session('infoInstall')['admin_email'];
         }
-        DB::table('admin_user')->insert(
+        DB::table(SC_DB_PREFIX.'admin_user')->insert(
             ['id' => '1', 'username' => $this->adminUser, 'password' => $this->adminPassword, 'email' => $this->adminEmail, 'name' => 'Administrator', 'avatar' => '/admin/avatar/user.jpg', 'created_at' => date('Y-m-d H:i:s')]
         );
 
@@ -178,7 +178,7 @@ class InsertDatabaseAdmin extends Migration
         if(!empty(session('infoInstall')['language_default'])) {
             $this->language_default = session('infoInstall')['language_default'];
         }
-        DB::table('admin_config')->insert([
+        DB::table(SC_DB_PREFIX.'admin_config')->insert([
             ['group' => '', 'code' => 'config', 'key' => 'shop_allow_guest', 'value' => '1', 'sort' => '11', 'detail' => 'lang::admin.shop_allow_guest', 'store_id' => '1'],
             ['group' => '', 'code' => 'config', 'key' => 'product_preorder', 'value' => '1', 'sort' => '18', 'detail' => 'lang::admin.product_preorder', 'store_id' => '1'],
             ['group' => '', 'code' => 'config', 'key' => 'product_display_out_of_stock', 'value' => '1', 'sort' => '19', 'detail' => 'lang::admin.product_display_out_of_stock', 'store_id' => '1'],
@@ -274,11 +274,11 @@ class InsertDatabaseAdmin extends Migration
 
 
         ]);
-        DB::table('admin_store')->insert(
+        DB::table(SC_DB_PREFIX.'admin_store')->insert(
             ['logo' => '/data/logo/scart-mid.png', 'site_status' => 1, 'template' => 'default', 'phone' => '0123456789', 'long_phone' => 'Support: 0987654321', 'email' => 'admin-demo@s-cart.org', 'time_active' => '', 'address' => '123st - abc - xyz']
         );
 
-        DB::table('admin_store_description')->insert([
+        DB::table(SC_DB_PREFIX.'admin_store_description')->insert([
             ['config_id' => '1', 'lang' => 'en', 'title' => 'Demo S-cart : Free Laravel eCommerce for Business', 'description' => 'Free website shopping cart for business', 'keyword' => '', 'maintain_content' => '<center><img src="/images/maintenance.png" />
 <h3><span style="color:#e74c3c;"><strong>Sorry! We are currently doing site maintenance!</strong></span></h3>
 </center>'],

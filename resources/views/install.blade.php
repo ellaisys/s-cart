@@ -139,6 +139,12 @@
                                 <input class="input-md  textInput form-control" id="database_password"  name="database_password" placeholder="{{ trans('install.database_password') }}" style="margin-bottom: 10px" type="password" value="" />
                             </div>
                         </div>
+                        <div id="div_database_prefix" class="form-group info-install">
+                            <label for="database_prefix"  class="control-label col-md-4 "> {{ trans('install.database_prefix') }} </label>
+                            <div class="controls col-md-8 ">
+                                <input class="input-md  textInput form-control" id="database_prefix"  name="database_prefix" placeholder="{{ trans('install.database_prefix_help') }}" style="margin-bottom: 10px" type="text" />
+                            </div>
+                        </div>
                         <div class="form-group info-install required">
                             <div class="controls col-md-offset-4 col-md-8 ">
                                 <input  class="input-md checkboxinput" id="id_dropdb" name="dropdb" style="margin-bottom: 10px" type="checkbox" />
@@ -240,6 +246,7 @@ $('#submit-install').click(function(event) {
                     language_default:$('#language_default').val(),
                     admin_user:$('#admin_user').val(),
                     admin_password:$('#admin_password').val(),
+                    database_prefix:$('#database_prefix').val(),
                     admin_email:$('#admin_email').val(),
                     admin_url:$('#admin_url').val(),
                     database_password:$('#database_password').val(),

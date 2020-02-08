@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class ShopLink extends Model
 {
     public $timestamps = false;
-    public $table = 'shop_link';
+    public $table = SC_DB_PREFIX.'shop_link';
     protected $guarded = [];
     protected $connection = SC_CONNECTION;
     protected static $getGroup = null;
