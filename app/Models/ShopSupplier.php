@@ -1,13 +1,13 @@
 <?php
-#app/Models/ShopVendor.php
+#app/Models/ShopSupplier.php
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class ShopVendor extends Model
+class ShopSupplier extends Model
 {
     public $timestamps = false;
-    public $table = SC_DB_PREFIX.'shop_vendor';
+    public $table = SC_DB_PREFIX.'shop_supplier';
     protected $guarded = [];
     private static $getList = null;
     protected $connection = SC_CONNECTION;
@@ -21,15 +21,15 @@ class ShopVendor extends Model
 
     public function products()
     {
-        return $this->hasMany(ShopProduct::class, 'vendor_id', 'id');
+        return $this->hasMany(ShopProduct::class, 'supplier_id', 'id');
     }
 
-    public function getVendorsList()
+    public function getSuppliersList()
     {
         return $this->orderBy('id', 'desc')->orderBy('sort', 'desc')->get();
     }
 
-    public function getVendors($limit = null, $opt = null, $sortBy = null, $sortOrder = 'asc')
+    public function getSuppliers($limit = null, $opt = null, $sortBy = null, $sortOrder = 'asc')
     {
         $query = $this->sort($sortBy, $sortOrder);
         if (!(int) $limit) {
@@ -46,9 +46,9 @@ class ShopVendor extends Model
 
     }
 
-    public function getProductsToVendor($id, $limit = null, $opt = null, $sortBy = null, $sortOrder = 'asc')
+    public function getProductsToSupplier($id, $limit = null, $opt = null, $sortBy = null, $sortOrder = 'asc')
     {
-        $query = (new ShopProduct)->where('status', 1)->where('vendor_id', $id);
+        $query = (new ShopProduct)->where('status', 1)->where('supplier_id', $id);
 
         //Hidden product out of stock
         if (empty(sc_config('product_display_out_of_stock'))) {
@@ -73,7 +73,7 @@ class ShopVendor extends Model
     {
         parent::boot();
         // before delete() method call this
-        static::deleting(function ($vendor) {
+        static::deleting(function ($supplier) {
         });
     }
 
@@ -83,7 +83,7 @@ class ShopVendor extends Model
      */
     public function getUrl()
     {
-        return route('vendor', ['alias' => $this->alias]);
+        return route('supplier', ['alias' => $this->alias]);
     }
 
 /*

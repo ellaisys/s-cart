@@ -36,7 +36,7 @@ class InsertDatabaseAdmin extends Migration
             ['id' => 14, 'parent_id' => 1, 'sort' => 5, 'title' => 'lang::payment_status.admin.title', 'icon' => 'fa-recycle', 'uri' => 'admin::payment_status', 'type' => 0],
             ['id' => 15, 'parent_id' => 2, 'sort' => 0, 'title' => 'lang::category.admin.title', 'icon' => 'fa-folder-open-o', 'uri' => 'admin::category', 'type' => 0],
             ['id' => 16, 'parent_id' => 2, 'sort' => 0, 'title' => 'lang::product.admin.title', 'icon' => 'fa-file-photo-o', 'uri' => 'admin::product', 'type' => 0],
-            ['id' => 17, 'parent_id' => 2, 'sort' => 0, 'title' => 'lang::vendor.admin.title', 'icon' => 'fa-user-secret', 'uri' => 'admin::vendor', 'type' => 0],
+            ['id' => 17, 'parent_id' => 2, 'sort' => 0, 'title' => 'lang::supplier.admin.title', 'icon' => 'fa-user-secret', 'uri' => 'admin::supplier', 'type' => 0],
             ['id' => 18, 'parent_id' => 2, 'sort' => 0, 'title' => 'lang::brand.admin.title', 'icon' => 'fa-bank', 'uri' => 'admin::brand', 'type' => 0],
             ['id' => 19, 'parent_id' => 2, 'sort' => 0, 'title' => 'lang::attribute_group.admin.title', 'icon' => 'fa-bars', 'uri' => 'admin::attribute_group', 'type' => 0],
             ['id' => 20, 'parent_id' => 3, 'sort' => 0, 'title' => 'lang::customer.admin.title', 'icon' => 'fa-user', 'uri' => 'admin::customer', 'type' => 0],
@@ -93,7 +93,7 @@ class InsertDatabaseAdmin extends Migration
             ['id' => '15', 'name' => 'Payment  status', 'slug' => 'payment_status.full', 'http_uri' => 'ANY::sc_admin/payment_status/*', 'created_at' => date('Y-m-d H:i:s')],
             ['id' => '17', 'name' => 'Customer manager', 'slug' => 'customer.full', 'http_uri' => 'ANY::sc_admin/customer/*,ANY::sc_admin/subscribe/*', 'created_at' => date('Y-m-d H:i:s')],
             ['id' => '18', 'name' => 'Order status', 'slug' => 'order_status.full', 'http_uri' => 'ANY::sc_admin/order_status/*', 'created_at' => date('Y-m-d H:i:s')],
-            ['id' => '19', 'name' => 'Product manager', 'slug' => 'product.full', 'http_uri' => 'ANY::sc_admin/category/*,ANY::sc_admin/vendor/*,ANY::sc_admin/brand/*,ANY::sc_admin/attribute_group/*,ANY::sc_admin/product/*', 'created_at' => date('Y-m-d H:i:s')],
+            ['id' => '19', 'name' => 'Product manager', 'slug' => 'product.full', 'http_uri' => 'ANY::sc_admin/category/*,ANY::sc_admin/supplier/*,ANY::sc_admin/brand/*,ANY::sc_admin/attribute_group/*,ANY::sc_admin/product/*', 'created_at' => date('Y-m-d H:i:s')],
             ['id' => '20', 'name' => 'Order Manager', 'slug' => 'order.full', 'http_uri' => 'ANY::sc_admin/order/*', 'created_at' => date('Y-m-d H:i:s')],
             ['id' => '21', 'name' => 'Report manager', 'slug' => 'report.full', 'http_uri' => 'ANY::sc_admin/report/*', 'created_at' => date('Y-m-d H:i:s')],
             ['id' => '22', 'name' => 'Template manager', 'slug' => 'template.full', 'http_uri' => 'ANY::sc_admin/block_content/*,ANY::sc_admin/link/*,ANY::sc_admin/template/*', 'created_at' => date('Y-m-d H:i:s')],
@@ -230,7 +230,7 @@ class InsertDatabaseAdmin extends Migration
 
             ['group' => '', 'code' => 'url', 'key' => 'SUFFIX_URL', 'value' => '.html', 'sort' => '0', 'detail' => 'lang::url.SUFFIX_URL', 'store_id' => '1'],
             ['group' => '', 'code' => 'url', 'key' => 'PREFIX_BRAND', 'value' => 'brand', 'sort' => '0', 'detail' => 'lang::url.PREFIX_BRAND', 'store_id' => '1'],
-            ['group' => '', 'code' => 'url', 'key' => 'PREFIX_VENDOR', 'value' => 'vendor', 'sort' => '0', 'detail' => 'lang::url.PREFIX_VENDOR', 'store_id' => '1'],
+            ['group' => '', 'code' => 'url', 'key' => 'PREFIX_SUPPLIER', 'value' => 'supplier', 'sort' => '0', 'detail' => 'lang::url.PREFIX_SUPPLIER', 'store_id' => '1'],
             ['group' => '', 'code' => 'url', 'key' => 'PREFIX_CATEGORY', 'value' => 'category', 'sort' => '0', 'detail' => 'lang::url.PREFIX_CATEGORY', 'store_id' => '1'],
             ['group' => '', 'code' => 'url', 'key' => 'PREFIX_PRODUCT', 'value' => 'product', 'sort' => '0', 'detail' => 'lang::url.PREFIX_PRODUCT', 'store_id' => '1'],
             ['group' => '', 'code' => 'url', 'key' => 'PREFIX_SEARCH', 'value' => 'search', 'sort' => '0', 'detail' => 'lang::url.PREFIX_SEARCH', 'store_id' => '1'],
@@ -250,7 +250,7 @@ class InsertDatabaseAdmin extends Migration
 
 
             ['group' => '', 'code' => 'product', 'key' => 'product_brand', 'value' => '1', 'sort' => '0', 'detail' => 'lang::product.config_manager.brand', 'store_id' => '1'],
-            ['group' => '', 'code' => 'product', 'key' => 'product_vendor', 'value' => '1', 'sort' => '0', 'detail' => 'lang::product.config_manager.vendor', 'store_id' => '1'],
+            ['group' => '', 'code' => 'product', 'key' => 'product_supplier', 'value' => '1', 'sort' => '0', 'detail' => 'lang::product.config_manager.supplier', 'store_id' => '1'],
             ['group' => '', 'code' => 'product', 'key' => 'product_price', 'value' => '1', 'sort' => '0', 'detail' => 'lang::product.config_manager.price', 'store_id' => '1'],
             ['group' => '', 'code' => 'product', 'key' => 'product_cost', 'value' => '1', 'sort' => '0', 'detail' => 'lang::product.config_manager.cost', 'store_id' => '1'],
             ['group' => '', 'code' => 'product', 'key' => 'product_promotion', 'value' => '1', 'sort' => '0', 'detail' => 'lang::product.config_manager.promotion', 'store_id' => '1'],

@@ -46,9 +46,9 @@ require_once 'component/category.php';
 require_once 'component/brand.php';
 
 /*
- Vendor
+ Supplier
 */
-require_once 'component/vendor.php';
+require_once 'component/supplier.php';
 
 /*
  Product

@@ -268,7 +268,7 @@ class CreateTablesShop extends Migration
             $table->string('sku', 50)->unique();
             $table->string('image', 255)->nullable();
             $table->integer('brand_id')->nullable()->default(0)->index();
-            $table->integer('vendor_id')->nullable()->default(0)->index();
+            $table->integer('supplier_id')->nullable()->default(0)->index();
             $table->integer('price')->nullable()->default(0);
             $table->integer('cost')->nullable()->nullable()->default(0);
             $table->integer('stock')->nullable()->default(0);
@@ -388,7 +388,7 @@ class CreateTablesShop extends Migration
             $table->timestamps();
         });
 
-        Schema::create(SC_DB_PREFIX.'shop_vendor', function (Blueprint $table) {
+        Schema::create(SC_DB_PREFIX.'shop_supplier', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name', 100);
             $table->string('alias', 120)->unique();
@@ -481,7 +481,7 @@ class CreateTablesShop extends Migration
         Schema::dropIfExists(SC_DB_PREFIX.'shop_shoppingcart');
         Schema::dropIfExists(SC_DB_PREFIX.'shop_product_promotion');
         Schema::dropIfExists(SC_DB_PREFIX.'shop_user');
-        Schema::dropIfExists(SC_DB_PREFIX.'shop_vendor');
+        Schema::dropIfExists(SC_DB_PREFIX.'shop_supplier');
         Schema::dropIfExists(SC_DB_PREFIX.'shop_subscribe');
         Schema::dropIfExists(SC_DB_PREFIX.'shop_country');
         Schema::dropIfExists(SC_DB_PREFIX.'shop_news');

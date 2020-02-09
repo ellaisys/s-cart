@@ -38,8 +38,8 @@
           </tr>
 
           <tr>
-            <td>{{ trans('env.PREFIX_VENDOR') }}</td>
-            <td>https://your-domain.com/<a href="#" class="fied-required editable editable-click" data-name="PREFIX_VENDOR" data-type="text" data-pk="" data-source="" data-url="{{ route('admin_store_value.update') }}" data-title="{{ trans('env.PREFIX_VENDOR') }}" data-value="{{ sc_config('PREFIX_VENDOR') }}" data-original-title="" title=""></a>/name-of-vendor{{ sc_config('SUFFIX_URL') }}</td>
+            <td>{{ trans('env.PREFIX_SUPPLIER') }}</td>
+            <td>https://your-domain.com/<a href="#" class="fied-required editable editable-click" data-name="PREFIX_SUPPLIER" data-type="text" data-pk="" data-source="" data-url="{{ route('admin_store_value.update') }}" data-title="{{ trans('env.PREFIX_SUPPLIER') }}" data-value="{{ sc_config('PREFIX_SUPPLIER') }}" data-original-title="" title=""></a>/name-of-supplier{{ sc_config('SUFFIX_URL') }}</td>
           </tr>
 
           <tr>

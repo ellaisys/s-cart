@@ -21,7 +21,7 @@ return [
     'LOG_SLACK_WEBHOOK_URL_help' => 'Link https://hooks.slack.com/services/...',
     'SUFFIX_URL' => 'Hậu tố URL',
     'PREFIX_BRAND'      =>  'Tiền tố trang NHÃN HIỆU',
-    'PREFIX_VENDOR'      =>  'Tiền tố trang NHÀ CUNG CẤP',
+    'PREFIX_SUPPLIER'      =>  'Tiền tố trang NHÀ CUNG CẤP',
     'PREFIX_CATEGORY'       =>  'Tiền tố trang DANH MỤC',
     'PREFIX_PRODUCT'        =>  'Tiền tố trang SNAR PHẨM',
     'PREFIX_SEARCH'     =>  'Tiền tố trang TÌM KIẾM',

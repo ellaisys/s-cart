@@ -100,7 +100,7 @@
                         <li><a href="{{ route('cart') }}">{{ trans('front.cart_title') }}</a></li>
                         <li><a href="{{ route('categories') }}">{{ trans('front.categories') }}</a></li>
                         <li><a href="{{ route('brands') }}">{{ trans('front.brands') }}</a></li>
-                        <li><a href="{{ route('vendors') }}">{{ trans('front.vendors') }}</a></li>
+                        <li><a href="{{ route('suppliers') }}">{{ trans('front.suppliers') }}</a></li>
                     </ul>
                 </li>
 

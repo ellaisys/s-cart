@@ -245,7 +245,7 @@ return [
             'config_info'       => 'Config info',
             'template_layout'   => 'Template & Layout',
             'localisation'      => 'Localisation',
-            'vendor'            => 'Vendor',
+            'supplier'            => 'Supplier',
             'report_analytics'  => 'Report & Analytics',
             'report_manager'    => 'Report & Analytics',
             'customer_report'   => 'Customer Report',

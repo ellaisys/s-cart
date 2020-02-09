@@ -15,40 +15,36 @@ return [
     |--------------------------------------------------------------------------
      */
 
-    'use_package_routes' => false,
-
-    // // Use relative paths (without domain)
-    'relative_paths' => false,
-
+    'use_package_routes'       => false,
     // The url to this package. Change it if necessary.
     'url_prefix' => 'uploads',
     /*
     |--------------------------------------------------------------------------
-    | Multi-User Mode
+    | Shared folder / Private folder
     |--------------------------------------------------------------------------
+    |
+    | If both options are set to false, then shared folder will be activated.
+    |
      */
 
-    'allow_multi_user' => false,
-
-    'allow_share_folder' => false,
-
-    /*
-    |--------------------------------------------------------------------------
-    | Folder Names
-    |--------------------------------------------------------------------------
-     */
+    'allow_private_folder'     => true,
 
     // Flexible way to customize client folders accessibility
     // If you want to customize client folders, publish tag="lfm_handler"
     // Then you can rewrite userField function in App\Handler\ConfigHandler class
     // And set 'user_field' to App\Handler\ConfigHandler::class
     // Ex: The private folder of user will be named as the user id.
-    'user_folder_name' => UniSharp\LaravelFilemanager\Handlers\ConfigHandler::class,
+    'private_folder_name'      => UniSharp\LaravelFilemanager\Handlers\ConfigHandler::class,
 
-    // 'shared_folder_name'       => 'shares',
+    'allow_shared_folder'      => false,
 
-    'thumb_folder_name' => 'thumbs',
+    'shared_folder_name'       => 'shares',
 
+    /*
+    |--------------------------------------------------------------------------
+    | Folder Names
+    |--------------------------------------------------------------------------
+     */
     'folder_categories' => [
         'product' => [
             'folder_name' => 'product',
@@ -235,38 +231,28 @@ return [
             ],
         ],
     ],
-
     /*
     |--------------------------------------------------------------------------
     | Upload / Validation
     |--------------------------------------------------------------------------
      */
 
-    'disk' => 'uploads',
+    'disk'                     => 'uploads',
 
-    'rename_file' => false,
+    'rename_file'              => true,
 
-    'alphanumeric_filename' => false,
+    'alphanumeric_filename'    => false,
 
-    'alphanumeric_directory' => false,
+    'alphanumeric_directory'   => false,
 
-    'should_validate_size' => false,
+    'should_validate_size'     => false,
 
-    'should_validate_mime' => false,
-
-    // permissions to be set when create a new folder or when it creates automatically with thumbnails
-    'create_folder_mode' => 0755,
-
-    // permissions to be set on file upload.
-    'create_file_mode' => 0644,
-
-    // If true, it will attempt to chmod the file after upload
-    'should_change_file_mode' => true,
+    'should_validate_mime'     => false,
 
     // behavior on files with identical name
     // setting it to true cause old file replace with new one
     // setting it to false show `error-file-exist` error and stop upload
-    'over_write_on_duplicate' => true,
+    'over_write_on_duplicate'  => false,
 
     /*
     |--------------------------------------------------------------------------
@@ -277,26 +263,18 @@ return [
     // If true, image thumbnails would be created during upload
     'should_create_thumbnails' => true,
 
+    'thumb_folder_name'        => 'thumbs',
+
     // Create thumbnails automatically only for listed types.
-    'raster_mimetypes' => [
+    'raster_mimetypes'         => [
         'image/jpeg',
         'image/pjpeg',
         'image/png',
     ],
 
-    'thumb_img_width' => 200,
+    'thumb_img_width'          => 200, // px
 
-    'thumb_img_height' => 200,
-
-    /*
-    |--------------------------------------------------------------------------
-    | jQuery UI options
-    |--------------------------------------------------------------------------
-     */
-
-    'resize_aspectRatio' => false,
-
-    'resize_containment' => true,
+    'thumb_img_height'         => 200, // px
 
     /*
     |--------------------------------------------------------------------------
@@ -304,34 +282,19 @@ return [
     |--------------------------------------------------------------------------
      */
 
-    'file_type_array' => [
-        'pdf' => 'Adobe Acrobat',
-        'doc' => 'Microsoft Word',
+    'file_type_array'          => [
+        'pdf'  => 'Adobe Acrobat',
+        'doc'  => 'Microsoft Word',
         'docx' => 'Microsoft Word',
-        'xls' => 'Microsoft Excel',
+        'xls'  => 'Microsoft Excel',
         'xlsx' => 'Microsoft Excel',
-        'zip' => 'Archive',
-        'gif' => 'GIF Image',
-        'jpg' => 'JPEG Image',
+        'zip'  => 'Archive',
+        'gif'  => 'GIF Image',
+        'jpg'  => 'JPEG Image',
         'jpeg' => 'JPEG Image',
-        'png' => 'PNG Image',
-        'ppt' => 'Microsoft PowerPoint',
+        'png'  => 'PNG Image',
+        'ppt'  => 'Microsoft PowerPoint',
         'pptx' => 'Microsoft PowerPoint',
-    ],
-
-    'file_icon_array' => [
-        'pdf' => 'fa-file-pdf-o',
-        'doc' => 'fa-file-word-o',
-        'docx' => 'fa-file-word-o',
-        'xls' => 'fa-file-excel-o',
-        'xlsx' => 'fa-file-excel-o',
-        'zip' => 'fa-file-archive-o',
-        'gif' => 'fa-file-image-o',
-        'jpg' => 'fa-file-image-o',
-        'jpeg' => 'fa-file-image-o',
-        'png' => 'fa-file-image-o',
-        'ppt' => 'fa-file-powerpoint-o',
-        'pptx' => 'fa-file-powerpoint-o',
     ],
 
     /*
@@ -345,7 +308,7 @@ return [
     | Please note that the 'upload_max_filesize' & 'post_max_size'
     | directives are not supported.
      */
-    'php_ini_overrides' => [
+    'php_ini_overrides'        => [
         'memory_limit' => '256M',
     ],
 ];

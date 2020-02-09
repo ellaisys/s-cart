@@ -75,9 +75,9 @@ List product single
     {
         return $this->belongsTo(ShopBrand::class, 'brand_id', 'id');
     }
-    public function vendor()
+    public function supplier()
     {
-        return $this->belongsTo(ShopVendor::class, 'vendor_id', 'id');
+        return $this->belongsTo(ShopSupplier::class, 'supplier_id', 'id');
     }
     public function categories()
     {

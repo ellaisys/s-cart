@@ -319,28 +319,28 @@
                         {{-- //Brand --}}
 @endif
 
-@if (sc_config('product_vendor'))
-                        {{-- Vendor --}}
-                        <div class="form-group  {{ $errors->has('vendor_id') ? ' has-error' : '' }}">
-                            <label for="vendor_id" class="col-sm-2 control-label">{{ trans('product.vendor') }}</label>
+@if (sc_config('product_supplier'))
+                        {{-- Supplier --}}
+                        <div class="form-group  {{ $errors->has('supplier_id') ? ' has-error' : '' }}">
+                            <label for="supplier_id" class="col-sm-2 control-label">{{ trans('product.supplier') }}</label>
                             <div class="col-sm-8">
-                                <select class="form-control input-sm vendor_id select2" style="width: 100%;"
-                                    name="vendor_id">
+                                <select class="form-control input-sm supplier_id select2" style="width: 100%;"
+                                    name="supplier_id">
                                     <option value=""></option>
-                                    @foreach ($vendors as $k => $v)
+                                    @foreach ($suppliers as $k => $v)
                                     <option value="{{ $k }}"
-                                        {{ (old('vendor_id') ==$k || (!old() && $product->vendor_id ==$k) ) ? 'selected':'' }}>
+                                        {{ (old('supplier_id') ==$k || (!old() && $product->supplier_id ==$k) ) ? 'selected':'' }}>
                                         {{ $v->name }}</option>
                                     @endforeach
                                 </select>
-                                @if ($errors->has('vendor_id'))
+                                @if ($errors->has('supplier_id'))
                                 <span class="help-block">
-                                    <i class="fa fa-info-circle"></i> {{ $errors->first('vendor_id') }}
+                                    <i class="fa fa-info-circle"></i> {{ $errors->first('supplier_id') }}
                                 </span>
                                 @endif
                             </div>
                         </div>
-                        {{-- //Vendor --}}
+                        {{-- //Supplier --}}
 @endif
 
 @if (sc_config('product_cost'))
@@ -803,9 +803,7 @@
 @endpush
 
 @push('scripts')
-<!--ckeditor-->
-<script src="{{ asset('packages/ckeditor/ckeditor.js') }}"></script>
-<script src="{{ asset('packages/ckeditor/adapters/jquery.js') }}"></script>
+@include('admin.component.ckeditor_js')
 
 <!-- Select2 -->
 <script src="{{ asset('admin/AdminLTE/bower_components/select2/dist/js/select2.full.min.js')}}"></script>

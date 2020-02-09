@@ -237,9 +237,7 @@
 @endpush
 
 @push('scripts')
-<!--ckeditor-->
-<script src="{{ asset('packages/ckeditor/ckeditor.js') }}"></script>
-<script src="{{ asset('packages/ckeditor/adapters/jquery.js') }}"></script>
+@include('admin.component.ckeditor_js')
 
 <!-- Select2 -->
 <script src="{{ asset('admin/AdminLTE/bower_components/select2/dist/js/select2.full.min.js')}}"></script>

@@ -228,9 +228,7 @@
 @endpush
 
 @push('scripts')
-<!--ckeditor-->
-<script src="{{ asset('packages/ckeditor/ckeditor.js') }}"></script>
-<script src="{{ asset('packages/ckeditor/adapters/jquery.js') }}"></script>
+@include('admin.component.ckeditor_js')
 
 {{-- switch --}}
 <script src="{{ asset('admin/plugin/bootstrap-switch.min.js')}}"></script>

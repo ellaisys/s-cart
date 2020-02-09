@@ -12,10 +12,10 @@ return [
     'sort'    => 'Sort',
     'status'  => 'Status',
     'admin'   => [
-        'title'          => 'Vendors',
+        'title'          => 'Suppliers',
         'create_success' => 'Create new item success!',
         'edit_success'   => 'Edit item success!',
-        'list'           => 'Vendors list',
+        'list'           => 'Suppliers list',
         'id'             => 'ID',
         'status'         => 'Status',
         'action'         => 'Action',
@@ -27,8 +27,8 @@ return [
         'sort'           => 'Sort',
         'search'         => 'Search',
         'add_new'        => 'Add new',
-        'add_new_title'  => 'Add vendor',
-        'add_new_des'    => 'Create a new vendor',
+        'add_new_title'  => 'Add supplier',
+        'add_new_des'    => 'Create a new supplier',
 
         'search_place'   => 'Search name or email',
         'sort_order'     => [

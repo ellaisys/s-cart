@@ -7,7 +7,7 @@ use App\Models\ShopBrand;
 use App\Models\ShopBanner;
 use App\Models\ShopCategory;
 use App\Models\ShopProduct;
-use App\Models\ShopVendor;
+use App\Models\ShopSupplier;
 use Illuminate\Http\Request;
 
 class ShopFront extends GeneralController
@@ -322,10 +322,10 @@ class ShopFront extends GeneralController
     }
 
 /**
- * [vendors description]
+ * [suppliers description]
  * @return [type]           [description]
  */
-    public function getVendors()
+    public function getSuppliers()
     {
         $sortBy = null;
         $sortOrder = 'asc';
@@ -343,11 +343,11 @@ class ShopFront extends GeneralController
             $sortOrder = $filterArr[$filter_sort][1];
         }
 
-        $itemsList = (new ShopVendor)->getVendors($limit = sc_config('item_list'), $opt = 'paginate', $sortBy, $sortOrder);
+        $itemsList = (new ShopSupplier)->getSuppliers($limit = sc_config('item_list'), $opt = 'paginate', $sortBy, $sortOrder);
 
         return view($this->templatePath . '.shop_item_list',
             array(
-                'title' => trans('front.vendors'),
+                'title' => trans('front.suppliers'),
                 'itemsList' => $itemsList,
                 'keyword' => '',
                 'description' => '',
@@ -357,12 +357,12 @@ class ShopFront extends GeneralController
     }
 
 /**
- * [productToVendor description]
+ * [productToSupplier description]
  * @param  [string] alias [description]
  * @param  [type] $id   [description]
  * @return [type]       [description]
  */
-    public function productToVendor($alias)
+    public function productToSupplier($alias)
     {
         $sortBy = null;
         $sortOrder = 'asc';
@@ -380,15 +380,15 @@ class ShopFront extends GeneralController
             $sortOrder = $filterArr[$filter_sort][1];
         }
 
-        $vendor = ShopVendor::where('alias', $alias)->first();
-        if ($vendor) {
+        $supplier = ShopSupplier::where('alias', $alias)->first();
+        if ($supplier) {
             return view($this->templatePath . '.shop_products_list',
             array(
-                'title' => $vendor->name,
+                'title' => $supplier->name,
                 'description' => '',
                 'keyword' => '',
                 'layout_page' => 'product_list',
-                'products' => $vendor->getProductsToVendor($vendor->id, $limit = sc_config('product_list'), $opt = 'paginate', $sortBy, $sortOrder),
+                'products' => $supplier->getProductsToSupplier($supplier->id, $limit = sc_config('product_list'), $opt = 'paginate', $sortBy, $sortOrder),
                 'filter_sort' => $filter_sort,
             )
         );

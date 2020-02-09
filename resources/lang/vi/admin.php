@@ -250,7 +250,7 @@ return [
         'config_info' => 'Cấu hình thông tin',
         'template_layout' => 'Giao diện & Bố cục',
         'localisation' => 'Địa phương hóa',
-        'vendor' => 'Nhà cung cấp',
+        'supplier' => 'Nhà cung cấp',
         'report_analytics' => 'Báo cáo và phân tích',
         'report_manager' => 'Báo cáo và phân tích',
         'customer_report' => 'Báo cáo khách hàng',

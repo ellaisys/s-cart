@@ -1,20 +1,20 @@
 <?php
-#app/Http/Admin/Controllers/ShopVendorController.php
+#app/Http/Admin/Controllers/ShopSupplierController.php
 namespace App\Admin\Controllers;
 
 use App\Http\Controllers\Controller;
-use App\Models\ShopVendor;
+use App\Models\ShopSupplier;
 use Illuminate\Http\Request;
 use Validator;
 
-class ShopVendorController extends Controller
+class ShopSupplierController extends Controller
 {
 
     public function index()
     {
 
         $data = [
-            'title' => trans('vendor.admin.list'),
+            'title' => trans('supplier.admin.list'),
             'sub_title' => '',
             'icon' => 'fa fa-indent',
             'menu_left' => '',
@@ -31,28 +31,28 @@ class ShopVendorController extends Controller
         ];
 
         $listTh = [
-            'id' => trans('vendor.id'),
-            'name' => trans('vendor.name'),
-            'image' => trans('vendor.image'),
-            'email' => trans('vendor.email'),
-            'phone' => trans('vendor.phone'),
-            'url' => trans('vendor.url'),
-            'address' => trans('vendor.address'),
-            'sort' => trans('vendor.sort'),
-            'action' => trans('vendor.admin.action'),
+            'id' => trans('supplier.id'),
+            'name' => trans('supplier.name'),
+            'image' => trans('supplier.image'),
+            'email' => trans('supplier.email'),
+            'phone' => trans('supplier.phone'),
+            'url' => trans('supplier.url'),
+            'address' => trans('supplier.address'),
+            'sort' => trans('supplier.sort'),
+            'action' => trans('supplier.admin.action'),
         ];
 
         $sort_order = request('sort_order') ?? 'id_desc';
         $keyword = request('keyword') ?? '';
         $arrSort = [
-            'id__desc' => trans('vendor.admin.sort_order.id_desc'),
-            'id__asc' => trans('vendor.admin.sort_order.id_asc'),
-            'name__desc' => trans('vendor.admin.sort_order.name_desc'),
-            'name__asc' => trans('vendor.admin.sort_order.name_asc'),
-            'email__desc' => trans('vendor.admin.sort_order.email_desc'),
-            'email__asc' => trans('vendor.admin.sort_order.email_asc'),
+            'id__desc' => trans('supplier.admin.sort_order.id_desc'),
+            'id__asc' => trans('supplier.admin.sort_order.id_asc'),
+            'name__desc' => trans('supplier.admin.sort_order.name_desc'),
+            'name__asc' => trans('supplier.admin.sort_order.name_asc'),
+            'email__desc' => trans('supplier.admin.sort_order.email_desc'),
+            'email__asc' => trans('supplier.admin.sort_order.email_asc'),
         ];
-        $obj = new ShopVendor;
+        $obj = new ShopSupplier;
         if ($keyword) {
             $obj = $obj->whereRaw('(email like "%' . $keyword . '%" OR name like "%' . $keyword . '%" )');
         }
@@ -79,9 +79,9 @@ class ShopVendorController extends Controller
                 'address' => $row['address'],
                 'sort' => $row['sort'],
                 'action' => '
-                    <a href="' . route('admin_vendor.edit', ['id' => $row['id']]) . '"><span title="' . trans('vendor.admin.edit') . '" type="button" class="btn btn-flat btn-primary"><i class="fa fa-edit"></i></span></a>&nbsp;
+                    <a href="' . route('admin_supplier.edit', ['id' => $row['id']]) . '"><span title="' . trans('supplier.admin.edit') . '" type="button" class="btn btn-flat btn-primary"><i class="fa fa-edit"></i></span></a>&nbsp;
 
-                  <span onclick="deleteItem(' . $row['id'] . ');"  title="' . trans('vendor.admin.delete') . '" class="btn btn-flat btn-danger"><i class="fa fa-trash"></i></span>
+                  <span onclick="deleteItem(' . $row['id'] . ');"  title="' . trans('supplier.admin.delete') . '" class="btn btn-flat btn-danger"><i class="fa fa-trash"></i></span>
                   ',
             ];
         }
@@ -89,18 +89,18 @@ class ShopVendorController extends Controller
         $data['listTh'] = $listTh;
         $data['dataTr'] = $dataTr;
         $data['pagination'] = $dataTmp->appends(request()->except(['_token', '_pjax']))->links('admin.component.pagination');
-        $data['result_items'] = trans('vendor.admin.result_item', ['item_from' => $dataTmp->firstItem(), 'item_to' => $dataTmp->lastItem(), 'item_total' => $dataTmp->total()]);
+        $data['result_items'] = trans('supplier.admin.result_item', ['item_from' => $dataTmp->firstItem(), 'item_to' => $dataTmp->lastItem(), 'item_total' => $dataTmp->total()]);
 
 //menu_left
         $data['menu_left'] = '<div class="pull-left">
-                      <a class="btn   btn-flat btn-primary grid-refresh" title="Refresh"><i class="fa fa-refresh"></i><span class="hidden-xs"> ' . trans('vendor.admin.refresh') . '</span></a> &nbsp;
+                      <a class="btn   btn-flat btn-primary grid-refresh" title="Refresh"><i class="fa fa-refresh"></i><span class="hidden-xs"> ' . trans('supplier.admin.refresh') . '</span></a> &nbsp;
                       </div>';
 //=menu_left
 
 //menu_right
         $data['menu_right'] = '<div class="btn-group pull-right" style="margin-right: 10px">
-                           <a href="' . route('admin_vendor.create') . '" class="btn  btn-success  btn-flat" title="New" id="button_create_new">
-                           <i class="fa fa-plus"></i><span class="hidden-xs">' . trans('vendor.admin.add_new') . '</span>
+                           <a href="' . route('admin_supplier.create') . '" class="btn  btn-success  btn-flat" title="New" id="button_create_new">
+                           <i class="fa fa-plus"></i><span class="hidden-xs">' . trans('supplier.admin.add_new') . '</span>
                            </a>
                         </div>';
 //=menu_right
@@ -128,7 +128,7 @@ class ShopVendorController extends Controller
                        </div>';
 
         $data['script_sort'] = "$('#button_sort').click(function(event) {
-      var url = '" . route('admin_vendor.index') . "?sort_order='+$('#order_sort option:selected').val();
+      var url = '" . route('admin_supplier.index') . "?sort_order='+$('#order_sort option:selected').val();
       $.pjax({url: url, container: '#pjax-container'})
     });";
 
@@ -137,7 +137,7 @@ class ShopVendorController extends Controller
 //menu_search
 
         $data['menu_search'] = '
-                <form action="' . route('admin_vendor.index') . '" id="button_search">
+                <form action="' . route('admin_supplier.index') . '" id="button_search">
                    <div onclick="$(this).submit();" class="btn-group pull-right">
                            <a class="btn btn-flat btn-primary" title="Refresh">
                               <i class="fa  fa-search"></i><span class="hidden-xs"> ' . trans('admin.search') . '</span>
@@ -145,13 +145,13 @@ class ShopVendorController extends Controller
                    </div>
                    <div class="btn-group pull-right">
                          <div class="form-group">
-                           <input type="text" name="keyword" class="form-control" placeholder="' . trans('vendor.admin.search_place') . '" value="' . $keyword . '">
+                           <input type="text" name="keyword" class="form-control" placeholder="' . trans('supplier.admin.search_place') . '" value="' . $keyword . '">
                          </div>
                    </div>
                 </form>';
 //=menu_search
 
-        $data['url_delete_item'] = route('admin_vendor.delete');
+        $data['url_delete_item'] = route('admin_supplier.delete');
 
         return view('admin.screen.list')
             ->with($data);
@@ -164,14 +164,14 @@ class ShopVendorController extends Controller
     public function create()
     {
         $data = [
-            'title' => trans('vendor.admin.add_new_title'),
+            'title' => trans('supplier.admin.add_new_title'),
             'sub_title' => '',
-            'title_description' => trans('vendor.admin.add_new_des'),
+            'title_description' => trans('supplier.admin.add_new_des'),
             'icon' => 'fa fa-plus',
-            'vendor' => [],
-            'url_action' => route('admin_vendor.create'),
+            'supplier' => [],
+            'url_action' => route('admin_supplier.create'),
         ];
-        return view('admin.screen.vendor')
+        return view('admin.screen.supplier')
             ->with($data);
     }
 
@@ -191,12 +191,12 @@ class ShopVendorController extends Controller
             'image' => 'required',
             'sort' => 'numeric|min:0',
             'name' => 'required|string|max:100',
-            'alias' => 'required|regex:/(^([0-9A-Za-z\-_]+)$)/|unique:'.SC_DB_PREFIX.'shop_vendor,alias|string|max:100',
+            'alias' => 'required|regex:/(^([0-9A-Za-z\-_]+)$)/|unique:'.SC_DB_PREFIX.'shop_supplier,alias|string|max:100',
             'url' => 'url|nullable',
             'email' => 'email|nullable',
         ],[
-            'name.required' => trans('validation.required', ['attribute' => trans('vendor.name')]),
-            'alias.regex' => trans('vendor.alias_validate'),
+            'name.required' => trans('validation.required', ['attribute' => trans('supplier.name')]),
+            'alias.regex' => trans('supplier.alias_validate'),
         ]);
 
         if ($validator->fails()) {
@@ -215,9 +215,9 @@ class ShopVendorController extends Controller
             'phone' => $data['phone'],
             'sort' => (int) $data['sort'],
         ];
-        ShopVendor::create($dataInsert);
+        ShopSupplier::create($dataInsert);
 
-        return redirect()->route('admin_vendor.index')->with('success', trans('vendor.admin.create_success'));
+        return redirect()->route('admin_supplier.index')->with('success', trans('supplier.admin.create_success'));
 
     }
 
@@ -226,19 +226,19 @@ class ShopVendorController extends Controller
  */
     public function edit($id)
     {
-        $vendor = ShopVendor::find($id);
-        if ($vendor === null) {
+        $supplier = ShopSupplier::find($id);
+        if ($supplier === null) {
             return 'no data';
         }
         $data = [
-            'title' => trans('vendor.admin.edit'),
+            'title' => trans('supplier.admin.edit'),
             'sub_title' => '',
             'title_description' => '',
             'icon' => 'fa fa-pencil-square-o',
-            'vendor' => $vendor,
-            'url_action' => route('admin_vendor.edit', ['id' => $vendor['id']]),
+            'supplier' => $supplier,
+            'url_action' => route('admin_supplier.edit', ['id' => $supplier['id']]),
         ];
-        return view('admin.screen.vendor')
+        return view('admin.screen.supplier')
             ->with($data);
     }
 
@@ -247,7 +247,7 @@ class ShopVendorController extends Controller
  */
     public function postEdit($id)
     {
-        $vendor = ShopVendor::find($id);
+        $supplier = ShopSupplier::find($id);
         $data = request()->all();
 
         $data['alias'] = !empty($data['alias'])?$data['alias']:$data['name'];
@@ -258,12 +258,12 @@ class ShopVendorController extends Controller
             'image' => 'required',
             'sort' => 'numeric|min:0',
             'name' => 'required|string|max:100',
-            'alias' => 'required|regex:/(^([0-9A-Za-z\-_]+)$)/|unique:'.SC_DB_PREFIX.'shop_vendor,alias,' . $vendor->id . ',id|string|max:100',
+            'alias' => 'required|regex:/(^([0-9A-Za-z\-_]+)$)/|unique:'.SC_DB_PREFIX.'shop_supplier,alias,' . $supplier->id . ',id|string|max:100',
             'url' => 'url|nullable',
             'email' => 'email|nullable',
         ],[
-            'name.required' => trans('validation.required', ['attribute' => trans('vendor.name')]),
-            'alias.regex' => trans('vendor.alias_validate'),
+            'name.required' => trans('validation.required', ['attribute' => trans('supplier.name')]),
+            'alias.regex' => trans('supplier.alias_validate'),
         ]);
 
         if ($validator->fails()) {
@@ -285,10 +285,10 @@ class ShopVendorController extends Controller
 
         ];
         
-        $vendor->update($dataUpdate);
+        $supplier->update($dataUpdate);
 
 //
-        return redirect()->route('admin_vendor.index')->with('success', trans('vendor.admin.edit_success'));
+        return redirect()->route('admin_supplier.index')->with('success', trans('supplier.admin.edit_success'));
 
     }
 
@@ -303,7 +303,7 @@ Need mothod destroy to boot deleting in model
         } else {
             $ids = request('ids');
             $arrID = explode(',', $ids);
-            ShopVendor::destroy($arrID);
+            ShopSupplier::destroy($arrID);
             return response()->json(['error' => 0, 'msg' => '']);
         }
     }

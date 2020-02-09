@@ -13,7 +13,7 @@ use App\Models\ShopProductBuild;
 use App\Models\ShopProductDescription;
 use App\Models\ShopProductGroup;
 use App\Models\ShopProductImage;
-use App\Models\ShopVendor;
+use App\Models\ShopSupplier;
 use Illuminate\Http\Request;
 use Validator;
 
@@ -302,7 +302,7 @@ class ShopProductController extends Controller
             'languages' => $this->languages,
             'categories' => (new ShopCategory)->getTreeCategories(),
             'brands' => (new ShopBrand)->getList(),
-            'vendors' => (new ShopVendor)->getList(),
+            'suppliers' => (new ShopSupplier)->getList(),
             'types' => $this->types,
             'virtuals' => $this->virtuals,
             'kinds' => $this->kinds,
@@ -418,7 +418,7 @@ class ShopProductController extends Controller
         $subImages = $data['sub_image'] ?? [];
         $dataInsert = [
             'brand_id' => $data['brand_id']??0,
-            'vendor_id' => $data['vendor_id']??0,
+            'supplier_id' => $data['supplier_id']??0,
             'price' => $data['price']??0,
             'sku' => $data['sku'],
             'cost' => $data['cost']??0,
@@ -564,7 +564,7 @@ class ShopProductController extends Controller
             'product' => $product,
             'categories' => (new ShopCategory)->getTreeCategories(),
             'brands' => (new ShopBrand)->getList(),
-            'vendors' => (new ShopVendor)->getList(),
+            'suppliers' => (new ShopSupplier)->getList(),
             'types' => $this->types,
             'virtuals' => $this->virtuals,
             'kinds' => $this->kinds,
@@ -669,7 +669,7 @@ class ShopProductController extends Controller
         $dataUpdate = [
             'image' => $data['image'] ?? '',
             'brand_id' => $data['brand_id'] ?? 0,
-            'vendor_id' => $data['vendor_id'] ?? 0,
+            'supplier_id' => $data['supplier_id'] ?? 0,
             'price' => $data['price'] ?? 0,
             'cost' => $data['cost'] ?? 0,
             'stock' => $data['stock'] ?? 0,

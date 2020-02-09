@@ -21,7 +21,7 @@ return [
     'LOG_SLACK_WEBHOOK_URL_help' => 'Link https://hooks.slack.com/services/...',
     'SUFFIX_URL' => 'Suffix URL',
     'PREFIX_BRAND'      =>  'Prefix url BRAND',
-    'PREFIX_VENDOR'      =>  'Prefix url VENDOR',
+    'PREFIX_SUPPLIER'      =>  'Prefix url SUPPLIER',
     'PREFIX_CATEGORY'       =>  'Prefix url CATEGORY ',
     'PREFIX_PRODUCT'        =>  'Prefix url PRODUCT',
     'PREFIX_SEARCH'     =>  'Prefix url SEARCH',
