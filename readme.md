@@ -79,7 +79,8 @@ Version 3.2, 3.3, 3.4, 4.x
 
 <b>How to map your domain to s-cart? <a href="https://s-cart.org/installation.html">CLICK HERE</a></b>
 
-Step1: Install last version S-cart
+**Step1: Install last version S-cart**
+
 Option 1: **From composer**
 ```
 composer create-project lanhktc/s-cart
@@ -97,7 +98,7 @@ Option 3: **Download full source (included vendors)**
 https://s-cart.org/download.html
 ```
 
-Step2: Set writable permissions for the following directories: 
+**Step2: Set writable permissions for the following directories:**
 
 - <code>storage</code>
 - <code>vendor</code>
@@ -105,20 +106,22 @@ Step2: Set writable permissions for the following directories:
 - <code>bootstrap/cache</code>
 
 
-Step3:
+**Step3: Create database**
 ```
 - Create a new database. Example database name is "s-cart"
 ```
 
-Step4:
+**Step4: Install**
+
 Option 1: **Install automatic**
 ```
 Access your-domain.com/install.php to install S-cart.
-If installing with link "install.php" unsuccessful, you can install it manually below.
 ```
 Then, remove or rename file *public/install.php*
 
 Option 2: **Manual installation**
+
+If installing with link "install.php" unsuccessful, you can install it manually below.
 ```
 - 1: Import file database/*.sql to database.
 - 2: Rename or delete file public/install.php
@@ -137,10 +140,10 @@ ADMIN_PREFIX=sc_admin (Path to admin)
 DB_PREFIX=sc_ (Must be "sc_" because it is fixed in the .sql file)
 ```
 
-Step5:
+**Step5: Install completed**
+
 - Access to url admin: <b>your-domain/sc_admin</b>.
 - User/pass <code><b>admin</b>/<b>admin</b></code>
-
 
 
 ## License:
@@ -155,5 +158,3 @@ Step5:
 ## 
 
 VPS SSD $5/mo, gets $50 in credit over 30 days. [DigitalOcean](https://m.do.co/c/450877e92a78).
-
-
