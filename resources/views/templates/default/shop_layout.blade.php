@@ -44,7 +44,7 @@
     <link href="{{ asset($templateFile.'/css/font-awesome.min.css')}}" rel="stylesheet">
     <link href="{{ asset($templateFile.'/css/prettyPhoto.css')}}" rel="stylesheet">
     <link href="{{ asset($templateFile.'/css/animate.css')}}" rel="stylesheet">
-    <link href="{{ asset($templateFile.'/css/main.css')}}?v={{ filemtime($templateFile.'/css/main.css') }}" rel="stylesheet">
+    <link href="{{ asset($templateFile.'/css/main.css')}}" rel="stylesheet">
     <link href="{{ asset($templateFile.'/css/responsive.css')}}" rel="stylesheet">
     <!--[if lt IE 9]>
     <script src="{{ asset($templateFile.'/js/html5shiv.js')}}"></script>
@@ -159,7 +159,7 @@
 <script src="{{ asset($templateFile.'/js/bootstrap.min.js')}}"></script>
 <script src="{{ asset($templateFile.'/js/jquery.scrollUp.min.js')}}"></script>
 <script src="{{ asset($templateFile.'/js/jquery.prettyPhoto.js')}}"></script>
-<script src="{{ asset($templateFile.'/js/main.js')}}?v={{ filemtime($templateFile.'/js/main.js') }}"></script>
+<script src="{{ asset($templateFile.'/js/main.js')}}"></script>
 
 
 @stack('scripts')
