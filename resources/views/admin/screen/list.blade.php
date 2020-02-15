@@ -6,22 +6,47 @@
          <div class="box">
       <div class="box-header with-border">
         <div class="pull-right">
-         {!! $menu_search??'' !!}
+          @if (!empty($topMenuRight) && count($topMenuRight))
+          <div class="btn-group pull-right" style="margin-right: 10px">
+            @foreach ($topMenuRight as $item)
+                <div class="menu-right">{!! $item !!}</div>
+            @endforeach
+          </div>
+          @endif
         </div>
+        <div class="pull-left">
+          @if (!empty($topMenuLeft) && count($topMenuLeft))
+            @foreach ($topMenuLeft as $item)
+                <div class="menu-left">{!! $item !!}</div>
+            @endforeach
+          @endif
+         </div>
         <!-- /.box-tools -->
       </div>
 
       <div class="box-header with-border">
          <div class="pull-right">
-         {!! $menu_right??'' !!}
+           @if (!empty($menuRight) && count($menuRight))
+           <div class="btn-group pull-right" style="margin-right: 10px">
+             @foreach ($menuRight as $item)
+                 <div class="menu-right">{!! $item !!}</div>
+             @endforeach
+           </div>
+           @endif
          </div>
 
-         <span>
 
-         {!! $menu_left??'' !!}
-         {!! $menu_sort??'' !!}
+         <div class="pull-left">
+          @if (!empty($menuLeft) && count($menuLeft))
+            @foreach ($menuLeft as $item)
+                <div class="menu-left">{!! $item !!}</div>
+            @endforeach
+          @endif
+          @if (!empty($menuSort))
+          <div class="menu-left">{!! $menuSort !!}</div>
+          @endif
+        </div>
 
-         </span>
       </div>
       <!-- /.box-header -->
     <section id="pjax-container" class="table-list">
@@ -46,7 +71,7 @@
          </table>
       </div>
       <div class="box-footer clearfix">
-         {!! $result_items??'' !!}
+         {!! $resultItems??'' !!}
          {!! $pagination??'' !!}
       </div>
     </section>
@@ -75,9 +100,9 @@
       $.pjax.reload({container:'#pjax-container'});
     });
 
-    $(document).on('submit', '#button_search', function(event) {
-      $.pjax.submit(event, '#pjax-container')
-    })
+      $(document).on('submit', '#button_search', function(event) {
+        $.pjax.submit(event, '#pjax-container')
+      })
 
     $(document).on('pjax:send', function() {
       $('#loading').show()
@@ -99,7 +124,7 @@
       }
     });
 
-    {!! $script_sort??'' !!}
+    {!! $scriptSort??'' !!}
 
     $(document).on('ready pjax:end', function(event) {
       $('.table-list input').iCheck({
@@ -139,11 +164,11 @@ $('.grid-trash').on('click', function() {
   })
 
   swalWithBootstrapButtons.fire({
-    title: 'Are you sure to delete this item ?',
+    title: '{{ trans('admin.confirm_delete') }}',
     text: "",
     type: 'warning',
     showCancelButton: true,
-    confirmButtonText: 'Yes, delete it!',
+    confirmButtonText: '{{ trans('admin.confirm_delete') }}',
     confirmButtonColor: "#DD6B55",
     cancelButtonText: 'No, cancel!',
     reverseButtons: true,

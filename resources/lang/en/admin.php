@@ -361,4 +361,6 @@ return [
       'min_c' => 'Minimum :min characters',
       'min_v' => 'Greater than :value',
       'max_v' => 'Less than :value',
+      'confirm_delete' => 'Are you sure to delete this item?',
+      'confirm_delete_yes' => 'Yes, delete it!',
 ];

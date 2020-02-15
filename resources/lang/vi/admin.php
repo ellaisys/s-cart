@@ -366,4 +366,6 @@ return [
     'min_c' => 'Tối thiểu :min kí tự',
     'min_v' => 'Lớn hơn :value',
     'max_v' => 'Nhỏ hơn :value',
+    'confirm_delete' => 'Bạn có chắc chắn xóa nó?',
+    'confirm_delete_yes' => 'Vâng, xóa nó!',
 ];

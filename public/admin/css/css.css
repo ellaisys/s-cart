@@ -49,3 +49,11 @@
   font-size: 10px;
   color: #ad3419;
 }
+.menu-right{
+  display: inline;
+  margin-left: 5px;
+}
+.menu-left{
+  display: inline;
+  margin-right: 5px;
+}
