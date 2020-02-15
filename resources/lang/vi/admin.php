@@ -308,6 +308,7 @@ return [
         'view_all'  => 'Xem tất cả',
        ],
     'extensions_more' =>'<a href="https://s-cart.org/extension.html" target=_new><i class="fa fa-download" aria-hidden="true"></i> Tải thêm TẠI ĐÂY</a>',
+    'template_more' =>'<a href="https://s-cart.org/template.html" target=_new><i class="fa fa-download" aria-hidden="true"></i> Tải thêm TẠI ĐÂY</a>',
     'extension_manager' =>  [
         'manager'     => 'Quản lý phần mở rộng',
         'shipping'    => 'Chức năng vận chuyển',

@@ -303,6 +303,7 @@ return [
             'view_all'  => 'View all',
       ],
       'extensions_more' => '<a href="https://s-cart.org/extension.html" target=_new><i class="fa fa-download" aria-hidden="true"></i> Download more HERE</a>',
+      'template_more' => '<a href="https://s-cart.org/template.html" target=_new><i class="fa fa-download" aria-hidden="true"></i> Download more HERE</a>',
       'extension_manager' => [
             'manager'     => 'Extensions manager',
             'Shipping'    => 'Shipping extensions',

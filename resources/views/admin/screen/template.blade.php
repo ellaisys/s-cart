@@ -4,6 +4,12 @@
    <div class="row">
       <div class="col-md-12">
          <div class="box">
+          <div class="box-header with-border">
+            <h2 class="box-title"></h2>
+            <div class="box-tools">
+              {!! trans('admin.template_more') !!}
+            </div>
+          </div>
             <!-- /.box-header -->
             <div class="box-body" id="pjax-container">
              <table id="main-table" class="table table-bordered table-hover">
