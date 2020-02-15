@@ -48,16 +48,16 @@ class ShopOrderController extends Controller
             'title' => trans('order.admin.list'),
             'sub_title' => '',
             'icon' => 'fa fa-indent',
-            'menu_left' => '',
-            'menu_right' => '',
-            'menu_sort' => '',
-            'script_sort' => '',
-            'menu_search' => '',
-            'script_search' => '',
+            'menuRight' => [],
+            'menuLeft' => [],
+            'topMenuRight' => [],
+            'topMenuLeft' => [],
+            'menuSort' => '',
+            'scriptSort' => '',
             'listTh' => '',
             'dataTr' => '',
             'pagination' => '',
-            'result_items' => '',
+            'resultItems' => '',
             'url_delete_item' => '',
         ];
 
@@ -132,64 +132,54 @@ class ShopOrderController extends Controller
         $data['listTh'] = $listTh;
         $data['dataTr'] = $dataTr;
         $data['pagination'] = $dataTmp->appends(request()->except(['_token', '_pjax']))->links('admin.component.pagination');
-        $data['result_items'] = trans('order.admin.result_item', ['item_from' => $dataTmp->firstItem(), 'item_to' => $dataTmp->lastItem(), 'item_total' => $dataTmp->total()]);
-//menu_left
-        $data['menu_left'] = '<div class="pull-left">
-                    <button type="button" class="btn btn-default grid-select-all"><i class="fa fa-square-o"></i></button> &nbsp;
+        $data['resultItems'] = trans('order.admin.result_item', ['item_from' => $dataTmp->firstItem(), 'item_to' => $dataTmp->lastItem(), 'item_total' => $dataTmp->total()]);
+//menuLeft
+        $data['menuLeft'][] = '<button type="button" class="btn btn-default grid-select-all"><i class="fa fa-square-o"></i></button>';
+        $data['menuLeft'][] = '<a class="btn   btn-flat btn-danger grid-trash" title="Delete"><i class="fa fa-trash-o"></i><span class="hidden-xs"> ' . trans('admin.delete') . '</span></a>';
+        $data['menuLeft'][] = '<a class="btn   btn-flat btn-primary grid-refresh" title="Refresh"><i class="fa fa-refresh"></i><span class="hidden-xs"> ' . trans('admin.refresh') . '</span></a>';
+//=menuLeft
 
-                    <a class="btn   btn-flat btn-danger grid-trash" title="Delete"><i class="fa fa-trash-o"></i><span class="hidden-xs"> ' . trans('admin.delete') . '</span></a> &nbsp;
-
-                    <a class="btn   btn-flat btn-primary grid-refresh" title="Refresh"><i class="fa fa-refresh"></i><span class="hidden-xs"> ' . trans('admin.refresh') . '</span></a> &nbsp;</div>
-                    ';
-//=menu_left
-
-//menu_right
-        $data['menu_right'] = '
-                        <div class="btn-group pull-right" style="margin-right: 10px">
-                           <a href="' . route('admin_order.create') . '" class="btn  btn-success  btn-flat" title="New" id="button_create_new">
+//menuRight
+        $data['menuRight'][] = '<a href="' . route('admin_order.create') . '" class="btn  btn-success  btn-flat" title="New" id="button_create_new">
                            <i class="fa fa-plus"></i><span class="hidden-xs">' . trans('admin.add_new') . '</span>
-                           </a>
-                        </div>
+                           </a>';
+//=menuRight
 
-                        ';
-//=menu_right
-
-//menu_sort
+//menuSort
 
         $optionSort = '';
         foreach ($arrSort as $key => $status) {
             $optionSort .= '<option  ' . (($sort_order == $key) ? "selected" : "") . ' value="' . $key . '">' . $status . '</option>';
         }
 
-        $data['menu_sort'] = '
-                       <div class="btn-group pull-left">
-                        <div class="form-group">
-                           <select class="form-control" id="order_sort">
-                            ' . $optionSort . '
-                           </select>
-                         </div>
-                       </div>
-
-                       <div class="btn-group pull-left">
+        $data['menuSort'] = '
+                       <div class="btn-group pull-right">
                            <a class="btn btn-flat btn-primary" title="Sort" id="button_sort">
                               <i class="fa fa-sort-amount-asc"></i><span class="hidden-xs"> ' . trans('admin.sort') . '</span>
                            </a>
-                       </div>';
+                       </div>
+                       <div class="btn-group pull-right">
+                        <div class="form-group">
+                            <select class="form-control" id="order_sort">
+                            ' . $optionSort . '
+                            </select>
+                        </div>
+                      </div>';
 
-        $data['script_sort'] = "$('#button_sort').click(function(event) {
+        $data['scriptSort'] = "$('#button_sort').click(function(event) {
       var url = '" . route('admin_order.index') . "?sort_order='+$('#order_sort option:selected').val();
       $.pjax({url: url, container: '#pjax-container'})
     });";
 
-//=menu_sort
+//=menuSort
 
-//menu_search
+//menuSearch
 
         $optionStatus = '';
         foreach ($this->statusOrder as $key => $status) {
             $optionStatus .= '<option  ' . (($order_status == $key) ? "selected" : "") . ' value="' . $key . '">' . $status . '</option>';
         }
-        $data['menu_search'] = '
+        $data['topMenuRight'][] = '
                 <form action="' . route('admin_order.index') . '" id="button_search">
                    <div onclick="$(this).submit();" class="btn-group pull-right">
                            <a class="btn btn-flat btn-primary" title="Refresh">
@@ -211,7 +201,7 @@ class ShopOrderController extends Controller
                         </div>
                     </div>
                 </form>';
-//=menu_search
+//=menuSearch
 
         $data['url_delete_item'] = route('admin_order.delete');
 

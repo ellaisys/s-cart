@@ -16,22 +16,21 @@ class AdminProductConfigController extends Controller
             'title' => trans('product.config_manager.title'),
             'sub_title' => '',
             'icon' => 'fa fa-indent',
-            'menu_left' => '',
-            'menu_right' => '',
-            'menu_sort' => '',
-            'script_sort' => '',
-            'menu_search' => '',
-            'script_search' => '',
+            'menuRight' => [],
+            'menuLeft' => [],
+            'topMenuRight' => [],
+            'topMenuLeft' => [],
+            'menuSort' => '',
+            'scriptSort' => '',
             'listTh' => '',
             'dataTr' => '',
             'pagination' => '',
-            'result_items' => '',
+            'resultItems' => '',
             'url_delete_item' => '',
         ];
 
         $obj = (new AdminConfig)->where('code', 'product')->orderBy('sort', 'desc')->get();
         $data['configs'] = $obj;
-
 
         return view('admin.screen.product_config')
             ->with($data);

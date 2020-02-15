@@ -19,22 +19,18 @@ class ShopTemplateController extends Controller
             'sub_title' => '',
             'more_info' => trans('template.guide'),
             'icon' => 'fa fa-indent',
-            'menu_left' => '',
-            'menu_right' => '',
-            'menu_sort' => '',
-            'script_sort' => '',
-            'menu_search' => '',
-            'script_search' => '',
+            'menuRight' => [],
+            'menuLeft' => [],
+            'topMenuRight' => [],
+            'topMenuLeft' => [],
+            'menuSort' => '',
+            'scriptSort' => '',
             'listTh' => '',
             'dataTr' => '',
             'pagination' => '',
-            'result_items' => '',
+            'resultItems' => '',
             'url_delete_item' => '',
         ];
-
-//menu_right
-        $data['menu_right'] = '';
-//=menu_right
 
         $arrTemplates = [];
         foreach (glob(resource_path() . "/views/templates/*") as $template) {

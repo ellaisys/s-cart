@@ -50,7 +50,6 @@ class ShopProductController extends Controller
             'title' => trans('product.admin.list'),
             'sub_title' => '',
             'icon' => 'fa fa-indent',
-            'menuLeft' => '',
             'menuRight' => [],
             'menuLeft' => [],
             'topMenuRight' => [],

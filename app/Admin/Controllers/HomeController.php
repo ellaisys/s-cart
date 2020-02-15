@@ -26,7 +26,7 @@ class HomeController extends Controller
 //=========================
 
         $totals = ShopOrder::select(
-            DB::raw(
+            DB::connection(SC_CONNECTION)->raw(
                 'DATE(created_at) as date,
                 DATE_FORMAT(created_at, "%m/%d") as md,
                 sum(total/exchange_rate) as total_amount,
@@ -79,7 +79,7 @@ class HomeController extends Controller
         }
 
         $totalsMonth = ShopOrder::select(
-            DB::raw(
+            DB::connection(SC_CONNECTION)->raw(
                 'DATE_FORMAT(created_at, "%Y-%m") as ym,
                         sum(total/exchange_rate) as total_amount,
                         count(id) as total_order'

@@ -22,16 +22,16 @@ class ShopAttributeGroupController extends Controller
             'title' => trans('attribute_group.admin.list'),
             'sub_title' => '',
             'icon' => 'fa fa-indent',
-            'menu_left' => '',
-            'menu_right' => '',
-            'menu_sort' => '',
-            'script_sort' => '',
-            'menu_search' => '',
-            'script_search' => '',
+            'menuRight' => [],
+            'menuLeft' => [],
+            'topMenuRight' => [],
+            'topMenuLeft' => [],
+            'menuSort' => '',
+            'scriptSort' => '',
             'listTh' => '',
             'dataTr' => '',
             'pagination' => '',
-            'result_items' => '',
+            'resultItems' => '',
             'url_delete_item' => '',
         ];
 
@@ -62,21 +62,17 @@ class ShopAttributeGroupController extends Controller
         $data['listTh'] = $listTh;
         $data['dataTr'] = $dataTr;
         $data['pagination'] = $dataTmp->appends(request()->except(['_token', '_pjax']))->links('admin.component.pagination');
-        $data['result_items'] = trans('attribute_group.admin.result_item', ['item_from' => $dataTmp->firstItem(), 'item_to' => $dataTmp->lastItem(), 'item_total' => $dataTmp->total()]);
+        $data['resultItems'] = trans('attribute_group.admin.result_item', ['item_from' => $dataTmp->firstItem(), 'item_to' => $dataTmp->lastItem(), 'item_total' => $dataTmp->total()]);
 
-//menu_left
-        $data['menu_left'] = '<div class="pull-left">
-                      <a class="btn   btn-flat btn-primary grid-refresh" title="Refresh"><i class="fa fa-refresh"></i><span class="hidden-xs"> ' . trans('attribute_group.admin.refresh') . '</span></a> &nbsp;
-                      </div>';
-//=menu_left
+//menuLeft
+        $data['menuLeft'][] = '<a class="btn   btn-flat btn-primary grid-refresh" title="Refresh"><i class="fa fa-refresh"></i><span class="hidden-xs"> ' . trans('attribute_group.admin.refresh') . '</span></a>';
+//=menuLeft
 
-//menu_right
-        $data['menu_right'] = '<div class="btn-group pull-right" style="margin-right: 10px">
-                           <a href="' . route('admin_attribute_group.create') . '" class="btn  btn-success  btn-flat" title="New" id="button_create_new">
-                           <i class="fa fa-plus"></i><span class="hidden-xs">' . trans('attribute_group.admin.add_new') . '</span>
-                           </a>
-                        </div>';
-//=menu_right
+//menuRight
+        $data['menuRight'][] = '<a href="' . route('admin_attribute_group.create') . '" class="btn  btn-success  btn-flat" title="New" id="button_create_new">
+        <i class="fa fa-plus"></i><span class="hidden-xs">' . trans('attribute_group.admin.add_new') . '</span>
+        </a>';
+//=menuRight
 
         $data['url_delete_item'] = route('admin_attribute_group.delete');
 

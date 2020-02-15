@@ -41,16 +41,16 @@ class ReportController extends Controller
             'title' => trans('product.admin.list'),
             'sub_title' => '',
             'icon' => 'fa fa-indent',
-            'menu_left' => '',
-            'menu_right' => '',
-            'menu_sort' => '',
-            'script_sort' => '',
-            'menu_search' => '',
-            'script_search' => '',
+            'menuRight' => [],
+            'menuLeft' => [],
+            'topMenuRight' => [],
+            'topMenuLeft' => [],
+            'menuSort' => '',
+            'scriptSort' => '',
             'listTh' => '',
             'dataTr' => '',
             'pagination' => '',
-            'result_items' => '',
+            'resultItems' => '',
             'url_delete_item' => '',
         ];
 
@@ -130,7 +130,7 @@ class ReportController extends Controller
         $data['listTh'] = $listTh;
         $data['dataTr'] = $dataTr;
         $data['pagination'] = $dataTmp->appends(request()->except(['_token', '_pjax']))->links('admin.component.pagination');
-        $data['result_items'] = trans('product.admin.result_item', ['item_from' => $dataTmp->firstItem(), 'item_to' => $dataTmp->lastItem(), 'item_total' => $dataTmp->total()]);
+        $data['resultItems'] = trans('product.admin.result_item', ['item_from' => $dataTmp->firstItem(), 'item_to' => $dataTmp->lastItem(), 'item_total' => $dataTmp->total()]);
 //menu_left
         $data['menu_left'] = '<div class="pull-left">
 
@@ -138,38 +138,37 @@ class ReportController extends Controller
                     ';
 //=menu_left
 
-//menu_sort
+//menuSort
 
         $optionSort = '';
         foreach ($arrSort as $key => $status) {
             $optionSort .= '<option  ' . (($sort_order == $key) ? "selected" : "") . ' value="' . $key . '">' . $status . '</option>';
         }
 
-        $data['menu_sort'] = '
-                       <div class="btn-group pull-left">
-                        <div class="form-group">
-                           <select class="form-control" id="order_sort">
-                            ' . $optionSort . '
-                           </select>
-                         </div>
-                       </div>
-
-                       <div class="btn-group pull-left">
+        $data['menuSort'] = '
+                       <div class="btn-group pull-right">
                            <a class="btn btn-flat btn-primary" title="Sort" id="button_sort">
                               <i class="fa fa-sort-amount-asc"></i><span class="hidden-xs"> ' . trans('admin.sort') . '</span>
                            </a>
-                       </div>';
+                       </div>
+                       <div class="btn-group pull-right">
+                        <div class="form-group">
+                            <select class="form-control" id="order_sort">
+                            ' . $optionSort . '
+                            </select>
+                        </div>
+                      </div>';
 
-        $data['script_sort'] = "$('#button_sort').click(function(event) {
+        $data['scriptSort'] = "$('#button_sort').click(function(event) {
       var url = '" . route('admin_report.product') . "?sort_order='+$('#order_sort option:selected').val();
       $.pjax({url: url, container: '#pjax-container'})
     });";
 
-//=menu_sort
+//=menuSort
 
-//menu_search
+//menuSearch
 
-        $data['menu_search'] = '
+        $data['topMenuRight'][] = '
                 <form action="' . route('admin_report.product') . '" id="button_search">
                    <div onclick="$(this).submit();" class="btn-group pull-right">
                            <a class="btn btn-flat btn-primary" title="Refresh">
@@ -182,7 +181,7 @@ class ReportController extends Controller
                          </div>
                    </div>
                 </form>';
-//=menu_search
+//=menuSearch
 
         return view('admin.screen.list')
             ->with($data);

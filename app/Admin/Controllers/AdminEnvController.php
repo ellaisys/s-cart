@@ -19,16 +19,16 @@ class AdminEnvController extends Controller
             'title' => trans('env.title'),
             'sub_title' => '',
             'icon' => 'fa fa-indent',
-            'menu_left' => '',
-            'menu_right' => '',
-            'menu_sort' => '',
-            'script_sort' => '',
-            'menu_search' => '',
-            'script_search' => '',
+            'menuRight' => [],
+            'menuLeft' => [],
+            'topMenuRight' => [],
+            'topMenuLeft' => [],
+            'menuSort' => '',
+            'scriptSort' => '',
             'listTh' => '',
             'dataTr' => '',
             'pagination' => '',
-            'result_items' => '',
+            'resultItems' => '',
             'url_delete_item' => '',
         ];
 
@@ -40,13 +40,6 @@ class AdminEnvController extends Controller
         $data['currencies'] = $currencies;
         $obj = (new AdminConfig)->where('code', 'env')->orderBy('sort', 'desc')->get();
         $data['configs'] = $obj;
-//menu_right
-        $data['menu_right'] = '<div class="btn-group pull-right" style="margin-right: 10px">
-                           <a href="' . route('admin_store_value.create') . '" class="btn  btn-success  btn-flat" title="New" id="button_create_new">
-                           <i class="fa fa-plus"></i><span class="hidden-xs">' . trans('store_value.admin.add_new') . '</span>
-                           </a>
-                        </div>';
-//=menu_right
 
         return view('admin.screen.env')
             ->with($data);

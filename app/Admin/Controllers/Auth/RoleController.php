@@ -18,16 +18,16 @@ class RoleController extends Controller
             'title' => trans('role.admin.list'),
             'sub_title' => '',
             'icon' => 'fa fa-indent',
-            'menu_left' => '',
-            'menu_right' => '',
-            'menu_sort' => '',
-            'script_sort' => '',
-            'menu_search' => '',
-            'script_search' => '',
+            'menuRight' => [],
+            'menuLeft' => [],
+            'topMenuRight' => [],
+            'topMenuLeft' => [],
+            'menuSort' => '',
+            'scriptSort' => '',
             'listTh' => '',
             'dataTr' => '',
             'pagination' => '',
-            'result_items' => '',
+            'resultItems' => '',
             'url_delete_item' => '',
         ];
 
@@ -87,7 +87,7 @@ class RoleController extends Controller
         $data['listTh'] = $listTh;
         $data['dataTr'] = $dataTr;
         $data['pagination'] = $dataTmp->appends(request()->except(['_token', '_pjax']))->links('admin.component.pagination');
-        $data['result_items'] = trans('role.admin.result_item', ['item_from' => $dataTmp->firstItem(), 'item_to' => $dataTmp->lastItem(), 'item_total' => $dataTmp->total()]);
+        $data['resultItems'] = trans('role.admin.result_item', ['item_from' => $dataTmp->firstItem(), 'item_to' => $dataTmp->lastItem(), 'item_total' => $dataTmp->total()]);
 //menu_left
         $data['menu_left'] = '<div class="pull-left">
                     <button type="button" class="btn btn-default grid-select-all"><i class="fa fa-square-o"></i></button> &nbsp;
@@ -109,34 +109,33 @@ class RoleController extends Controller
                         ';
 //=menu_right
 
-//menu_sort
+//menuSort
 
         $optionSort = '';
         foreach ($arrSort as $key => $status) {
             $optionSort .= '<option  ' . (($sort_order == $key) ? "selected" : "") . ' value="' . $key . '">' . $status . '</option>';
         }
 
-        $data['menu_sort'] = '
-                       <div class="btn-group pull-left">
-                        <div class="form-group">
-                           <select class="form-control" id="order_sort">
-                            ' . $optionSort . '
-                           </select>
-                         </div>
-                       </div>
-
-                       <div class="btn-group pull-left">
+        $data['menuSort'] = '
+                       <div class="btn-group pull-right">
                            <a class="btn btn-flat btn-primary" title="Sort" id="button_sort">
                               <i class="fa fa-sort-amount-asc"></i><span class="hidden-xs"> ' . trans('admin.sort') . '</span>
                            </a>
-                       </div>';
+                       </div>
+                       <div class="btn-group pull-right">
+                        <div class="form-group">
+                            <select class="form-control" id="order_sort">
+                            ' . $optionSort . '
+                            </select>
+                        </div>
+                      </div>';
 
-        $data['script_sort'] = "$('#button_sort').click(function(event) {
+        $data['scriptSort'] = "$('#button_sort').click(function(event) {
       var url = '" . route('admin_role.index') . "?sort_order='+$('#order_sort option:selected').val();
       $.pjax({url: url, container: '#pjax-container'})
     });";
 
-//=menu_sort
+//=menuSort
 
         $data['url_delete_item'] = route('admin_role.delete');
 

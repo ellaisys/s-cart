@@ -27,16 +27,16 @@ class CmsCategoryController extends Controller
             'title' => trans($this->plugin->pathPlugin.'::Category.admin.list'),
             'sub_title' => '',
             'icon' => 'fa fa-indent',
-            'menu_left' => '',
-            'menu_right' => '',
-            'menu_sort' => '',
-            'script_sort' => '',
-            'menu_search' => '',
-            'script_search' => '',
+            'menuRight' => [],
+            'menuLeft' => [],
+            'topMenuRight' => [],
+            'topMenuLeft' => [],
+            'menuSort' => '',
+            'scriptSort' => '',
             'listTh' => '',
             'dataTr' => '',
             'pagination' => '',
-            'result_items' => '',
+            'resultItems' => '',
             'url_delete_item' => '',
         ];
 
@@ -61,10 +61,10 @@ class CmsCategoryController extends Controller
         $obj = new CmsCategory;
 
         $obj = $obj
-            ->leftJoin('cms_category_description', 'cms_category_description.category_id', 'cms_category.id')
-            ->where('cms_category_description.lang', sc_get_locale());
+            ->leftJoin(SC_DB_PREFIX.'cms_category_description', SC_DB_PREFIX.'cms_category_description.category_id', SC_DB_PREFIX.'cms_category.id')
+            ->where(SC_DB_PREFIX.'cms_category_description.lang', sc_get_locale());
         if ($keyword) {
-            $obj = $obj->whereRaw('(id = ' . (int) $keyword . ' OR cms_category_description.title like "%' . $keyword . '%" )');
+            $obj = $obj->whereRaw('(id = ' . (int) $keyword . ' OR '.SC_DB_PREFIX.'cms_category_description.title like "%' . $keyword . '%" )');
         }
         if ($sort_order && array_key_exists($sort_order, $arrSort)) {
             $field = explode('__', $sort_order)[0];
@@ -98,60 +98,50 @@ class CmsCategoryController extends Controller
         $data['listTh'] = $listTh;
         $data['dataTr'] = $dataTr;
         $data['pagination'] = $dataTmp->appends(request()->except(['_token', '_pjax']))->links('admin.component.pagination');
-        $data['result_items'] = trans($this->plugin->pathPlugin.'::Category.admin.result_item', ['item_from' => $dataTmp->firstItem(), 'item_to' => $dataTmp->lastItem(), 'item_total' => $dataTmp->total()]);
-//menu_left
-        $data['menu_left'] = '<div class="pull-left">
-                    <button type="button" class="btn btn-default grid-select-all"><i class="fa fa-square-o"></i></button> &nbsp;
+        $data['resultItems'] = trans($this->plugin->pathPlugin.'::Category.admin.result_item', ['item_from' => $dataTmp->firstItem(), 'item_to' => $dataTmp->lastItem(), 'item_total' => $dataTmp->total()]);
+//menuLeft
+        $data['menuLeft'][] = '<button type="button" class="btn btn-default grid-select-all"><i class="fa fa-square-o"></i></button>';
+        $data['menuLeft'][] = '<a class="btn   btn-flat btn-danger grid-trash" title="Delete"><i class="fa fa-trash-o"></i><span class="hidden-xs"> ' . trans('admin.delete') . '</span></a>';
+        $data['menuLeft'][] = '<a class="btn   btn-flat btn-primary grid-refresh" title="Refresh"><i class="fa fa-refresh"></i><span class="hidden-xs"> ' . trans('admin.refresh') . '</span></a>';
+//=menuLeft
 
-                    <a class="btn   btn-flat btn-danger grid-trash" title="Delete"><i class="fa fa-trash-o"></i><span class="hidden-xs"> ' . trans('admin.delete') . '</span></a> &nbsp;
-
-                    <a class="btn   btn-flat btn-primary grid-refresh" title="Refresh"><i class="fa fa-refresh"></i><span class="hidden-xs"> ' . trans('admin.refresh') . '</span></a> &nbsp;</div>
-                    ';
-//=menu_left
-
-//menu_right
-        $data['menu_right'] = '
-                        <div class="btn-group pull-right" style="margin-right: 10px">
-                           <a href="' . route('admin_cms_category.create') . '" class="btn  btn-success  btn-flat" title="New" id="button_create_new">
+//menuRight
+        $data['menuRight'][] = '<a href="' . route('admin_cms_category.create') . '" class="btn  btn-success  btn-flat" title="New" id="button_create_new">
                            <i class="fa fa-plus"></i><span class="hidden-xs">' . trans('admin.add_new') . '</span>
-                           </a>
-                        </div>
+                           </a>';
+//=menuRight
 
-                        ';
-//=menu_right
-
-//menu_sort
+//menuSort
 
         $optionSort = '';
         foreach ($arrSort as $key => $status) {
             $optionSort .= '<option  ' . (($sort_order == $key) ? "selected" : "") . ' value="' . $key . '">' . $status . '</option>';
         }
 
-        $data['menu_sort'] = '
-                       <div class="btn-group pull-left">
-                        <div class="form-group">
-                           <select class="form-control" id="order_sort">
-                            ' . $optionSort . '
-                           </select>
-                         </div>
-                       </div>
-
-                       <div class="btn-group pull-left">
+        $data['menuSort'] = '
+                       <div class="btn-group pull-right">
                            <a class="btn btn-flat btn-primary" title="Sort" id="button_sort">
                               <i class="fa fa-sort-amount-asc"></i><span class="hidden-xs"> ' . trans('admin.sort') . '</span>
                            </a>
-                       </div>';
+                       </div>
+                       <div class="btn-group pull-right">
+                        <div class="form-group">
+                            <select class="form-control" id="order_sort">
+                            ' . $optionSort . '
+                            </select>
+                        </div>
+                      </div>';
 
-        $data['script_sort'] = "$('#button_sort').click(function(event) {
+        $data['scriptSort'] = "$('#button_sort').click(function(event) {
       var url = '" . route('admin_cms_category.index') . "?sort_order='+$('#order_sort option:selected').val();
       $.pjax({url: url, container: '#pjax-container'})
     });";
 
-//=menu_sort
+//=menuSort
 
-//menu_search
+//menuSearch
 
-        $data['menu_search'] = '
+        $data['topMenuRight'][] = '
                 <form action="' . route('admin_cms_category.index') . '" id="button_search">
                    <div onclick="$(this).submit();" class="btn-group pull-right">
                            <a class="btn btn-flat btn-primary" title="Refresh">
@@ -164,7 +154,7 @@ class CmsCategoryController extends Controller
                          </div>
                    </div>
                 </form>';
-//=menu_search
+//=menuSearch
 
         $data['url_delete_item'] = route('admin_cms_category.delete');
 
@@ -212,7 +202,7 @@ class CmsCategoryController extends Controller
             'descriptions.*.title' => 'required|string|max:200',
             'descriptions.*.keyword' => 'nullable|string|max:200',
             'descriptions.*.description' => 'nullable|string|max:300',
-            'alias' => 'required|regex:/(^([0-9A-Za-z\-_]+)$)/|unique:cms_category,alias|string|max:100',
+            'alias' => 'required|regex:/(^([0-9A-Za-z\-_]+)$)/|unique:'.SC_DB_PREFIX.'cms_category,alias|string|max:100',
         ], [
             'alias.regex' => trans($this->plugin->pathPlugin.'::Category.alias_validate'),
             'descriptions.*.title.required' => trans('validation.required', ['attribute' => trans($this->plugin->pathPlugin.'::Category.title')]),
@@ -294,7 +284,7 @@ class CmsCategoryController extends Controller
             'descriptions.*.title' => 'required|string|max:200',
             'descriptions.*.keyword' => 'nullable|string|max:200',
             'descriptions.*.description' => 'nullable|string|max:300',
-            'alias' => 'required|regex:/(^([0-9A-Za-z\-_]+)$)/|unique:cms_category,alias,' . $category->id . ',id|string|max:100',
+            'alias' => 'required|regex:/(^([0-9A-Za-z\-_]+)$)/|unique:'.SC_DB_PREFIX.'cms_category,alias,' . $category->id . ',id|string|max:100',
         ], [
             'alias.regex' => trans($this->plugin->pathPlugin.'::Category.alias_validate'),
             'descriptions.*.title.required' => trans('validation.required', ['attribute' => trans($this->plugin->pathPlugin.'::Category.title')]),
