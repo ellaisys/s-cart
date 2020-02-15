@@ -433,6 +433,14 @@ class CreateTablesShop extends Migration
             $table->primary(['shop_news_id', 'lang']);
         });
 
+        Schema::create(SC_DB_PREFIX.'shop_sessions', function ($table) {
+            $table->string('id')->unique();
+            $table->unsignedInteger('user_id')->nullable();
+            $table->string('ip_address', 45)->nullable();
+            $table->text('user_agent')->nullable();
+            $table->text('payload');
+            $table->integer('last_activity');
+        });
     }
 
     /**
@@ -486,6 +494,7 @@ class CreateTablesShop extends Migration
         Schema::dropIfExists(SC_DB_PREFIX.'shop_country');
         Schema::dropIfExists(SC_DB_PREFIX.'shop_news');
         Schema::dropIfExists(SC_DB_PREFIX.'shop_news_description');
+        Schema::dropIfExists(SC_DB_PREFIX.'sessions');
     }
 
 }
