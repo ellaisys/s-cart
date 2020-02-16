@@ -30,12 +30,13 @@ class ShopNewsController extends Controller
             'topMenuRight' => [],
             'topMenuLeft' => [],
             'urlDeleteItem' => route('admin_news.delete'),
-            'removeList' => 0, // 1 - Enable function delete list item
+            'removeList' => 1, // 1 - Enable function delete list item
             'buttonRefresh' => 0, // 1 - Enable button refresh
-            'buttonSort' => 0, // 1 - Enable button sort
+            'buttonSort' => 1, // 1 - Enable button sort
         ];
 
         $listTh = [
+            'id' => trans('news.id'),
             'title' => trans('news.title'),
             'image' => trans('news.image'),
             'sort' => trans('news.sort'),
@@ -71,6 +72,7 @@ class ShopNewsController extends Controller
         $dataTr = [];
         foreach ($dataTmp as $key => $row) {
             $dataTr[] = [
+                'id' => $row['id'],
                 'title' => $row['title'],
                 'image' => sc_image_render($row['image'], '50px'),
                 'sort' => $row['sort'],
@@ -87,11 +89,7 @@ class ShopNewsController extends Controller
         $data['dataTr'] = $dataTr;
         $data['pagination'] = $dataTmp->appends(request()->except(['_token', '_pjax']))->links('admin.component.pagination');
         $data['resultItems'] = trans('news.admin.result_item', ['item_from' => $dataTmp->firstItem(), 'item_to' => $dataTmp->lastItem(), 'item_total' => $dataTmp->total()]);
-//menuLeft
-        $data['menuLeft'][] = '<button type="button" class="btn btn-default grid-select-all"><i class="fa fa-square-o"></i></button>';
-        $data['menuLeft'][] = '<a class="btn   btn-flat btn-danger grid-trash" title="Delete"><i class="fa fa-trash-o"></i><span class="hidden-xs"> ' . trans('admin.delete') . '</span></a>';
-        $data['menuLeft'][] = '<a class="btn   btn-flat btn-primary grid-refresh" title="Refresh"><i class="fa fa-refresh"></i><span class="hidden-xs"> ' . trans('admin.refresh') . '</span></a>';
-//=menuLeft
+
 
 //menuRight
         $data['menuRight'][] = '<a href="' . route('admin_news.create') . '" class="btn  btn-success  btn-flat" title="New" id="button_create_new">
@@ -100,35 +98,16 @@ class ShopNewsController extends Controller
 //=menuRight
 
 //menuSort
-
         $optionSort = '';
         foreach ($arrSort as $key => $status) {
             $optionSort .= '<option  ' . (($sort_order == $key) ? "selected" : "") . ' value="' . $key . '">' . $status . '</option>';
         }
 
-        $data['menuSort'] = '
-                       <div class="btn-group pull-right">
-                           <a class="btn btn-flat btn-primary" title="Sort" id="button_sort">
-                              <i class="fa fa-sort-amount-asc"></i><span class="hidden-xs"> ' . trans('admin.sort') . '</span>
-                           </a>
-                       </div>
-                       <div class="btn-group pull-right">
-                        <div class="form-group">
-                            <select class="form-control" id="order_sort">
-                            ' . $optionSort . '
-                            </select>
-                        </div>
-                      </div>';
-
-        $data['scriptSort'] = "$('#button_sort').click(function(event) {
-      var url = '" . route('admin_news.index') . "?sort_order='+$('#order_sort option:selected').val();
-      $.pjax({url: url, container: '#pjax-container'})
-    });";
-
+        $data['urlSort'] = route('admin_news.index');
+        $data['optionSort'] = $optionSort;
 //=menuSort
 
 //menuSearch
-
         $data['topMenuRight'][] = '
                 <form action="' . route('admin_news.index') . '" id="button_search">
                    <div onclick="$(this).submit();" class="btn-group pull-right">

@@ -57,10 +57,6 @@ class ShopEmailTemplateController extends Controller
         $data['pagination'] = $dataTmp->appends(request()->except(['_token', '_pjax']))->links('admin.component.pagination');
         $data['resultItems'] = trans('email_template.admin.result_item', ['item_from' => $dataTmp->firstItem(), 'item_to' => $dataTmp->lastItem(), 'item_total' => $dataTmp->total()]);
 
-//menuLeft
-        $data['menuLeft'][] = '<a class="btn   btn-flat btn-primary grid-refresh" title="Refresh"><i class="fa fa-refresh"></i><span class="hidden-xs"> ' . trans('email_template.admin.refresh') . '</span></a>';
-//=menuLeft
-
 //menuRight
         $data['menuRight'][] = '<a href="' . route('admin_email_template.create') . '" class="btn  btn-success  btn-flat" title="New" id="button_create_new">
                            <i class="fa fa-plus"></i><span class="hidden-xs">' . trans('email_template.admin.add_new') . '</span>

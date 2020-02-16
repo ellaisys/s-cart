@@ -60,9 +60,6 @@ class ShopOrderStatusController extends Controller
         $data['pagination'] = $dataTmp->appends(request()->except(['_token', '_pjax']))->links('admin.component.pagination');
         $data['resultItems'] = trans('order_status.admin.result_item', ['item_from' => $dataTmp->firstItem(), 'item_to' => $dataTmp->lastItem(), 'item_total' => $dataTmp->total()]);
 
-//menuLeft
-        $data['menuLeft'][] = '<a class="btn   btn-flat btn-primary grid-refresh" title="Refresh"><i class="fa fa-refresh"></i><span class="hidden-xs"> ' . trans('order_status.admin.refresh') . '</span></a>';
-//=menuLeft
 
 //menuRight
         $data['menuRight'][] = '<<a href="' . route('admin_order_status.create') . '" class="btn  btn-success  btn-flat" title="New" id="button_create_new">

@@ -31,12 +31,11 @@ class ShopLinkController extends Controller
             'topMenuLeft' => [],
             'urlDeleteItem' => route('admin_link.delete'),
             'removeList' => 0, // 1 - Enable function delete list item
-            'buttonRefresh' => 0, // 1 - Enable button refresh
+            'buttonRefresh' => 1, // 1 - Enable button refresh
             'buttonSort' => 0, // 1 - Enable button sort
         ];
 
         $listTh = [
-            'check_row' => '',
             'name' => trans('link.name'),
             'url' => trans('link.url'),
             'target' => trans('link.target'),
@@ -52,7 +51,6 @@ class ShopLinkController extends Controller
         $dataTr = [];
         foreach ($dataTmp as $key => $row) {
             $dataTr[] = [
-                'check_row' => '<input type="checkbox" class="grid-row-checkbox" data-id="' . $row['id'] . '">',
                 'name' => sc_language_render($row['name']),
                 'url' => $row['url'],
                 'target' => $this->arrTarget[$row['target']] ?? '',
@@ -71,12 +69,6 @@ class ShopLinkController extends Controller
         $data['dataTr'] = $dataTr;
         $data['pagination'] = $dataTmp->appends(request()->except(['_token', '_pjax']))->links('admin.component.pagination');
         $data['resultItems'] = trans('link.admin.result_item', ['item_from' => $dataTmp->firstItem(), 'item_to' => $dataTmp->lastItem(), 'item_total' => $dataTmp->total()]);
-
-//menuLeft
-        $data['menuLeft'][] = '<button type="button" class="btn btn-default grid-select-all"><i class="fa fa-square-o"></i></button>';
-        $data['menuLeft'][] = '<a class="btn   btn-flat btn-danger grid-trash" title="Delete"><i class="fa fa-trash-o"></i><span class="hidden-xs"> ' . trans('admin.delete') . '</span></a>';
-        $data['menuLeft'][] = '<a class="btn   btn-flat btn-primary grid-refresh" title="Refresh"><i class="fa fa-refresh"></i><span class="hidden-xs"> ' . trans('admin.refresh') . '</span></a>';
-//=menuLeft
 
 //menuRight
         $data['menuRight'] = '<a href="' . route('admin_link.create') . '" class="btn  btn-success  btn-flat" title="New" id="button_create_new">

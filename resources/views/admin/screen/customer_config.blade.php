@@ -154,7 +154,7 @@ $('.grid-trash').on('click', function() {
         return new Promise(function(resolve) {
             $.ajax({
                 method: 'post',
-                url: '{{ $urlDeleteItem }}',
+                url: '{{ $urlDeleteItem ?? '' }}',
                 data: {
                   ids:ids,
                     _token: '{{ csrf_token() }}',

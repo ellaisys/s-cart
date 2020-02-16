@@ -31,9 +31,9 @@ class DiscountAdminController extends Controller
             'topMenuRight' => [],
             'topMenuLeft' => [],
             'urlDeleteItem' => route('admin_discount.delete'),
-            'removeList' => 0, // 1 - Enable function delete list item
-            'buttonRefresh' => 0, // 1 - Enable button refresh
-            'buttonSort' => 0, // 1 - Enable button sort
+            'removeList' => 1, // 1 - Enable function delete list item
+            'buttonRefresh' => 1, // 1 - Enable button refresh
+            'buttonSort' => 1, // 1 - Enable button sort
         ];
 
         $listTh = [
@@ -97,44 +97,20 @@ class DiscountAdminController extends Controller
         $data['pagination'] = $dataTmp->appends(request()->except(['_token', '_pjax']))->links('admin.component.pagination');
         $data['resultItems'] = trans($this->plugin->pathPlugin.'::Discount.admin.result_item', ['item_from' => $dataTmp->firstItem(), 'item_to' => $dataTmp->lastItem(), 'item_total' => $dataTmp->total()]);
 
-//menuLeft
-        $data['menuLeft'] = '<button type="button" class="btn btn-default grid-select-all"><i class="fa fa-square-o"></i></button>';
-        $data['menuLeft'] = '<a class="btn   btn-flat btn-danger grid-trash" title="Delete"><i class="fa fa-trash-o"></i><span class="hidden-xs"> ' . trans('admin.delete') . '</span></a>';
-        $data['menuLeft'] = '<a class="btn   btn-flat btn-primary grid-refresh" title="Refresh"><i class="fa fa-refresh"></i><span class="hidden-xs"> ' . trans('admin.refresh') . '</span></a>';
-//=menuLeft
-
 //menuRight
-        $data['menuRight'] = '<a href="' . route('admin_discount.create') . '" class="btn  btn-success  btn-flat" title="New" id="button_create_new">
+        $data['menuRight'][] = '<a href="' . route('admin_discount.create') . '" class="btn  btn-success  btn-flat" title="New" id="button_create_new">
                            <i class="fa fa-plus"></i><span class="hidden-xs">' . trans($this->plugin->pathPlugin.'::Discount.admin.add_new') . '</span>
                            </a>';
 //=menuRight
 
 //menuSort
-
         $optionSort = '';
         foreach ($arrSort as $key => $status) {
             $optionSort .= '<option  ' . (($sort_order == $key) ? "selected" : "") . ' value="' . $key . '">' . $status . '</option>';
         }
 
-        $data['menuSort'] = '
-                       <div class="btn-group pull-right">
-                           <a class="btn btn-flat btn-primary" title="Sort" id="button_sort">
-                              <i class="fa fa-sort-amount-asc"></i><span class="hidden-xs"> ' . trans('admin.sort') . '</span>
-                           </a>
-                       </div>
-                       <div class="btn-group pull-right">
-                        <div class="form-group">
-                            <select class="form-control" id="order_sort">
-                            ' . $optionSort . '
-                            </select>
-                        </div>
-                      </div>';
-
-        $data['scriptSort'] = "$('#button_sort').click(function(event) {
-      var url = '" . route('admin_discount.index') . "?sort_order='+$('#order_sort option:selected').val();
-      $.pjax({url: url, container: '#pjax-container'})
-    });";
-
+        $data['urlSort'] = route('admin_discount.index');
+        $data['optionSort'] = $optionSort;
 //=menuSort
 
 //menuSearch

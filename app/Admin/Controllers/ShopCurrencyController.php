@@ -50,7 +50,7 @@ class ShopCurrencyController extends Controller
         ];
         $obj = new ShopCurrency;
         if ($keyword) {
-            $obj = $obj->whereRaw('(code = "' . $keyword . '% OR name like "%' . $keyword . '%" )');
+            $obj = $obj->whereRaw('(code = "' . $keyword . '" OR name like "%' . $keyword . '%" )');
         }
 
         if ($sort_order && array_key_exists($sort_order, $arrSort)) {
@@ -88,10 +88,6 @@ class ShopCurrencyController extends Controller
         $data['pagination'] = $dataTmp->appends(request()->except(['_token', '_pjax']))->links('admin.component.pagination');
         $data['resultItems'] = trans('currency.admin.result_item', ['item_from' => $dataTmp->firstItem(), 'item_to' => $dataTmp->lastItem(), 'item_total' => $dataTmp->total()]);
 
-//menuLeft
-        $data['menuLeft'][] = '<a class="btn   btn-flat btn-primary grid-refresh" title="Refresh"><i class="fa fa-refresh"></i><span class="hidden-xs"> ' . trans('currency.admin.refresh') . '</span></a>';
-//=menuLeft
-
 //menuRight
         $data['menuRight'][] = '<a href="' . route('admin_currency.create') . '" class="btn  btn-success  btn-flat" title="New" id="button_create_new">
                            <i class="fa fa-plus"></i><span class="hidden-xs">' . trans('currency.admin.add_new') . '</span>
@@ -99,31 +95,13 @@ class ShopCurrencyController extends Controller
 //=menuRight
 
 //menuSort
-
         $optionSort = '';
         foreach ($arrSort as $key => $status) {
             $optionSort .= '<option  ' . (($sort_order == $key) ? "selected" : "") . ' value="' . $key . '">' . $status . '</option>';
         }
 
-        $data['menuSort'] = '
-                       <div class="btn-group pull-right">
-                           <a class="btn btn-flat btn-primary" title="Sort" id="button_sort">
-                              <i class="fa fa-sort-amount-asc"></i><span class="hidden-xs"> ' . trans('admin.sort') . '</span>
-                           </a>
-                       </div>
-                       <div class="btn-group pull-right">
-                        <div class="form-group">
-                            <select class="form-control" id="order_sort">
-                            ' . $optionSort . '
-                            </select>
-                        </div>
-                      </div>';
-
-        $data['scriptSort'] = "$('#button_sort').click(function(event) {
-      var url = '" . route('admin_currency.index') . "?sort_order='+$('#order_sort option:selected').val();
-      $.pjax({url: url, container: '#pjax-container'})
-    });";
-
+        $data['urlSort'] = route('admin_currency.index');
+        $data['optionSort'] = $optionSort;
 //=menuSort
 
 //menuSearch

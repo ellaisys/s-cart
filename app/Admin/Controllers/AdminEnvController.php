@@ -21,14 +21,6 @@ class AdminEnvController extends Controller
             'title' => trans('env.title'),
             'subTitle' => '',
             'icon' => 'fa fa-indent',
-            'menuRight' => [],
-            'menuLeft' => [],
-            'topMenuRight' => [],
-            'topMenuLeft' => [],
-            'urlDeleteItem' => '',
-            'removeList' => 0, // 1 - Enable function delete list item
-            'buttonRefresh' => 0, // 1 - Enable button refresh
-            'buttonSort' => 0, // 1 - Enable button sort
         ];
 
         foreach (timezone_identifiers_list() as $key => $value) {

@@ -14,14 +14,6 @@ class AdminUrlConfigController extends Controller
             'title' => trans('link.config_manager.title'),
             'subTitle' => '',
             'icon' => 'fa fa-indent',
-            'menuRight' => [],
-            'menuLeft' => [],
-            'topMenuRight' => [],
-            'topMenuLeft' => [],
-            'urlDeleteItem' => '',
-            'removeList' => 0, // 1 - Enable function delete list item
-            'buttonRefresh' => 0, // 1 - Enable button refresh
-            'buttonSort' => 0, // 1 - Enable button sort
         ];
 
         $obj = (new AdminConfig)->where('code', 'env')

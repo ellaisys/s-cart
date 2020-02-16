@@ -18,14 +18,6 @@ class ShopTemplateController extends Controller
             'title' => trans('template.admin.list'),
             'subTitle' => '',
             'icon' => 'fa fa-indent',
-            'menuRight' => [],
-            'menuLeft' => [],
-            'topMenuRight' => [],
-            'topMenuLeft' => [],
-            'urlDeleteItem' => '',
-            'removeList' => 0, // 1 - Enable function delete list item
-            'buttonRefresh' => 0, // 1 - Enable button refresh
-            'buttonSort' => 0, // 1 - Enable button sort
         ];
 
         $arrTemplates = [];

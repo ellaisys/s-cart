@@ -373,7 +373,7 @@ $('.remove_menu').click(function(event) {
         return new Promise(function(resolve) {
             $.ajax({
                 method: 'post',
-                url: '{{ $urlDeleteItem }}',
+                url: '{{ $urlDeleteItem ?? '' }}',
                 data: {
                   id:id,
                     _token: '{{ csrf_token() }}',

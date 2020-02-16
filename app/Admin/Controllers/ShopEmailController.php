@@ -16,17 +16,12 @@ class ShopEmailController extends Controller
             'title' => trans('email.admin.list'),
             'subTitle' => '',
             'icon' => 'fa fa-indent',
-            'menuRight' => [],
-            'menuLeft' => [],
-            'topMenuRight' => [],
-            'topMenuLeft' => [],
-            'urlDeleteItem' => '',
-            'removeList' => 0, // 1 - Enable function delete list item
-            'buttonRefresh' => 0, // 1 - Enable button refresh
-            'buttonSort' => 0, // 1 - Enable button sort
         ];
 
-        $obj = (new AdminConfig)->whereIn('code', ['email_action', 'smtp'])->orderBy('sort', 'asc')->get()->groupBy('code');
+        $obj = (new AdminConfig)
+            ->whereIn('code', ['email_action', 'smtp'])
+            ->orderBy('sort', 'asc')
+            ->get()->groupBy('code');
         $data['configs'] = $obj;
         $data['smtp_method'] = ['' => 'None Secirity', 'TLS' => 'TLS', 'SSL' => 'SSL'];
 

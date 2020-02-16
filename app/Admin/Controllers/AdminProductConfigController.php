@@ -16,17 +16,11 @@ class AdminProductConfigController extends Controller
             'title' => trans('product.config_manager.title'),
             'subTitle' => '',
             'icon' => 'fa fa-indent',
-            'menuRight' => [],
-            'menuLeft' => [],
-            'topMenuRight' => [],
-            'topMenuLeft' => [],
-            'urlDeleteItem' => '',
-            'removeList' => 0, // 1 - Enable function delete list item
-            'buttonRefresh' => 0, // 1 - Enable button refresh
-            'buttonSort' => 0, // 1 - Enable button sort
         ];
 
-        $obj = (new AdminConfig)->where('code', 'product')->orderBy('sort', 'desc')->get();
+        $obj = (new AdminConfig)
+            ->where('code', 'product')
+            ->orderBy('sort', 'desc')->get();
         $data['configs'] = $obj;
 
         return view('admin.screen.product_config')
