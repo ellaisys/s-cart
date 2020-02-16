@@ -114,31 +114,4 @@ class HomeController extends Controller
         ];
         return view('admin.deny', $data);
     }
-
-    public function allRoutes()
-    {
-        $routes = app()->routes->getRoutes();
-        // dd($routes);
-        echo "<table style='width:100%'>";
-        echo "<tr>";
-        echo "<td width='10%'><h4>PREFIX</h4></td>";
-        echo "<td width='10%'><h4>URI</h4></td>";
-        echo "<td width='10%'><h4>METHOD</h4></td>";
-        echo "<td width='10%'><h4>NAME</h4></td>";
-        echo "<td width='70%'><h4>middleware</h4></td>";
-        echo "<td width='70%'><h4>controller</h4></td>";
-        echo "</tr>";
-        foreach ($routes as $value) {
-            echo "<tr>";
-            echo "<td>" . $value->getPrefix() . "</td>";
-            echo "<td>" . $value->uri . "</td>";
-            echo "<td>" . json_encode($value->methods) . "</td>";
-            echo "<td>" . $value->getName() . "</td>";
-            echo "<td>" . json_encode($value->getAction('middleware')) . "</td>";
-            echo "<td>" . json_encode($value->getAction('controller')) . "</td>";
-            echo "</tr>";
-        }
-        echo "</table>";
-    }
-
 }

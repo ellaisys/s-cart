@@ -94,7 +94,8 @@ class ShopCurrencyController extends Controller
                            </a>';
 //=menuRight
 
-//menuSearch        $optionSort = '';
+//menuSearch        
+        $optionSort = '';
         foreach ($arrSort as $key => $status) {
             $optionSort .= '<option  ' . (($sort_order == $key) ? "selected" : "") . ' value="' . $key . '">' . $status . '</option>';
         }
@@ -151,7 +152,7 @@ class ShopCurrencyController extends Controller
         $dataOrigin = request()->all();
         $validator = Validator::make($data, [
             'symbol' => 'required',
-            'exchange_rate' => 'required',
+            'exchange_rate' => 'required|numeric|gt:0',
             'precision' => 'required',
             'symbol_first' => 'required',
             'thousands' => 'required',
@@ -214,7 +215,7 @@ class ShopCurrencyController extends Controller
         $dataOrigin = request()->all();
         $validator = Validator::make($data, [
             'symbol' => 'required',
-            'exchange_rate' => 'required',
+            'exchange_rate' => 'required|numeric|gt:0',
             'precision' => 'required',
             'symbol_first' => 'required',
             'thousands' => 'required',
