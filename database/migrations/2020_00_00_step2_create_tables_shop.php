@@ -494,7 +494,7 @@ class CreateTablesShop extends Migration
         Schema::dropIfExists(SC_DB_PREFIX.'shop_country');
         Schema::dropIfExists(SC_DB_PREFIX.'shop_news');
         Schema::dropIfExists(SC_DB_PREFIX.'shop_news_description');
-        Schema::dropIfExists(SC_DB_PREFIX.'sessions');
+        Schema::dropIfExists(SC_DB_PREFIX.'shop_sessions');
     }
 
 }
