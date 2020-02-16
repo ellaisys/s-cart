@@ -92,11 +92,11 @@ class ShopSupplierController extends Controller
         $data['resultItems'] = trans('supplier.admin.result_item', ['item_from' => $dataTmp->firstItem(), 'item_to' => $dataTmp->lastItem(), 'item_total' => $dataTmp->total()]);
 
 //menuLeft
-        $data['menuLeft'] = '<a class="btn   btn-flat btn-primary grid-refresh" title="Refresh"><i class="fa fa-refresh"></i><span class="hidden-xs"> ' . trans('supplier.admin.refresh') . '</span></a>';
+        $data['menuLeft'][] = '<a class="btn   btn-flat btn-primary grid-refresh" title="Refresh"><i class="fa fa-refresh"></i><span class="hidden-xs"> ' . trans('supplier.admin.refresh') . '</span></a>';
 //=menuLeft
 
 //menuRight
-        $data['menuRight'] = '<a href="' . route('admin_supplier.create') . '" class="btn  btn-success  btn-flat" title="New" id="button_create_new">
+        $data['menuRight'][] = '<a href="' . route('admin_supplier.create') . '" class="btn  btn-success  btn-flat" title="New" id="button_create_new">
                            <i class="fa fa-plus"></i><span class="hidden-xs">' . trans('supplier.admin.add_new') . '</span>
                            </a>';
 //=menuRight

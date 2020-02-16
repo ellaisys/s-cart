@@ -67,7 +67,7 @@ class ShopPaymentStatusController extends Controller
 //=menuLeft
 
 //menuRight
-        $data['menuRight'] = '<a href="' . route('admin_payment_status.create') . '" class="btn  btn-success  btn-flat" title="New" id="button_create_new">
+        $data['menuRight'][] = '<a href="' . route('admin_payment_status.create') . '" class="btn  btn-success  btn-flat" title="New" id="button_create_new">
                            <i class="fa fa-plus"></i><span class="hidden-xs">' . trans('payment_status.admin.add_new') . '</span>
                            </a>';
 //=menuRight
