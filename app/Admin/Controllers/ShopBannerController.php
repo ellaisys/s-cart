@@ -96,8 +96,7 @@ class ShopBannerController extends Controller
                            </a>';
 //=menuRight
 
-//menuSort
-        $optionSort = '';
+//menuSearch        $optionSort = '';
         foreach ($arrSort as $key => $status) {
             $optionSort .= '<option  ' . (($sort_order == $key) ? "selected" : "") . ' value="' . $key . '">' . $status . '</option>';
         }

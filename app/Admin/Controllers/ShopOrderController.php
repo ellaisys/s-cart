@@ -138,8 +138,7 @@ class ShopOrderController extends Controller
                            </a>';
 //=menuRight
 
-//menuSort
-        $optionSort = '';
+//menuSearch        $optionSort = '';
         foreach ($arrSort as $key => $status) {
             $optionSort .= '<option  ' . (($sort_order == $key) ? "selected" : "") . ' value="' . $key . '">' . $status . '</option>';
         }
@@ -148,8 +147,7 @@ class ShopOrderController extends Controller
         $data['optionSort'] = $optionSort;
 //=menuSort
 
-//menuSearch
-        $optionStatus = '';
+//menuSearch        $optionStatus = '';
         foreach ($this->statusOrder as $key => $status) {
             $optionStatus .= '<option  ' . (($order_status == $key) ? "selected" : "") . ' value="' . $key . '">' . $status . '</option>';
         }

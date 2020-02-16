@@ -1,5 +1,5 @@
 <?php
-#app/Http/Admin/Controllers/ReportController.php
+#app/Http/Admin/Controllers/AdminReportController.php
 namespace App\Admin\Controllers;
 
 use App\Http\Controllers\Controller;
@@ -8,7 +8,7 @@ use App\Models\ShopLanguage;
 use App\Models\ShopProduct;
 use Illuminate\Http\Request;
 
-class ReportController extends Controller
+class AdminReportController extends Controller
 {
     public $languages, $types, $kinds, $virtuals, $attributeGroup;
 
@@ -48,7 +48,7 @@ class ReportController extends Controller
             'urlDeleteItem' => '',
             'removeList' => 0, // 1 - Enable function delete list item
             'buttonRefresh' => 0, // 1 - Enable button refresh
-            'buttonSort' => 0, // 1 - Enable button sort
+            'buttonSort' => 1, // 1 - Enable button sort
         ];
 
         $listTh = [
@@ -128,6 +128,7 @@ class ReportController extends Controller
         $data['dataTr'] = $dataTr;
         $data['pagination'] = $dataTmp->appends(request()->except(['_token', '_pjax']))->links('admin.component.pagination');
         $data['resultItems'] = trans('product.admin.result_item', ['item_from' => $dataTmp->firstItem(), 'item_to' => $dataTmp->lastItem(), 'item_total' => $dataTmp->total()]);
+
 //menu_left
         $data['menu_left'] = '<div class="pull-left">
 
@@ -135,36 +136,17 @@ class ReportController extends Controller
                     ';
 //=menu_left
 
-//menuSort
-
+//menuSearch
         $optionSort = '';
         foreach ($arrSort as $key => $status) {
             $optionSort .= '<option  ' . (($sort_order == $key) ? "selected" : "") . ' value="' . $key . '">' . $status . '</option>';
         }
 
-        $data['menuSort'] = '
-                       <div class="btn-group pull-right">
-                           <a class="btn btn-flat btn-primary" title="Sort" id="button_sort">
-                              <i class="fa fa-sort-amount-asc"></i><span class="hidden-xs"> ' . trans('admin.sort') . '</span>
-                           </a>
-                       </div>
-                       <div class="btn-group pull-right">
-                        <div class="form-group">
-                            <select class="form-control" id="order_sort">
-                            ' . $optionSort . '
-                            </select>
-                        </div>
-                      </div>';
-
-        $data['scriptSort'] = "$('#button_sort').click(function(event) {
-      var url = '" . route('admin_report.product') . "?sort_order='+$('#order_sort option:selected').val();
-      $.pjax({url: url, container: '#pjax-container'})
-    });";
-
+        $data['urlSort'] = route('admin_report.product');
+        $data['optionSort'] = $optionSort;
 //=menuSort
 
 //menuSearch
-
         $data['topMenuRight'][] = '
                 <form action="' . route('admin_report.product') . '" id="button_search">
                    <div onclick="$(this).submit();" class="btn-group pull-right">

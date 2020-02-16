@@ -117,8 +117,7 @@ class UsersController extends Controller
                         ';
 //=menu_right
 
-//menuSort
-
+//menuSearch
         $optionSort = '';
         foreach ($arrSort as $key => $status) {
             $optionSort .= '<option  ' . (($sort_order == $key) ? "selected" : "") . ' value="' . $key . '">' . $status . '</option>';
@@ -146,7 +145,6 @@ class UsersController extends Controller
 //=menuSort
 
 //menuSearch
-
         $data['topMenuRight'][] = '
                 <form action="' . route('admin_user.index') . '" id="button_search">
                    <div onclick="$(this).submit();" class="btn-group pull-right">

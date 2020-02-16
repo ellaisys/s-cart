@@ -1,5 +1,5 @@
 <?php
-#app/Http/Admin/Controllers/MenuController.php
+#app/Http/Admin/Controllers/AdminMenuController.php
 namespace App\Admin\Controllers;
 
 use App\Admin\Admin;
@@ -10,7 +10,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Validator;
 
-class MenuController extends Controller
+class AdminMenuController extends Controller
 {
     public function index()
     {

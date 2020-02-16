@@ -1,12 +1,12 @@
 <?php
-#app/Http/Admin/Controllers/BackupController.php
+#app/Http/Admin/Controllers/AdminBackupController.php
 namespace App\Admin\Controllers;
 
 use App\Http\Controllers\Controller;
 use DB;
 use Illuminate\Http\Request;
 
-class BackupController extends Controller
+class AdminBackupController extends Controller
 {
 
     public function index()

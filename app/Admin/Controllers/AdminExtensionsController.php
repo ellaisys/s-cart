@@ -1,11 +1,11 @@
 <?php
-#app/Http/Admin/Controllers/ExtensionsController.php
+#app/Http/Admin/Controllers/AdminExtensionsController.php
 namespace App\Admin\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class ExtensionsController extends Controller
+class AdminExtensionsController extends Controller
 {
 
     public function index($group)

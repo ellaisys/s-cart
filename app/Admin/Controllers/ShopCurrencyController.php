@@ -94,8 +94,7 @@ class ShopCurrencyController extends Controller
                            </a>';
 //=menuRight
 
-//menuSort
-        $optionSort = '';
+//menuSearch        $optionSort = '';
         foreach ($arrSort as $key => $status) {
             $optionSort .= '<option  ' . (($sort_order == $key) ? "selected" : "") . ' value="' . $key . '">' . $status . '</option>';
         }
@@ -105,7 +104,6 @@ class ShopCurrencyController extends Controller
 //=menuSort
 
 //menuSearch
-
         $data['topMenuRight'][] = '
                 <form action="' . route('admin_currency.index') . '" id="button_search">
                    <div onclick="$(this).submit();" class="btn-group pull-right">

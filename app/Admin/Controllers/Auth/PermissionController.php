@@ -144,8 +144,7 @@ class PermissionController extends Controller
                         ';
 //=menu_right
 
-//menuSort
-
+//menuSearch
         $optionSort = '';
         foreach ($arrSort as $key => $status) {
             $optionSort .= '<option  ' . (($sort_order == $key) ? "selected" : "") . ' value="' . $key . '">' . $status . '</option>';
