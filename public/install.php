@@ -8,7 +8,6 @@ require __DIR__ . '/../vendor/autoload.php';
 $app = include_once __DIR__ . '/../bootstrap/app.php';
 use Illuminate\Encryption\Encrypter;
 use Illuminate\Support\Facades\Artisan;
-use 
 $kernel   = $app->make(Illuminate\Contracts\Http\Kernel::class);
 $response = $kernel->handle(
     $request = Illuminate\Http\Request::capture()
