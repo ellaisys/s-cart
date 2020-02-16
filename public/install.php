@@ -8,7 +8,7 @@ require __DIR__ . '/../vendor/autoload.php';
 $app = include_once __DIR__ . '/../bootstrap/app.php';
 use Illuminate\Encryption\Encrypter;
 use Illuminate\Support\Facades\Artisan;
-
+use 
 $kernel   = $app->make(Illuminate\Contracts\Http\Kernel::class);
 $response = $kernel->handle(
     $request = Illuminate\Http\Request::capture()
@@ -72,6 +72,10 @@ if (request()->method() == 'POST' && request()->ajax()) {
 
     case 'step2-1':
         session(['infoInstall'=> request('infoInstall')]);
+        //Drop table migrations if exist
+        if(!empty(session('infoInstall')['dropdb'])) {
+            \Schema::dropIfExists('migrations');
+        }
         try {
             Artisan::call('migrate --path=/database/migrations/2020_00_00_step1_create_tables_admin.php');
         } catch(\Exception $e) {

@@ -114,7 +114,6 @@ class DiscountAdminController extends Controller
 //=menuSort
 
 //menuSearch
-
         $data['topMenuRight'][] = '
                 <form action="' . route('admin_discount.index') . '" id="button_search">
                    <div onclick="$(this).submit();" class="btn-group pull-right">
@@ -129,14 +128,13 @@ class DiscountAdminController extends Controller
                    </div>
                 </form>';
 //=menuSearch
-        //
 
         return view('admin.screen.list')
             ->with($data);
     }
 
 /**
- * Form create new order in admin
+ * Form create new
  * @return [type] [description]
  */
     public function create()
@@ -154,7 +152,7 @@ class DiscountAdminController extends Controller
     }
 
 /**
- * Post create new order in admin
+ * Post create new 
  * @return [type] [description]
  */
     public function postCreate()
@@ -170,7 +168,6 @@ class DiscountAdminController extends Controller
         ]);
 
         if ($validator->fails()) {
-            // dd($validator->messages());
             return redirect()->back()
                 ->withErrors($validator)
                 ->withInput();
@@ -229,7 +226,6 @@ class DiscountAdminController extends Controller
         ]);
 
         if ($validator->fails()) {
-            // dd($validator->messages());
             return redirect()->back()
                 ->withErrors($validator)
                 ->withInput();
