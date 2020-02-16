@@ -24,6 +24,7 @@ return [
         'add_new'        => 'Add new',
         'add_new_title'  => 'Add template',
         'add_new_des'    => 'Create a new template',
+        'variable_support'    => 'Variables support:',
 
         'search_place'   => 'Search ID or email',
         'sort_order'     => [

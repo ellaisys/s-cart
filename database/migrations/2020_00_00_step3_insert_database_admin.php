@@ -73,8 +73,8 @@ class InsertDatabaseAdmin extends Migration
             ['id' => 52, 'parent_id' => 7, 'sort' => 103, 'title' => 'lang::news.admin.title', 'icon' => 'fa-file-powerpoint-o', 'uri' => 'admin::news', 'type' => 0],
             ['id' => 53, 'parent_id' => 5, 'sort' => 3, 'title' => 'lang::env.title', 'icon' => 'fa-cog', 'uri' => 'admin::env', 'type' => 0],
             ['id' => 54, 'parent_id' => 37, 'sort' => 0, 'title' => 'lang::admin.menu_titles.report_product', 'icon' => 'fa-bars', 'uri' => 'admin::report/product', 'type' => 0],
-            ['id' => 55, 'parent_id' => 5, 'sort' => 2, 'title' => 'lang::product.config_manager.title', 'icon' => 'fa-product-hunt', 'uri' => 'admin::product_config', 'type' => 0],
-            ['id' => 56, 'parent_id' => 5, 'sort' => 2, 'title' => 'lang::customer.config_manager.title', 'icon' => 'fa-address-card-o', 'uri' => 'admin::customer_config', 'type' => 0],
+            ['id' => 55, 'parent_id' => 2, 'sort' => 100, 'title' => 'lang::product.config_manager.title', 'icon' => 'fa fa-cog', 'uri' => 'admin::product_config', 'type' => 0],
+            ['id' => 56, 'parent_id' => 3, 'sort' => 100, 'title' => 'lang::customer.config_manager.title', 'icon' => 'fa fa-cog', 'uri' => 'admin::customer_config', 'type' => 0],
             ['id' => 57, 'parent_id' => 5, 'sort' => 2, 'title' => 'lang::link.config_manager.title', 'icon' => 'fa-gg', 'uri' => 'admin::url_config', 'type' => 0],
         ]
         );

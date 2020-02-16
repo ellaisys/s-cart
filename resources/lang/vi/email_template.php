@@ -24,6 +24,7 @@ return [
         'search'         => 'Tìm kiếm',
         'add_new_title'  => 'Tạo template',
         'add_new_des'    => 'Tạo mới template',
+        'variable_support'    => 'Các biến hỗ trợ',
 
         'search_place'   => 'Tìm ID hoặc email',
 
