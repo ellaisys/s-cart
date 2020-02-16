@@ -15,19 +15,16 @@ class AdminLogController extends Controller
 
         $data = [
             'title' => trans('log.admin.list'),
-            'sub_title' => '',
+            'subTitle' => '',
             'icon' => 'fa fa-indent',
             'menuRight' => [],
             'menuLeft' => [],
             'topMenuRight' => [],
             'topMenuLeft' => [],
-            'menuSort' => '',
-            'scriptSort' => '',
-            'listTh' => '',
-            'dataTr' => '',
-            'pagination' => '',
-            'resultItems' => '',
-            'url_delete_item' => '',
+            'urlDeleteItem' => route('admin_log.delete'),
+            'removeList' => 0, // 1 - Enable function delete list item
+            'buttonRefresh' => 0, // 1 - Enable button refresh
+            'buttonSort' => 0, // 1 - Enable button sort
         ];
 
         $listTh = [
@@ -127,8 +124,6 @@ class AdminLogController extends Controller
     });";
 
 //=menuSort
-
-        $data['url_delete_item'] = route('admin_log.delete');
 
         return view('admin.screen.list')
             ->with($data);

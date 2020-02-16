@@ -23,19 +23,16 @@ class ShopLinkController extends Controller
 
         $data = [
             'title' => trans('link.admin.list'),
-            'sub_title' => '',
+            'subTitle' => '',
             'icon' => 'fa fa-indent',
             'menuRight' => [],
             'menuLeft' => [],
             'topMenuRight' => [],
             'topMenuLeft' => [],
-            'menuSort' => '',
-            'scriptSort' => '',
-            'listTh' => '',
-            'dataTr' => '',
-            'pagination' => '',
-            'resultItems' => '',
-            'url_delete_item' => '',
+            'urlDeleteItem' => route('admin_link.delete'),
+            'removeList' => 0, // 1 - Enable function delete list item
+            'buttonRefresh' => 0, // 1 - Enable button refresh
+            'buttonSort' => 0, // 1 - Enable button sort
         ];
 
         $listTh = [
@@ -87,8 +84,6 @@ class ShopLinkController extends Controller
                            </a>';
 //=menuRight
 
-        $data['url_delete_item'] = route('admin_link.delete');
-
         return view('admin.screen.list')
             ->with($data);
     }
@@ -101,7 +96,7 @@ class ShopLinkController extends Controller
     {
         $data = [
             'title' => trans('link.admin.add_new_title'),
-            'sub_title' => '',
+            'subTitle' => '',
             'title_description' => trans('link.admin.add_new_des'),
             'icon' => 'fa fa-plus',
             'link' => [],
@@ -159,7 +154,7 @@ class ShopLinkController extends Controller
         }
         $data = [
             'title' => trans('link.admin.edit'),
-            'sub_title' => '',
+            'subTitle' => '',
             'title_description' => '',
             'icon' => 'fa fa-pencil-square-o',
             'link' => $link,

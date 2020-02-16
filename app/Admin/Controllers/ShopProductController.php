@@ -48,23 +48,19 @@ class ShopProductController extends Controller
     {
         $data = [
             'title' => trans('product.admin.list'),
-            'sub_title' => '',
+            'subTitle' => '',
             'icon' => 'fa fa-indent',
             'menuRight' => [],
             'menuLeft' => [],
             'topMenuRight' => [],
             'topMenuLeft' => [],
-            'menuSort' => '',
-            'scriptSort' => '',
-            'listTh' => '',
-            'dataTr' => '',
-            'pagination' => '',
-            'resultItems' => '',
-            'url_delete_item' => '',
+            'urlDeleteItem' => route('admin_product.delete'),
+            'removeList' => 1, // Enable function delete list item
+            'buttonRefresh' => 1, // 1 - Enable button refresh
+            'buttonSort' => 1, // 1 - Enable button sort
         ];
 
         $listTh = [
-            'check_row' => '',
             'id' => trans('product.id'),
             'image' => trans('product.image'),
             'sku' => trans('product.sku'),
@@ -89,9 +85,9 @@ class ShopProductController extends Controller
         $listTh['status'] = trans('product.status');
         $listTh['action'] = trans('product.admin.action');
 
+        $keyword = request('keyword') ?? '';
 
         $sort_order = request('sort_order') ?? 'id_desc';
-        $keyword = request('keyword') ?? '';
         $arrSort = [
             'id__desc' => trans('product.admin.sort_order.id_desc'),
             'id__asc' => trans('product.admin.sort_order.id_asc'),
@@ -131,7 +127,6 @@ class ShopProductController extends Controller
                 $type = '<span class="label label-danger">' . $type . '</span>';
             }
             $dataMap = [
-                'check_row' => '<input type="checkbox" class="grid-row-checkbox" data-id="' . $row['id'] . '">',
                 'id' => $row['id'],
                 'image' => sc_image_render($row->getThumb(), '50px', '50px'),
                 'sku' => $row['sku'],
@@ -172,11 +167,6 @@ class ShopProductController extends Controller
         $data['dataTr'] = $dataTr;
         $data['pagination'] = $dataTmp->appends(request()->except(['_token', '_pjax']))->links('admin.component.pagination');
         $data['resultItems'] = trans('product.admin.result_item', ['item_from' => $dataTmp->firstItem(), 'item_to' => $dataTmp->lastItem(), 'item_total' => $dataTmp->total()]);
-//menuLeft
-        $data['menuLeft'][] = '<button type="button" class="btn btn-default grid-select-all"><i class="fa fa-square-o"></i></button>';
-        $data['menuLeft'][] = '<a class="btn btn-flat btn-danger grid-trash" title="Delete"><i class="fa fa-trash-o"></i><span class="hidden-xs"> ' . trans('admin.delete') . '</span></a>';
-        $data['menuLeft'][] = '<a class="btn btn-flat btn-primary grid-refresh" title="Refresh"><i class="fa fa-refresh"></i><span class="hidden-xs"> ' . trans('admin.refresh') . '</span></a>';
-//=menuLeft
 
 //menuRight
         $data['menuRight'][] = '<a href="' . route('admin_product.create') . '" class="btn btn-success btn-flat" title="New" id="button_create_new">
@@ -190,31 +180,12 @@ class ShopProductController extends Controller
 //=menuRight
 
 //menuSort
-
         $optionSort = '';
         foreach ($arrSort as $key => $status) {
             $optionSort .= '<option  ' . (($sort_order == $key) ? "selected" : "") . ' value="' . $key . '">' . $status . '</option>';
         }
-
-        $data['menuSort'] = '
-                       <div class="btn-group pull-right">
-                           <a class="btn btn-flat btn-primary" title="Sort" id="button_sort">
-                              <i class="fa fa-sort-amount-asc"></i><span class="hidden-xs"> ' . trans('admin.sort') . '</span>
-                           </a>
-                       </div>
-                       <div class="btn-group pull-right">
-                        <div class="form-group">
-                            <select class="form-control" id="order_sort">
-                            ' . $optionSort . '
-                            </select>
-                        </div>
-                      </div>';
-
-        $data['scriptSort'] = "$('#button_sort').click(function(event) {
-      var url = '" . route('admin_product.index') . "?sort_order='+$('#order_sort option:selected').val();
-      $.pjax({url: url, container: '#pjax-container'})
-    });";
-
+        $data['optionSort'] = $optionSort;
+        $data['urlSort'] = route('admin_product.index');
 //=menuSort
 
 //topMenuRight
@@ -233,8 +204,6 @@ class ShopProductController extends Controller
                    </div>
                 </form>';
 //=topMenuRight
-
-        $data['url_delete_item'] = route('admin_product.delete');
 
         return view('admin.screen.list')
             ->with($data);
@@ -280,7 +249,7 @@ class ShopProductController extends Controller
 
         $data = [
             'title' => trans('product.admin.add_new_title'),
-            'sub_title' => '',
+            'subTitle' => '',
             'title_description' => trans('product.admin.add_new_des'),
             'icon' => 'fa fa-plus',
             'languages' => $this->languages,
@@ -541,7 +510,7 @@ class ShopProductController extends Controller
 
         $data = [
             'title' => trans('product.admin.edit'),
-            'sub_title' => '',
+            'subTitle' => '',
             'title_description' => '',
             'icon' => 'fa fa-pencil-square-o',
             'languages' => $this->languages,

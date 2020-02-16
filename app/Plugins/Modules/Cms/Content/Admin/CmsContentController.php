@@ -26,19 +26,16 @@ class CmsContentController extends Controller
     {
         $data = [
             'title' => trans($this->plugin->pathPlugin.'::Content.admin.list'),
-            'sub_title' => '',
+            'subTitle' => '',
             'icon' => 'fa fa-indent',
             'menuRight' => [],
             'menuLeft' => [],
             'topMenuRight' => [],
             'topMenuLeft' => [],
-            'menuSort' => '',
-            'scriptSort' => '',
-            'listTh' => '',
-            'dataTr' => '',
-            'pagination' => '',
-            'resultItems' => '',
-            'url_delete_item' => '',
+            'urlDeleteItem' => route('admin_cms_content.delete'),
+            'removeList' => 0, // 1 - Enable function delete list item
+            'buttonRefresh' => 0, // 1 - Enable button refresh
+            'buttonSort' => 0, // 1 - Enable button sort
         ];
 
         $listTh = [
@@ -164,8 +161,6 @@ class CmsContentController extends Controller
                 </form>';
         //=menuSearch
 
-        $data['url_delete_item'] = route('admin_cms_content.delete');
-
         return view('admin.screen.list')
             ->with($data);
     }
@@ -178,7 +173,7 @@ class CmsContentController extends Controller
     {
         $data = [
             'title' => trans($this->plugin->pathPlugin.'::Content.admin.add_new_title'),
-            'sub_title' => '',
+            'subTitle' => '',
             'title_description' => trans($this->plugin->pathPlugin.'::Content.admin.add_new_des'),
             'icon' => 'fa fa-plus',
             'languages' => $this->languages,
@@ -260,7 +255,7 @@ class CmsContentController extends Controller
         }
         $data = [
             'title' => trans($this->plugin->pathPlugin.'::Content.admin.edit'),
-            'sub_title' => '',
+            'subTitle' => '',
             'title_description' => '',
             'icon' => 'fa fa-pencil-square-o',
             'languages' => $this->languages,

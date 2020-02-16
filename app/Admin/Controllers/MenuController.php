@@ -16,14 +16,14 @@ class MenuController extends Controller
     {
         $data = [
             'title' => trans('menu.admin.list'),
-            'sub_title' => '',
+            'subTitle' => '',
             'icon' => 'fa fa-indent',
             'menu' => [],
             'treeMenu' => (new AdminMenu)->getTree(),
             'roles' => (new AdminRole)->pluck('name', 'id')->all(),
             'permissions' => (new AdminPermission)->pluck('name', 'id')->all(),
             'url_action' => route('admin_menu.create'),
-            'url_delete_item' => route('admin_menu.delete'),
+            'urlDeleteItem' => route('admin_menu.delete'),
             'title_form' => '<i class="fa fa-floppy-o" aria-hidden="true"></i> ' . trans('menu.admin.create'),
         ];
         return view('admin.screen.list-menu')
@@ -83,7 +83,7 @@ class MenuController extends Controller
         }
         $data = [
             'title' => trans('menu.admin.list'),
-            'sub_title' => '',
+            'subTitle' => '',
             'title_description' => '',
             'icon' => 'fa fa-pencil-square-o',
             'menu' => $menu,
@@ -93,7 +93,7 @@ class MenuController extends Controller
             'url_action' => route('admin_menu.edit', ['id' => $menu['id']]),
             'title_form' => '<i class="fa fa-pencil-square-o" aria-hidden="true"></i> ' . trans('menu.admin.edit'),
         ];
-        $data['url_delete_item'] = route('admin_menu.delete');
+        $data['urlDeleteItem'] = route('admin_menu.delete');
         return view('admin.screen.list-menu')
             ->with($data);
     }

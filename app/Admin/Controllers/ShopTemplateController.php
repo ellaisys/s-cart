@@ -16,19 +16,16 @@ class ShopTemplateController extends Controller
 
         $data = [
             'title' => trans('template.admin.list'),
-            'sub_title' => '',
+            'subTitle' => '',
             'icon' => 'fa fa-indent',
             'menuRight' => [],
             'menuLeft' => [],
             'topMenuRight' => [],
             'topMenuLeft' => [],
-            'menuSort' => '',
-            'scriptSort' => '',
-            'listTh' => '',
-            'dataTr' => '',
-            'pagination' => '',
-            'resultItems' => '',
-            'url_delete_item' => '',
+            'urlDeleteItem' => '',
+            'removeList' => 0, // 1 - Enable function delete list item
+            'buttonRefresh' => 0, // 1 - Enable button refresh
+            'buttonSort' => 0, // 1 - Enable button sort
         ];
 
         $arrTemplates = [];
@@ -57,7 +54,7 @@ class ShopTemplateController extends Controller
     {
         $data = [
             'title' => trans('template.admin.add_new_title'),
-            'sub_title' => '',
+            'subTitle' => '',
             'title_description' => trans('template.admin.add_new_des'),
             'icon' => 'fa fa-plus',
         ];

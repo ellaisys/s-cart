@@ -184,20 +184,20 @@ $('.grid-trash').on('click', function() {
   })
 
   swalWithBootstrapButtons.fire({
-    title: '{{ trans('admin.delete_confirm') }}',
+    title: '{{ trans('admin.confirm_delete') }}',
     text: "",
     type: 'warning',
     showCancelButton: true,
-    confirmButtonText: '{{ trans('admin.delete_confirm_yes') }}',
+    confirmButtonText: '{{ trans('admin.confirm_delete_yes') }}',
     confirmButtonColor: "#DD6B55",
-    cancelButtonText: '{{ trans('admin.delete_confirm_no') }}',
+    cancelButtonText: '{{ trans('admin.confirm_delete_no') }}',
     reverseButtons: true,
 
     preConfirm: function() {
         return new Promise(function(resolve) {
             $.ajax({
                 method: 'post',
-                url: '{{ $url_delete_item }}',
+                url: '{{ $urlDeleteItem }}',
                 data: {
                   ids:ids,
                     _token: '{{ csrf_token() }}',
@@ -213,8 +213,8 @@ $('.grid-trash').on('click', function() {
   }).then((result) => {
     if (result.value) {
       swalWithBootstrapButtons.fire(
-        '{{ trans('admin.delete_confirm_deleted') }}',
-        '{{ trans('admin.delete_confirm_deleted_msg') }}',
+        '{{ trans('admin.confirm_delete_deleted') }}',
+        '{{ trans('admin.confirm_delete_deleted_msg') }}',
         'success'
       )
     } else if (

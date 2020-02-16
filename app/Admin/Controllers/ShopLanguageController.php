@@ -15,19 +15,16 @@ class ShopLanguageController extends Controller
 
         $data = [
             'title' => trans('language.admin.list'),
-            'sub_title' => '',
+            'subTitle' => '',
             'icon' => 'fa fa-indent',
             'menuRight' => [],
             'menuLeft' => [],
             'topMenuRight' => [],
             'topMenuLeft' => [],
-            'menuSort' => '',
-            'scriptSort' => '',
-            'listTh' => '',
-            'dataTr' => '',
-            'pagination' => '',
-            'resultItems' => '',
-            'url_delete_item' => '',
+            'urlDeleteItem' => route('admin_language.delete'),
+            'removeList' => 0, // 1 - Enable function delete list item
+            'buttonRefresh' => 0, // 1 - Enable button refresh
+            'buttonSort' => 0, // 1 - Enable button sort
         ];
 
         $listTh = [
@@ -142,8 +139,6 @@ class ShopLanguageController extends Controller
                 </form>';
 //=menuSearch
 
-        $data['url_delete_item'] = route('admin_language.delete');
-
         return view('admin.screen.list')
             ->with($data);
     }
@@ -156,7 +151,7 @@ class ShopLanguageController extends Controller
     {
         $data = [
             'title' => trans('language.admin.add_new_title'),
-            'sub_title' => '',
+            'subTitle' => '',
             'title_description' => trans('language.admin.add_new_des'),
             'icon' => 'fa fa-plus',
             'language' => [],
@@ -212,7 +207,7 @@ class ShopLanguageController extends Controller
         }
         $data = [
             'title' => trans('language.admin.edit'),
-            'sub_title' => '',
+            'subTitle' => '',
             'title_description' => '',
             'icon' => 'fa fa-pencil-square-o',
             'language' => $language,

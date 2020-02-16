@@ -21,19 +21,16 @@ class ShopOrderStatusController extends Controller
 
         $data = [
             'title' => trans('order_status.admin.list'),
-            'sub_title' => '',
+            'subTitle' => '',
             'icon' => 'fa fa-indent',
             'menuRight' => [],
             'menuLeft' => [],
             'topMenuRight' => [],
             'topMenuLeft' => [],
-            'menuSort' => '',
-            'scriptSort' => '',
-            'listTh' => '',
-            'dataTr' => '',
-            'pagination' => '',
-            'resultItems' => '',
-            'url_delete_item' => '',
+            'urlDeleteItem' => route('admin_order_status.delete'),
+            'removeList' => 0, // 1 - Enable function delete list item
+            'buttonRefresh' => 0, // 1 - Enable button refresh
+            'buttonSort' => 0, // 1 - Enable button sort
         ];
 
         $listTh = [
@@ -73,8 +70,6 @@ class ShopOrderStatusController extends Controller
                            </a>';
 //=menuRight
 
-        $data['url_delete_item'] = route('admin_order_status.delete');
-
         return view('admin.screen.list')
             ->with($data);
     }
@@ -87,7 +82,7 @@ class ShopOrderStatusController extends Controller
     {
         $data = [
             'title' => trans('order_status.admin.add_new_title'),
-            'sub_title' => '',
+            'subTitle' => '',
             'title_description' => trans('order_status.admin.add_new_des'),
             'icon' => 'fa fa-plus',
             'obj' => [],
@@ -137,7 +132,7 @@ class ShopOrderStatusController extends Controller
         }
         $data = [
             'title' => trans('order_status.admin.edit'),
-            'sub_title' => '',
+            'subTitle' => '',
             'title_description' => '',
             'icon' => 'fa fa-pencil-square-o',
             'obj' => $obj,

@@ -16,19 +16,16 @@ class RoleController extends Controller
     {
         $data = [
             'title' => trans('role.admin.list'),
-            'sub_title' => '',
+            'subTitle' => '',
             'icon' => 'fa fa-indent',
             'menuRight' => [],
             'menuLeft' => [],
             'topMenuRight' => [],
             'topMenuLeft' => [],
-            'menuSort' => '',
-            'scriptSort' => '',
-            'listTh' => '',
-            'dataTr' => '',
-            'pagination' => '',
-            'resultItems' => '',
-            'url_delete_item' => '',
+            'urlDeleteItem' => '',
+            'removeList' => 0, // 1 - Enable function delete list item
+            'buttonRefresh' => 0, // 1 - Enable button refresh
+            'buttonSort' => 0, // 1 - Enable button sort
         ];
 
         $listTh = [
@@ -137,7 +134,7 @@ class RoleController extends Controller
 
 //=menuSort
 
-        $data['url_delete_item'] = route('admin_role.delete');
+        $data['urlDeleteItem'] = route('admin_role.delete');
 
         return view('admin.screen.list')
             ->with($data);
@@ -151,7 +148,7 @@ class RoleController extends Controller
     {
         $data = [
             'title' => trans('role.admin.add_new_title'),
-            'sub_title' => '',
+            'subTitle' => '',
             'title_description' => trans('role.admin.add_new_des'),
             'icon' => 'fa fa-plus',
             'role' => [],
@@ -217,7 +214,7 @@ class RoleController extends Controller
         }
         $data = [
             'title' => trans('role.admin.edit'),
-            'sub_title' => '',
+            'subTitle' => '',
             'title_description' => '',
             'icon' => 'fa fa-pencil-square-o',
             'role' => $role,

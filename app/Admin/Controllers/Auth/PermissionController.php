@@ -46,19 +46,16 @@ class PermissionController extends Controller
     {
         $data = [
             'title' => trans('permission.admin.list'),
-            'sub_title' => '',
+            'subTitle' => '',
             'icon' => 'fa fa-indent',
             'menuRight' => [],
             'menuLeft' => [],
             'topMenuRight' => [],
             'topMenuLeft' => [],
-            'menuSort' => '',
-            'scriptSort' => '',
-            'listTh' => '',
-            'dataTr' => '',
-            'pagination' => '',
-            'resultItems' => '',
-            'url_delete_item' => '',
+            'urlDeleteItem' => '',
+            'removeList' => 0, // 1 - Enable function delete list item
+            'buttonRefresh' => 0, // 1 - Enable button refresh
+            'buttonSort' => 0, // 1 - Enable button sort
         ];
 
         $listTh = [
@@ -175,7 +172,7 @@ class PermissionController extends Controller
 
 //=menuSort
 
-        $data['url_delete_item'] = route('admin_permission.delete');
+        $data['urlDeleteItem'] = route('admin_permission.delete');
 
         return view('admin.screen.list')
             ->with($data);
@@ -189,7 +186,7 @@ class PermissionController extends Controller
     {
         $data = [
             'title' => trans('permission.admin.add_new_title'),
-            'sub_title' => '',
+            'subTitle' => '',
             'title_description' => trans('permission.admin.add_new_des'),
             'icon' => 'fa fa-plus',
             'permission' => [],
@@ -246,7 +243,7 @@ class PermissionController extends Controller
         }
         $data = [
             'title' => trans('permission.admin.edit'),
-            'sub_title' => '',
+            'subTitle' => '',
             'title_description' => '',
             'icon' => 'fa fa-pencil-square-o',
             'permission' => $permission,

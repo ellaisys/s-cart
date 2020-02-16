@@ -61,7 +61,7 @@
         <section class="content-header">
            <h1>
               <i class="{{ $icon??'' }}" aria-hidden="true"></i> {!! $title??'' !!}
-              <small>{!!$sub_title??'' !!}</small>
+              <small>{!!$subTitle??'' !!}</small>
            </h1>
            <div class="more_info">{!! $more_info??'' !!}</div>
            <!-- breadcrumb start -->

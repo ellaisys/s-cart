@@ -87,7 +87,7 @@ class LoginController extends Controller
         }
         $data = [
             'title' => trans('admin.setting_account'),
-            'sub_title' => '',
+            'subTitle' => '',
             'title_description' => '',
             'icon' => 'fa fa-pencil-square-o',
             'user' => $user,

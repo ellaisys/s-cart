@@ -46,19 +46,16 @@ class ShopOrderController extends Controller
 
         $data = [
             'title' => trans('order.admin.list'),
-            'sub_title' => '',
+            'subTitle' => '',
             'icon' => 'fa fa-indent',
             'menuRight' => [],
             'menuLeft' => [],
             'topMenuRight' => [],
             'topMenuLeft' => [],
-            'menuSort' => '',
-            'scriptSort' => '',
-            'listTh' => '',
-            'dataTr' => '',
-            'pagination' => '',
-            'resultItems' => '',
-            'url_delete_item' => '',
+            'urlDeleteItem' => route('admin_order.delete'),
+            'removeList' => 0, // 1 - Enable function delete list item
+            'buttonRefresh' => 0, // 1 - Enable button refresh
+            'buttonSort' => 0, // 1 - Enable button sort
         ];
 
         $listTh = [
@@ -203,7 +200,6 @@ class ShopOrderController extends Controller
                 </form>';
 //=menuSearch
 
-        $data['url_delete_item'] = route('admin_order.delete');
 
         return view('admin.screen.list')
             ->with($data);
@@ -217,7 +213,7 @@ class ShopOrderController extends Controller
     {
         $data = [
             'title' => trans('order.admin.add_new_title'),
-            'sub_title' => '',
+            'subTitle' => '',
             'title_description' => trans('order.admin.add_new_des'),
             'icon' => 'fa fa-plus',
         ];
@@ -344,7 +340,7 @@ class ShopOrderController extends Controller
         return view('admin.screen.order_edit')->with(
             [
                 "title" => trans('order.order_detail'),
-                "sub_title" => '',
+                "subTitle" => '',
                 'icon' => 'fa fa-file-text-o',
                 "order" => $order,
                 "products" => $products,
