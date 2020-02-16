@@ -5,10 +5,10 @@ namespace App\Admin\Controllers;
 use App\Http\Controllers\Controller;
 use App\Models\AdminConfig;
 use Illuminate\Http\Request;
-
+use App\Admin\AdminConfigTrait;
 class ShopEmailController extends Controller
 {
-
+    use AdminConfigTrait;
     public function index()
     {
 
@@ -35,23 +35,6 @@ class ShopEmailController extends Controller
 
         return view('admin.screen.email_config')
             ->with($data);
-    }
-
-/*
-Update value email
- */
-    public function updateInfo()
-    {
-        $stt = 0;
-        $data = request()->all();
-        $name = $data['name'];
-        $value = $data['value'];
-        $update = AdminConfig::where('key', $name)->update(['value' => $value]);
-        if ($update) {
-            $stt = 1;
-        }
-        return response()->json(['stt' => $stt]);
-
     }
 
 }

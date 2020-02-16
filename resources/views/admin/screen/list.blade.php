@@ -170,7 +170,7 @@ $('.grid-trash').on('click', function() {
     showCancelButton: true,
     confirmButtonText: '{{ trans('admin.confirm_delete') }}',
     confirmButtonColor: "#DD6B55",
-    cancelButtonText: 'No, cancel!',
+    cancelButtonText: '{{ trans('admin.delete_confirm_no') }}',
     reverseButtons: true,
 
     preConfirm: function() {
@@ -204,8 +204,8 @@ $('.grid-trash').on('click', function() {
   }).then((result) => {
     if (result.value) {
       swalWithBootstrapButtons.fire(
-        'Deleted!',
-        'Item has been deleted.',
+        '{{ trans('admin.delete_confirm_deleted') }}',
+        '{{ trans('admin.delete_confirm_deleted_msg') }}',
         'success'
       )
     } else if (

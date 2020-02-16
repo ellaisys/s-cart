@@ -6,11 +6,13 @@ use App\Http\Controllers\Controller;
 use App\Models\AdminConfig;
 use App\Models\ShopCurrency;
 use App\Models\ShopLanguage;
+use App\Admin\AdminConfigTrait;
 use Illuminate\Http\Request;
 
 class AdminEnvController extends Controller
 {
-
+    use AdminConfigTrait;
+    
     public function index()
     {
         $languages = ShopLanguage::getCodeActive();
@@ -44,38 +46,4 @@ class AdminEnvController extends Controller
         return view('admin.screen.env')
             ->with($data);
     }
-
-/*
-Update value config
- */
-    public function updateInfo()
-    {
-        $stt = 0;
-        $data = request()->all();
-        $name = $data['name'];
-        $value = $data['value'];
-        $update = AdminConfig::where('key', $name)->update(['value' => $value]);
-        if ($update) {
-            $stt = 1;
-        }
-        return response()->json(['stt' => $stt]);
-
-    }
-
-/*
-Delete list item
-Need mothod destroy to boot deleting in model
- */
-    public function deleteList()
-    {
-        if (!request()->ajax()) {
-            return response()->json(['error' => 1, 'msg' => 'Method not allow!']);
-        } else {
-            $ids = request('ids');
-            $arrID = explode(',', $ids);
-            AdminConfig::destroy($arrID);
-            return response()->json(['stt' => 1, 'msg' => '']);
-        }
-    }
-
 }

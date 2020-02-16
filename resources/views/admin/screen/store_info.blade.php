@@ -158,7 +158,7 @@ $(document).ready(function() {
             }
         },
         success: function(data) {
-          if(data.stt == 1){
+          if(data.error == 0){
             const Toast = Swal.mixin({
               toast: true,
               position: 'top-end',
@@ -207,7 +207,7 @@ var selectedRows = function () {
         data: {"name": 'logo',"value":$(this).val(),"_token": "{{ csrf_token() }}",},
       })
       .done(function(data) {
-        if(data.stt == 1){
+        if(data.error == 0){
           const Toast = Swal.mixin({
             toast: true,
             position: 'top-end',
@@ -241,7 +241,7 @@ var selectedRows = function () {
         data: {"name": name,"value":isChecked,"_token": "{{ csrf_token() }}",},
       })
       .done(function(data) {
-        if(data.stt == 1){
+        if(data.error == 0){
           const Toast = Swal.mixin({
             toast: true,
             position: 'top-end',

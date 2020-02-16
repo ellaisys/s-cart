@@ -112,7 +112,7 @@ $(document).ready(function() {
             }
         },
         success: function(data) {
-          if(data.stt == 1){
+          if(data.error == 0){
             const Toast = Swal.mixin({
               toast: true,
               position: 'top-end',
@@ -191,13 +191,13 @@ $('.grid-trash').on('click', function() {
   })
 
   swalWithBootstrapButtons.fire({
-    title: 'Are you sure to delete this item ?',
+    title: '{{ trans('admin.delete_confirm') }}',
     text: "",
     type: 'warning',
     showCancelButton: true,
-    confirmButtonText: 'Yes, delete it!',
+    confirmButtonText: '{{ trans('admin.delete_confirm_yes') }}',
     confirmButtonColor: "#DD6B55",
-    cancelButtonText: 'No, cancel!',
+    cancelButtonText: '{{ trans('admin.delete_confirm_no') }}',
     reverseButtons: true,
 
     preConfirm: function() {
@@ -220,8 +220,8 @@ $('.grid-trash').on('click', function() {
   }).then((result) => {
     if (result.value) {
       swalWithBootstrapButtons.fire(
-        'Deleted!',
-        'Item has been deleted.',
+        '{{ trans('admin.delete_confirm_deleted') }}',
+        '{{ trans('admin.delete_confirm_deleted_msg') }}',
         'success'
       )
     } else if (

@@ -481,13 +481,13 @@ function deleteItem(id){
   })
 
   swalWithBootstrapButtons.fire({
-    title: 'Are you sure to delete this item ?',
+    title: '{{ trans('admin.delete_confirm') }}',
     text: "",
     type: 'warning',
     showCancelButton: true,
-    confirmButtonText: 'Yes, delete it!',
+    confirmButtonText: '{{ trans('admin.delete_confirm_yes') }}',
     confirmButtonColor: "#DD6B55",
-    cancelButtonText: 'No, cancel!',
+    cancelButtonText: '{{ trans('admin.delete_confirm_no') }}',
     reverseButtons: true,
 
     preConfirm: function() {
@@ -509,8 +509,8 @@ function deleteItem(id){
   }).then((result) => {
     if (result.value) {
       swalWithBootstrapButtons.fire(
-        'Deleted!',
-        'Item has been deleted.',
+        '{{ trans('admin.delete_confirm_deleted') }}',
+        '{{ trans('admin.delete_confirm_deleted_msg') }}',
         'success'
       )
     } else if (

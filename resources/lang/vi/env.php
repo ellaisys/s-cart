@@ -23,7 +23,7 @@ return [
     'PREFIX_BRAND'      =>  'Tiền tố trang NHÃN HIỆU',
     'PREFIX_SUPPLIER'      =>  'Tiền tố trang NHÀ CUNG CẤP',
     'PREFIX_CATEGORY'       =>  'Tiền tố trang DANH MỤC',
-    'PREFIX_PRODUCT'        =>  'Tiền tố trang SNAR PHẨM',
+    'PREFIX_PRODUCT'        =>  'Tiền tố trang SẢN PHẨM',
     'PREFIX_SEARCH'     =>  'Tiền tố trang TÌM KIẾM',
     'PREFIX_CONTACT'        =>  'Tiền tố trang LIÊN HỆ',
     'PREFIX_NEWS'       =>  'Tiền tố trang TIN TỨC',

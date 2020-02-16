@@ -364,4 +364,7 @@ return [
       'max_v' => 'Less than :value',
       'confirm_delete' => 'Are you sure to delete this item?',
       'confirm_delete_yes' => 'Yes, delete it!',
+      'confirm_delete_no' => 'No, cancel!',
+      'confirm_delete_deleted' => 'Deleted!',
+      'confirm_delete_deleted_msg' => 'Item has been deleted.',
 ];

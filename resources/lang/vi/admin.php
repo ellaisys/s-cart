@@ -369,4 +369,7 @@ return [
     'max_v' => 'Nhỏ hơn :value',
     'confirm_delete' => 'Bạn có chắc chắn xóa nó?',
     'confirm_delete_yes' => 'Vâng, xóa nó!',
+    'confirm_delete_no' => 'Không, hủy bỏ!',
+    'confirm_delete_deleted' => 'Đã xóa!',
+    'confirm_delete_deleted_msg' => 'Item này đã được xóa.',
 ];

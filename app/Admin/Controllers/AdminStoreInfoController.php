@@ -54,20 +54,30 @@ Update value config
  */
     public function updateInfo()
     {
-        $stt = 0;
         $data = request()->all();
         $name = $data['name'];
         $value = $data['value'];
         $parseName = explode('__', $name);
         if (!in_array($parseName[0], ['title', 'description', 'keyword', 'maintain_content'])) {
-            $update = AdminStore::first()->update([$name => $value]);
+            try {
+                AdminStore::first()->update([$name => $value]);
+                $error = 0;
+            } catch (\Exception $e) {
+                $error = 1;
+            }
+            
         } else {
-            $update = AdminStore::first()->descriptions()->where('lang', $parseName[1])->update([$parseName[0] => $value]);
+            try {
+                AdminStore::first()
+                ->descriptions()
+                ->where('lang', $parseName[1])->update([$parseName[0] => $value]);
+                $error = 0;
+            } catch (\Exception $e) {
+                $error = 1;
+            }
+            
         }
-        if ($update) {
-            $stt = 1;
-        }
-        return response()->json(['stt' => $stt]);
+        return response()->json(['error' => $error]);
 
     }
 
