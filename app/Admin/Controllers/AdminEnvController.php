@@ -40,7 +40,8 @@ class AdminEnvController extends Controller
         $data['timezones'] = $timezones;
         $data['languages'] = $languages;
         $data['currencies'] = $currencies;
-        $obj = (new AdminConfig)->where('code', 'env')->orderBy('sort', 'desc')->get();
+        $obj = (new AdminConfig)->where('code', 'env')
+            ->orderBy('sort', 'desc')->get();
         $data['configs'] = $obj;
 
         return view('admin.screen.env')
