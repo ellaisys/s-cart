@@ -1,0 +1,18 @@
+<?php
+return [
+    'config_manager' => [
+        'title' => 'Cấu hình bộ nhớ Cache',
+        'cache_status'=> 'Trạng thái Cache',
+        'cache_all'=> 'Cache tất cả',
+        'cache_time'=> 'Thời gian cache (phút)',
+        'cache_clear'=> 'Xóa cache',
+        'cache_refresh'=> 'Làm mới cache',
+        
+        'cache_category'=> 'Cache Danh mục sản phẩm',
+        'cache_product'=> 'Cache Sản phẩm',
+        'cache_news'=> 'Cache Tin tức/Blog',
+        'cache_category_cms'=> 'Cache Danh mục CMS',
+        'cache_content_cms'=> 'Cache Nội dung CMS',
+        'cache_page'=> 'Cache Trang viết',
+    ]
+];
