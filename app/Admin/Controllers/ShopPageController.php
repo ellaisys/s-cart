@@ -104,7 +104,8 @@ class ShopPageController extends Controller
         $data['optionSort'] = $optionSort;
 //=menuSort
 
-//menuSearch        $data['topMenuRight'][] = '
+//menuSearch        
+        $data['topMenuRight'][] = '
                 <form action="' . route('admin_page.index') . '" id="button_search">
                    <div onclick="$(this).submit();" class="btn-group pull-right">
                            <a class="btn btn-flat btn-primary" title="Refresh">
