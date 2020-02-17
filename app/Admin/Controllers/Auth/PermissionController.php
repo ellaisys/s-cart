@@ -52,14 +52,13 @@ class PermissionController extends Controller
             'menuLeft' => [],
             'topMenuRight' => [],
             'topMenuLeft' => [],
-            'urlDeleteItem' => '',
-            'removeList' => 0, // 1 - Enable function delete list item
-            'buttonRefresh' => 0, // 1 - Enable button refresh
-            'buttonSort' => 0, // 1 - Enable button sort
+            'urlDeleteItem' => route('admin_permission.delete'),
+            'removeList' => 1, // 1 - Enable function delete list item
+            'buttonRefresh' => 1, // 1 - Enable button refresh
+            'buttonSort' => 1, // 1 - Enable button sort
         ];
 
         $listTh = [
-            'check_row' => '',
             'id' => trans('permission.id'),
             'slug' => trans('permission.slug'),
             'name' => trans('permission.name'),
@@ -68,7 +67,6 @@ class PermissionController extends Controller
             'action' => trans('permission.admin.action'),
         ];
         $sort_order = request('sort_order') ?? 'id_desc';
-        $keyword = request('keyword') ?? '';
         $arrSort = [
             'id__desc' => trans('permission.admin.sort_order.id_desc'),
             'id__asc' => trans('permission.admin.sort_order.id_asc'),
@@ -106,7 +104,6 @@ class PermissionController extends Controller
                 $permissions = implode('<br>', $methods);
             }
             $dataTr[] = [
-                'check_row' => '<input type="checkbox" class="grid-row-checkbox" data-id="' . $row['id'] . '">',
                 'id' => $row['id'],
                 'slug' => $row['slug'],
                 'name' => $row['name'],
@@ -123,15 +120,6 @@ class PermissionController extends Controller
         $data['dataTr'] = $dataTr;
         $data['pagination'] = $dataTmp->appends(request()->except(['_token', '_pjax']))->links('admin.component.pagination');
         $data['resultItems'] = trans('permission.admin.result_item', ['item_from' => $dataTmp->firstItem(), 'item_to' => $dataTmp->lastItem(), 'item_total' => $dataTmp->total()]);
-//menu_left
-        $data['menu_left'] = '<div class="pull-left">
-                    <button type="button" class="btn btn-default grid-select-all"><i class="fa fa-square-o"></i></button> &nbsp;
-
-                    <a class="btn   btn-flat btn-danger grid-trash" title="Delete"><i class="fa fa-trash-o"></i><span class="hidden-xs"> ' . trans('admin.delete') . '</span></a> &nbsp;
-
-                    <a class="btn   btn-flat btn-primary grid-refresh" title="Refresh"><i class="fa fa-refresh"></i><span class="hidden-xs"> ' . trans('admin.refresh') . '</span></a> &nbsp;</div>
-                    ';
-//=menu_left
 
 //menu_right
         $data['menu_right'] = '
@@ -144,31 +132,14 @@ class PermissionController extends Controller
                         ';
 //=menu_right
 
-//menuSearch
+//menuSort
         $optionSort = '';
         foreach ($arrSort as $key => $status) {
             $optionSort .= '<option  ' . (($sort_order == $key) ? "selected" : "") . ' value="' . $key . '">' . $status . '</option>';
         }
 
-        $data['menuSort'] = '
-                       <div class="btn-group pull-right">
-                           <a class="btn btn-flat btn-primary" title="Sort" id="button_sort">
-                              <i class="fa fa-sort-amount-asc"></i><span class="hidden-xs"> ' . trans('admin.sort') . '</span>
-                           </a>
-                       </div>
-                       <div class="btn-group pull-right">
-                        <div class="form-group">
-                            <select class="form-control" id="order_sort">
-                            ' . $optionSort . '
-                            </select>
-                        </div>
-                      </div>';
-
-        $data['scriptSort'] = "$('#button_sort').click(function(event) {
-      var url = '" . route('admin_permission.index') . "?sort_order='+$('#order_sort option:selected').val();
-      $.pjax({url: url, container: '#pjax-container'})
-    });";
-
+        $data['urlSort'] = route('admin_permission.index');
+        $data['optionSort'] = $optionSort;
 //=menuSort
 
         $data['urlDeleteItem'] = route('admin_permission.delete');
