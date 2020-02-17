@@ -11,7 +11,7 @@ class AdminUrlConfigController extends Controller
     public function index()
     {
         $data = [
-            'title' => trans('link.config_manager.title'),
+            'title' => trans('url.config_manager.title'),
             'subTitle' => '',
             'icon' => 'fa fa-indent',
         ];

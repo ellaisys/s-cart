@@ -43,7 +43,7 @@ class InsertDatabaseAdmin extends Migration
             ['id' => 20, 'parent_id' => 3, 'sort' => 0, 'title' => 'lang::customer.admin.title', 'icon' => 'fa-user', 'uri' => 'admin::customer', 'type' => 0],
             ['id' => 21, 'parent_id' => 3, 'sort' => 0, 'title' => 'lang::subscribe.admin.title', 'icon' => 'fa-user-circle-o', 'uri' => 'admin::subscribe', 'type' => 0],
             ['id' => 22, 'parent_id' => 4, 'sort' => 0, 'title' => 'lang::block_content.admin.title', 'icon' => 'fa-newspaper-o', 'uri' => 'admin::block_content', 'type' => 0],
-            ['id' => 23, 'parent_id' => 4, 'sort' => 0, 'title' => 'lang::link.admin.title', 'icon' => 'fa-chrome', 'uri' => 'admin::link', 'type' => 0],
+            ['id' => 23, 'parent_id' => 4, 'sort' => 0, 'title' => 'lang::admin.menu_titles.block_link', 'icon' => 'fa-chrome', 'uri' => 'admin::link', 'type' => 0],
             ['id' => 24, 'parent_id' => 4, 'sort' => 0, 'title' => 'lang::admin.menu_titles.template_manager', 'icon' => 'fa-columns', 'uri' => 'admin::template', 'type' => 0],
             ['id' => 25, 'parent_id' => 5, 'sort' => 2, 'title' => 'lang::store_value.admin.title', 'icon' => 'fa-code', 'uri' => 'admin::store_value', 'type' => 0],
             ['id' => 26, 'parent_id' => 5, 'sort' => 1, 'title' => 'lang::store_info.admin.title', 'icon' => 'fa-h-square', 'uri' => 'admin::store_info', 'type' => 0],
@@ -76,7 +76,9 @@ class InsertDatabaseAdmin extends Migration
             ['id' => 54, 'parent_id' => 37, 'sort' => 0, 'title' => 'lang::admin.menu_titles.report_product', 'icon' => 'fa-bars', 'uri' => 'admin::report/product', 'type' => 0],
             ['id' => 55, 'parent_id' => 2, 'sort' => 100, 'title' => 'lang::product.config_manager.title', 'icon' => 'fa fa-cog', 'uri' => 'admin::product_config', 'type' => 0],
             ['id' => 56, 'parent_id' => 3, 'sort' => 100, 'title' => 'lang::customer.config_manager.title', 'icon' => 'fa fa-cog', 'uri' => 'admin::customer_config', 'type' => 0],
-            ['id' => 57, 'parent_id' => 5, 'sort' => 2, 'title' => 'lang::link.config_manager.title', 'icon' => 'fa-gg', 'uri' => 'admin::url_config', 'type' => 0],
+            ['id' => 57, 'parent_id' => 5, 'sort' => 2, 'title' => 'lang::url.config_manager.title', 'icon' => 'fa-gg', 'uri' => 'admin::url_config', 'type' => 0],
+            ['id' => 58, 'parent_id' => 5, 'sort' => 5, 'title' => 'lang::admin.menu_titles.cache_manager', 'icon' => 'fa-tripadvisor', 'uri' => 'admin::cache_config', 'type' => 0],
+
         ]
         );
 

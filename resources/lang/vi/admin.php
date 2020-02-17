@@ -285,6 +285,7 @@ return [
         'email_config' => 'Cấu hình email',
         'email_template' => 'Mẫu email',
         'email_action' => 'Tác vụ email',
+        'cache_manager'     => 'Quản lý bộ nhớ Cache',
     ],
     //=======++===========
     'status' => 'Trạng thái',

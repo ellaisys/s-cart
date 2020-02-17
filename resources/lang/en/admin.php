@@ -280,6 +280,7 @@ return [
             'email_config'      => 'Email config',
             'email_template'    => 'Email template',
             'email_action'      => 'Email action',
+            'cache_manager'     => 'Cache manager',
       ],
 
       'status'                            => 'Status',

@@ -8,10 +8,10 @@ return [
     'status' => 'Status',
     'sort' => 'Sort',
     'admin' => [
-        'title' => 'Link manager',
+        'title' => 'Url manager',
         'create_success' => 'Create new item success!',
         'edit_success' => 'Edit item success!',
-        'list' => 'Link manager',
+        'list' => 'List url manager',
         'id' => 'ID',
         'status' => 'Status',
         'action' => 'Action',

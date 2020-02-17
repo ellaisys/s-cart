@@ -2,16 +2,16 @@
 return [
     'id' => 'ID',
     'name' => 'Tên',
-    'url' => 'Liên kết',
+    'url' => 'Đường dẫn',
     'target' => 'Target',
     'group' => 'Nhóm',
     'sort' => 'Thứ tự',
     'status' => 'Trạng thái',
     'admin' => [
-        'title' => 'Quản lý liên kết',
+        'title' => 'Quản lý URL',
         'create_success' => 'Tạo mới thành công!',
         'edit_success' => 'Cập nhật thành công!',
-        'list' => 'Danh sách liên kết',
+        'list' => 'Danh sách đường dẫn',
         'id' => 'ID',
         'status' => 'Status',
         'action' => 'Hành động',
@@ -35,6 +35,6 @@ return [
     ],
 
     'config_manager' => [
-        'title' => 'Cấu hình link website',
+        'title' => 'Cấu hình URL',
     ],
 ];
