@@ -117,7 +117,7 @@ class UsersController extends Controller
                         ';
 //=menu_right
 
-//menuSearch
+//menuSort
         $optionSort = '';
         foreach ($arrSort as $key => $status) {
             $optionSort .= '<option  ' . (($sort_order == $key) ? "selected" : "") . ' value="' . $key . '">' . $status . '</option>';

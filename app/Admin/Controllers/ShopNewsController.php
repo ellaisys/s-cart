@@ -97,7 +97,8 @@ class ShopNewsController extends Controller
                            </a>';
 //=menuRight
 
-//menuSearch        $optionSort = '';
+//menuSort       
+     $optionSort = '';
         foreach ($arrSort as $key => $status) {
             $optionSort .= '<option  ' . (($sort_order == $key) ? "selected" : "") . ' value="' . $key . '">' . $status . '</option>';
         }
@@ -106,7 +107,8 @@ class ShopNewsController extends Controller
         $data['optionSort'] = $optionSort;
 //=menuSort
 
-//menuSearch        $data['topMenuRight'][] = '
+//menuSearch        
+        $data['topMenuRight'][] = '
                 <form action="' . route('admin_news.index') . '" id="button_search">
                    <div onclick="$(this).submit();" class="btn-group pull-right">
                            <a class="btn btn-flat btn-primary" title="Refresh">
