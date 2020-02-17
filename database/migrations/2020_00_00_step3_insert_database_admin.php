@@ -197,7 +197,7 @@ class InsertDatabaseAdmin extends Migration
             ['group' => '', 'code' => 'email_action', 'key' => 'welcome_customer', 'value' => '0', 'sort' => '4', 'detail' => 'lang::email.email_action.welcome_customer', 'store_id' => '1'],
             ['group' => '', 'code' => 'email_action', 'key' => 'contact_to_admin', 'value' => '1', 'sort' => '6', 'detail' => 'lang::email.email_action.contact_to_admin', 'store_id' => '1'],
             ['group' => '', 'code' => 'email_action', 'key' => 'email_action_smtp_mode', 'value' => '0', 'sort' => '6', 'detail' => 'lang::email.email_action.email_action_smtp_mode', 'store_id' => '1'],
-            ['group' => 'Modules', 'code' => 'Block', 'key' => 'LastViewProduct', 'value' => '1', 'sort' => '0', 'detail' => 'Modules/Block/LastViewProduct::.title', 'store_id' => '1'],
+            ['group' => 'Modules', 'code' => 'Block', 'key' => 'LastViewProduct', 'value' => '1', 'sort' => '0', 'detail' => 'Modules/Block/LastViewProduct::LastViewProduct.title', 'store_id' => '1'],
             ['group' => 'Extensions', 'code' => 'Payment', 'key' => 'Cash', 'value' => '1', 'sort' => '0', 'detail' => 'Extensions/Payment/Cash::Cash.title', 'store_id' => '1'],
             ['group' => 'Extensions', 'code' => 'Shipping', 'key' => 'ShippingStandard', 'value' => '1', 'sort' => '0', 'detail' => 'lang::Shipping Standard', 'store_id' => '1'],
             ['group' => '', 'code' => 'smtp', 'key' => 'smtp_host', 'value' => '', 'sort' => '8', 'detail' => 'lang::email.smtp_host', 'store_id' => '1'],
