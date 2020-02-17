@@ -111,7 +111,7 @@ class AdminReportController extends Controller
 
             $dataTr[] = [
                 'id' => $row['id'],
-                'image' => sc_image_render($row['image'], '50px'),
+                'image' => sc_image_render($row['image'], '50px',, $row['name']),
                 'sku' => $row['sku'],
                 'name' => $row['name'],
                 'price' => $row['price'],

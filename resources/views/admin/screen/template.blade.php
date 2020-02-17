@@ -27,7 +27,7 @@
                 <tbody>
                   @foreach ($templates as $key => $template)
                     <tr>
-                     <td>{!!sc_image_render($template['config']['image']??'','50px')!!}</td>
+                     <td>{!!sc_image_render($template['config']['image']??'','50px',, $template['config']['name']??'')!!}</td>
                      <td>{{ $template['config']['name']??'' }}</td>
                      <td>{{ $template['config']['auth']??'' }}</td>
                      <td>{{ $template['config']['email']??'' }}</td>

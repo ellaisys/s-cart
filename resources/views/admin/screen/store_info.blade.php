@@ -40,7 +40,7 @@
                       {{ $errors->first('image') }}
                   </span>
               @endif
-            <div id="preview_image" class="img_holder">{!! sc_image_render($infos->logo,'100px') !!}</div>
+            <div id="preview_image" class="img_holder">{!! sc_image_render($infos->logo,'100px', '', 'Logo') !!}</div>
 
         </td>
       </tr>

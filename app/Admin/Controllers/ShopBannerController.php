@@ -70,7 +70,7 @@ class ShopBannerController extends Controller
         $dataTr = [];
         foreach ($dataTmp as $key => $row) {
             $dataTr[] = [
-                'image' => sc_image_render($row->getThumb(), '', '50px'),
+                'image' => sc_image_render($row->getThumb(), '', '50px', 'Banner'),
                 'url' => $row['url'],
                 'sort' => $row['sort'],
                 'status' => $row['status'] ? '<span class="label label-success">ON</span>' : '<span class="label label-danger">OFF</span>',

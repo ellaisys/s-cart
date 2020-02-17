@@ -75,7 +75,7 @@ class ShopCategoryController extends Controller
         foreach ($dataTmp as $key => $row) {
             $dataTr[] = [
                 'id' => $row['id'],
-                'image' => sc_image_render($row->getThumb(), '50px', '50px'),
+                'image' => sc_image_render($row->getThumb(), '50px', '50px', $row['name']),
                 'name' => $row['name'],
                 'parent' => $row['parent'] ? ($row->getParent() ? $row->getParent()['name'] : '') : 'ROOT',
                 'top' => $row['top'] ? '<span class="label label-success">ON</span>' : '<span class="label label-danger">OFF</span>',

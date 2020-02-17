@@ -69,7 +69,7 @@ class ShopSupplierController extends Controller
             $dataTr[] = [
                 'id' => $row['id'],
                 'name' => $row['name'],
-                'image' => sc_image_render($row->getThumb(), '50px', '50px'),
+                'image' => sc_image_render($row->getThumb(), '50px', '50px', $row['name']),
                 'email' => $row['email'],
                 'phone' => $row['phone'],
                 'url' => $row['url'],

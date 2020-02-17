@@ -54,7 +54,7 @@
                             <label class="col-sm-2  control-label"></label>
                             <div class="col-sm-8">
                                 <b>{{ $language->name }}</b>
-                                {!! sc_image_render($language->icon,'20px','20px') !!}
+                                {!! sc_image_render($language->icon,'20px','20px', $language->name) !!}
                             </div>
                         </div>
 

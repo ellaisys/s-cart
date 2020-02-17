@@ -59,7 +59,7 @@
                     }
                   @endphp
                     <tr>
-                      <td>{!! sc_image_render($extensionClass->image,'50px') !!}</td>
+                      <td>{!! sc_image_render($extensionClass->image,'50px', '', $extensionClass->title) !!}</td>
                       <td>{{ $codeExtension }}</td>
                       <td>{{ $extensionClass->title }}</td>
                       <td>{{ $extensionClass->version??'' }}</td>

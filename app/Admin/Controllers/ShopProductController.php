@@ -128,7 +128,7 @@ class ShopProductController extends Controller
             }
             $dataMap = [
                 'id' => $row['id'],
-                'image' => sc_image_render($row->getThumb(), '50px', '50px'),
+                'image' => sc_image_render($row->getThumb(), '50px', '50px', $row['name']),
                 'sku' => $row['sku'],
                 'name' => $row['name'],
                 'category' => implode('; ', $row->categories->pluck('name')->toArray()),

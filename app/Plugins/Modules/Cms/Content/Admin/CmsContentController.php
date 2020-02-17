@@ -77,7 +77,7 @@ class CmsContentController extends Controller
         foreach ($dataTmp as $key => $row) {
             $dataTr[] = [
                 'id' => $row['id'],
-                'image' => sc_image_render($row->getThumb(), '50px', '50px'),
+                'image' => sc_image_render($row->getThumb(), '50px', '50px', $row['title']),
                 'title' => $row['title'],
                 'category_id' => $row['category_id'] ? ($row->category ? $row->category['title'] : '') : 'ROOT',
 

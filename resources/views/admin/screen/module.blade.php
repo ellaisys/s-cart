@@ -61,7 +61,7 @@
                     }
                   @endphp
                     <tr>
-                      <td>{!! sc_image_render($moduleClass->image,'50px') !!}</td>
+                      <td>{!! sc_image_render($moduleClass->image,'50px', '', $moduleClass->title) !!}</td>
                       <td>{{ $codeModule }}</td>
                       <td>{{ $moduleClass->title }}</td>
                       <td>{{ $moduleClass->version??'' }}</td>

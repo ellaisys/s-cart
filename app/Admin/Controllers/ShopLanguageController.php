@@ -67,7 +67,7 @@ class ShopLanguageController extends Controller
                 'id' => $row['id'],
                 'name' => $row['name'],
                 'code' => $row['code'],
-                'icon' => sc_image_render($row['icon'], '30px', '30px'),
+                'icon' => sc_image_render($row['icon'], '30px', '30px', $row['name']),
                 'rtl' => $row['rtl'],
                 'sort' => $row['sort'],
                 'status' => $row['status'] ? '<span class="label label-success">ON</span>' : '<span class="label label-danger">OFF</span>',

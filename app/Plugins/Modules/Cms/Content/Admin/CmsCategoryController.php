@@ -76,7 +76,7 @@ class CmsCategoryController extends Controller
         foreach ($dataTmp as $key => $row) {
             $dataTr[] = [
                 'id' => $row['id'],
-                'image' => sc_image_render($row->getThumb(), '50px', '50px'),
+                'image' => sc_image_render($row->getThumb(), '50px', '50px',$row['title']),
                 'title' => $row['title'],
                 'parent' => $row['parent'] ? ($row->getParent() ? $row->getParent()['title'] : '') : 'ROOT',
 
