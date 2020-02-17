@@ -121,16 +121,11 @@ class PermissionController extends Controller
         $data['pagination'] = $dataTmp->appends(request()->except(['_token', '_pjax']))->links('admin.component.pagination');
         $data['resultItems'] = trans('permission.admin.result_item', ['item_from' => $dataTmp->firstItem(), 'item_to' => $dataTmp->lastItem(), 'item_total' => $dataTmp->total()]);
 
-//menu_right
-        $data['menu_right'] = '
-                        <div class="btn-group pull-right" style="margin-right: 10px">
-                           <a href="' . route('admin_permission.create') . '" class="btn  btn-success  btn-flat" title="New" id="button_create_new">
+//menuRight
+        $data['menuRight'][] = '<a href="' . route('admin_permission.create') . '" class="btn  btn-success  btn-flat" title="New" id="button_create_new">
                            <i class="fa fa-plus"></i><span class="hidden-xs">' . trans('admin.add_new') . '</span>
-                           </a>
-                        </div>
-
-                        ';
-//=menu_right
+                           </a>';
+//=menuRight
 
 //menuSort
         $optionSort = '';
@@ -141,8 +136,6 @@ class PermissionController extends Controller
         $data['urlSort'] = route('admin_permission.index');
         $data['optionSort'] = $optionSort;
 //=menuSort
-
-        $data['urlDeleteItem'] = route('admin_permission.delete');
 
         return view('admin.screen.list')
             ->with($data);
