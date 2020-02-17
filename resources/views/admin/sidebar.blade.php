@@ -32,16 +32,16 @@
 {{-- Level 0 --}}
         @foreach ($menus[0] as $level0)
         <li class="header">
-          {{ sc_language_render($level0->title) }}
+          {!! sc_language_render($level0->title) !!}
         </li>
         {{-- LEvel 1  --}}
           @foreach ($menus[$level0->id] as $level1)
             @if($level1->uri)
-              <li class=""><a href="{{ $level1->uri?sc_url_render($level1->uri):'#' }}"><i class="fa {{ $level1->icon }}"></i> <span>{{ sc_language_render($level1->title) }}</span></a></li>
+              <li class=""><a href="{{ $level1->uri?sc_url_render($level1->uri):'#' }}"><i class="fa {{ $level1->icon }}"></i> <span>{!! sc_language_render($level1->title) !!}</span></a></li>
             @else
             <li class="treeview">
               <a href="#">
-                <i class="fa {{ $level1->icon }}"></i> <span>{{ sc_language_render($level1->title) }}</span>
+                <i class="fa {{ $level1->icon }}"></i> <span>{!! sc_language_render($level1->title) !!}</span>
                 <span class="pull-right-container">
                   <i class="fa fa-angle-left pull-right"></i>
                 </span>
@@ -51,11 +51,11 @@
                 @if (isset($menus[$level1->id]))
                 @foreach ($menus[$level1->id] as $level2)
                   @if($level2->uri)
-                    <li class=""><a href="{{ $level2->uri?sc_url_render($level2->uri):'#' }}"><i class="fa {{ $level2->icon }}"></i> <span>{{ sc_language_render($level2->title) }}</span></a></li>
+                    <li class=""><a href="{{ $level2->uri?sc_url_render($level2->uri):'#' }}"><i class="fa {{ $level2->icon }}"></i> <span>{!! sc_language_render($level2->title) !!}</span></a></li>
                   @else
                   <li class="treeview">
                     <a href="#">
-                      <i class="fa {{ $level2->icon }}"></i> <span>{{ sc_language_render($level2->title) }}</span>
+                      <i class="fa {{ $level2->icon }}"></i> <span>{!! sc_language_render($level2->title) !!}</span>
                       <span class="pull-right-container">
                         <i class="fa fa-angle-left pull-right"></i>
                       </span>
@@ -70,7 +70,7 @@
                       @else
                       <li class="treeview">
                         <a href="#">
-                          <i class="fa {{ $level3->icon }}"></i> <span>{{ sc_language_render($level3->title) }}</span>
+                          <i class="fa {{ $level3->icon }}"></i> <span>{!! sc_language_render($level3->title) !!}</span>
                           <span class="pull-right-container">
                             <i class="fa fa-angle-left pull-right"></i>
                           </span>

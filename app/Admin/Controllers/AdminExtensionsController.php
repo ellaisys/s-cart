@@ -26,7 +26,7 @@ class AdminExtensionsController extends Controller
         $group = sc_word_format_class($group);
         $extensionsInstalled = sc_get_extension($group, $onlyActive = false);
         $extensions = sc_get_all_plugin('Extensions', $group);
-        $title = trans('admin.extension_manager.' . $group);
+        $title = trans('admin.extension_manager.' . $group.'_extension');
         return $this->render($extensionsInstalled, $extensions, $title, $group);
     }
 

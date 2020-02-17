@@ -325,3 +325,25 @@ if (!function_exists('sc_get_locale')) {
         return app()->getLocale();
     }
 }
+
+/*
+    Get all template
+    */
+    if (!function_exists('sc_get_all_template')) {
+        function sc_get_all_template()
+        {
+            $arrTemplates = [];
+            foreach (glob(resource_path() . "/views/templates/*") as $template) {
+                if (is_dir($template)) {
+                    $infoTemlate['code'] = explode('templates/', $template)[1];
+                    $config = ['name' => '', 'auth' => '', 'email' => '', 'website' => ''];
+                    if (file_exists($template . '/config.json')) {
+                        $config = json_decode(file_get_contents($template . '/config.json'), true);
+                    }
+                    $infoTemlate['config'] = $config;
+                    $arrTemplates[$infoTemlate['code']] = $infoTemlate;
+                }
+            }
+            return $arrTemplates;
+        }
+    }

@@ -71,7 +71,7 @@ class ShopLinkController extends Controller
         $data['resultItems'] = trans('link.admin.result_item', ['item_from' => $dataTmp->firstItem(), 'item_to' => $dataTmp->lastItem(), 'item_total' => $dataTmp->total()]);
 
 //menuRight
-        $data['menuRight'] = '<a href="' . route('admin_link.create') . '" class="btn  btn-success  btn-flat" title="New" id="button_create_new">
+        $data['menuRight'][] = '<a href="' . route('admin_link.create') . '" class="btn  btn-success  btn-flat" title="New" id="button_create_new">
                            <i class="fa fa-plus"></i><span class="hidden-xs">' . trans('link.admin.add_new') . '</span>
                            </a>';
 //=menuRight

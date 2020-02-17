@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Schema;
 class InsertDatabaseAdmin extends Migration
 {
     public $adminUser = 'admin';
+    //admin
     public $adminPassword = '$2y$10$JcmAHe5eUZ2rS0jU1GWr/.xhwCnh2RU13qwjTPcqfmtZXjZxcryPO';
     public $adminEmail = 'your-email@your-domain.com';
     public $timezone_default = 'Asia/Ho_Chi_Minh';
@@ -43,7 +44,7 @@ class InsertDatabaseAdmin extends Migration
             ['id' => 21, 'parent_id' => 3, 'sort' => 0, 'title' => 'lang::subscribe.admin.title', 'icon' => 'fa-user-circle-o', 'uri' => 'admin::subscribe', 'type' => 0],
             ['id' => 22, 'parent_id' => 4, 'sort' => 0, 'title' => 'lang::block_content.admin.title', 'icon' => 'fa-newspaper-o', 'uri' => 'admin::block_content', 'type' => 0],
             ['id' => 23, 'parent_id' => 4, 'sort' => 0, 'title' => 'lang::link.admin.title', 'icon' => 'fa-chrome', 'uri' => 'admin::link', 'type' => 0],
-            ['id' => 24, 'parent_id' => 4, 'sort' => 0, 'title' => 'lang::template.admin.title', 'icon' => 'fa-columns', 'uri' => 'admin::template', 'type' => 0],
+            ['id' => 24, 'parent_id' => 4, 'sort' => 0, 'title' => 'lang::admin.menu_titles.template_manager', 'icon' => 'fa-columns', 'uri' => 'admin::template', 'type' => 0],
             ['id' => 25, 'parent_id' => 5, 'sort' => 2, 'title' => 'lang::store_value.admin.title', 'icon' => 'fa-code', 'uri' => 'admin::store_value', 'type' => 0],
             ['id' => 26, 'parent_id' => 5, 'sort' => 1, 'title' => 'lang::store_info.admin.title', 'icon' => 'fa-h-square', 'uri' => 'admin::store_info', 'type' => 0],
             ['id' => 27, 'parent_id' => 5, 'sort' => 4, 'title' => 'lang::admin.menu_titles.email_setting', 'icon' => 'fa-envelope', 'uri' => '', 'type' => 0],

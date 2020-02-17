@@ -20,19 +20,7 @@ class ShopTemplateController extends Controller
             'icon' => 'fa fa-indent',
         ];
 
-        $arrTemplates = [];
-        foreach (glob(resource_path() . "/views/templates/*") as $template) {
-            if (is_dir($template)) {
-                $infoTemlate['code'] = explode('templates/', $template)[1];
-                $config = ['name' => '', 'auth' => '', 'email' => '', 'website' => ''];
-                if (file_exists($template . '/config.json')) {
-                    $config = json_decode(file_get_contents($template . '/config.json'), true);
-                }
-                $infoTemlate['config'] = $config;
-                $arrTemplates[$infoTemlate['code']] = $infoTemlate;
-            }
-        }
-        $data["templates"] = $arrTemplates;
+        $data["templates"] = sc_get_all_template();
         $data["templateCurrent"] = sc_store('template');
         return view('admin.screen.template')
             ->with($data);
