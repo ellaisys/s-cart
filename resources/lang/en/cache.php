@@ -1,10 +1,12 @@
 <?php
 return [
     'config_manager' => [
+        'field' => 'Field',
+        'value' => 'Value',
         'title' => 'Cache config',
         'cache_status'=> 'Cache status',
         'cache_all'=> 'Cache all',
-        'cache_time'=> 'Cache time (minutes)',
+        'cache_time'=> 'Cache time (seconds)',
         'cache_clear'=> 'Clear cache',
         'cache_refresh'=> 'Refresh cache',
 

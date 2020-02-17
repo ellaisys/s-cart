@@ -1,10 +1,12 @@
 <?php
 return [
     'config_manager' => [
+        'field' => 'Trường',
+        'value' => 'Giá trị',
         'title' => 'Cấu hình bộ nhớ Cache',
         'cache_status'=> 'Trạng thái Cache',
         'cache_all'=> 'Cache tất cả',
-        'cache_time'=> 'Thời gian cache (phút)',
+        'cache_time'=> 'Thời gian cache (Giây)',
         'cache_clear'=> 'Xóa cache',
         'cache_refresh'=> 'Làm mới cache',
         
