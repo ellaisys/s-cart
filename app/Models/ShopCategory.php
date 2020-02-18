@@ -186,7 +186,7 @@ Get image
             $prefix = implode('_', $arrOpt).'__'.implode('_', $arrLimit).'__'.implode('_', $arrSort);
             if (!Cache::has('all_cate_' . $prefix)) {
                 $listFullCategory = $this->processList($arrOpt = [], $arrSort = [], $arrLimit = []);
-                Cache::put('all_cate_' . $prefix, $listFullCategory, $seconds = sc_config('cache_time', 600));
+                Cache::put('all_cate_' . $prefix, $listFullCategory, $seconds = sc_config('cache_time', 0)?:600);
             }
             return Cache::get('all_cate_' . $prefix);
         } else {

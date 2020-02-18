@@ -29,59 +29,63 @@ class CmsCategory extends Model
         return $this->hasMany(CmsContent::class, 'category_id', 'id');
     }
 
-    public function getTreeCategory($root = 0)
+
+    /**
+     * Get list category
+     *
+     * @param   array  $arrOpt
+     * Example: ['status' => 1, 'top' => 1]
+     * @param   array  $arrSort
+     * Example: ['sortBy' => 'id', 'sortOrder' => 'asc']
+     * @param   array  $arrLimit  [$arrLimit description]
+     * Example: ['step' => 0, 'limit' => 20]
+     * @return  [type]             [return description]
+     */
+    public function getList($arrOpt = [], $arrSort = [], $arrLimit = [])
     {
-        $list = [];
-        $result = $this->select('id', 'parent')
-            ->where('parent', $root)
-            ->get();
-        foreach ($result as $value) {
-            $list[$value['id']] = $value->getTitle();
-            if ($this->checkChild($value['id']) > 0) {
-                $this->getTreeCategoryTmp($value['id'], $list);
+        if(sc_config('cache_status') && sc_config('cache_category_cms')) {
+            $prefix = implode('_', $arrOpt).'__'.implode('_', $arrLimit).'__'.implode('_', $arrSort);
+            if (!Cache::has('all_cate_cms' . $prefix)) {
+                $listFullCategory = $this->processList($arrOpt = [], $arrSort = [], $arrLimit = []);
+                Cache::put('all_cate_cms' . $prefix, $listFullCategory, $seconds = sc_config('cache_time', 0)?:600);
+            }
+            return Cache::get('all_cate_cms' . $prefix);
+        } else {
+            return $this->processList($arrOpt = [], $arrSort = [], $arrLimit = []);
+        }
+    }
+
+    /**
+     * Process get list category
+     *
+     * @param   array  $arrSort   [$arrSort description]
+     * @param   array  $arrLimit  [$arrLimit description]
+     * @param   array  $arrOpt    [$arrOpt description]
+     *
+     * @return  collect
+     */
+    private function processList($arrOpt = [], $arrSort = [], $arrLimit = [])
+    {
+        $sortBy = $arrSort['sortBy'] ?? null;
+        $sortOrder = $arrSort['sortOrder'] ?? 'asc';
+        $step = $arrLimit['step'] ?? 0;
+        $limit = $arrLimit['limit'] ?? 0;
+
+        $data = $this->sort($sortBy, $sortOrder);
+        if(count($arrOpt = [])) {
+            foreach ($arrOpt as $key => $value) {
+                $data = $data->where($key, $value);
             }
         }
-        return $list;
-    }
-
-    public function getTreeCategoryTmp($id, &$list, $st = '--')
-    {
-        $result = $this->select('id', 'parent')
-            ->where('parent', $id)
-            ->get();
-        foreach ($result as $value) {
-            $list[$value['id']] = $st . ' ' . $value->getTitle();
-            $this->getTreeCategoryTmp($value['id'], $list, $st . '--');
+        if((int)$limit) {
+            $start = $step * $limit;
+            $data = $data->offset((int)$start)->limit((int)$limit);
         }
+        $data = $data->get()->groupBy('parent');
 
+        return $data;
     }
 
-    public function getTreeCategories($parent = 0, &$tree = null, $categories = null, &$st = '')
-    {
-        $categories = $categories ?? $this->getList();
-        $tree = $tree ?? [];
-        $lisCategory = $categories[$parent] ?? [];
-        foreach ($lisCategory as $category) {
-            $tree[$category->id] = $st . $category->title;
-            if (!empty($categories[$category->id])) {
-                $st .= '--';
-                $this->getTreeCategories($category->id, $tree, $categories, $st);
-                $st = '';
-            }
-        }
-
-        return $tree;
-    }
-
-    public function checkChild($id)
-    {
-        return $this->where('parent', $id)->count();
-    }
-
-    public function arrChild($id)
-    {
-        return $this->where('parent', $id)->pluck('id')->all();
-    }
 
 /**
  * Get category parent
@@ -92,15 +96,7 @@ class CmsCategory extends Model
         return $this->find($this->parent);
 
     }
-/**
- * Get category child
- * @param  [type] $id [description]
- * @return [type]     [description]
- */
-    public function getCateChild($id)
-    {
-        return $this->with('contens')->where('parent', $id)->get();
-    }
+
 /**
  * Get all products in category, include child category
  * @param  [type] $id    [description]
@@ -123,6 +119,17 @@ class CmsCategory extends Model
 
     }
 
+    /**
+     * Get list categories cms
+     *
+     * @param   [type]  $parent     [$parent description]
+     * @param   [type]  $limit      [$limit description]
+     * @param   [type]  $opt        [$opt description]
+     * @param   [type]  $sortBy     [$sortBy description]
+     * @param   [type]  $sortOrder  [$sortOrder description]
+     *
+     * @return  [type]              [return description]
+     */
     public function getCategories($parent, $limit = null, $opt = null, $sortBy = null, $sortOrder = 'asc')
     {
         $query = $this->where('status', 1)->where('parent', $parent);
@@ -158,7 +165,7 @@ class CmsCategory extends Model
             $prefix = implode('_', $arrOpt).'__'.implode('_', $arrLimit).'__'.implode('_', $arrSort);
             if (!Cache::has('all_cate_cms_' . $prefix)) {
                 $listFullCategory = $this->processList($arrOpt = [], $arrSort = [], $arrLimit = []);
-                Cache::put('all_cate_cms_' . $prefix, $seconds = sc_config('cache_time', 600));
+                Cache::put('all_cate_cms_' . $prefix, $listFullCategory, $seconds = sc_config('cache_time', 600)?:600);
             }
             return Cache::get('all_cate_cms_' . $prefix);
         } else {
@@ -248,6 +255,11 @@ class CmsCategory extends Model
         return $this->getDescription();
 
     }
+    
+    public function processDescriptions()
+    {
+        return $this->descriptions->keyBy('lang')[sc_get_locale()] ?? [];
+    }
 
     protected static function boot()
     {
@@ -297,9 +309,4 @@ class CmsCategory extends Model
         }
         return $return;
     }
-    public function processDescriptions()
-    {
-        return $this->descriptions->keyBy('lang')[sc_get_locale()] ?? [];
-    }
-
 }
