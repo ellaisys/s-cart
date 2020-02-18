@@ -72,7 +72,7 @@ class ShopPageController extends Controller
         foreach ($dataTmp as $key => $row) {
             $dataTr[] = [
                 'title' => $row['title'],
-                'image' => sc_image_render($row['image'], '50px',,$row['title']),
+                'image' => sc_image_render($row['image'], '50px','',$row['title']),
                 'alias' => $row['alias'],
                 'status' => $row['status'] ? '<span class="label label-success">ON</span>' : '<span class="label label-danger">OFF</span>',
                 'action' => '

@@ -65,7 +65,7 @@ class ShopBrandController extends Controller
             $dataTr[] = [
                 'id' => $row['id'],
                 'name' => $row['name'],
-                'image' => sc_image_render($row->getThumb(), '50px',,$row['name']),
+                'image' => sc_image_render($row->getThumb(), '50px','',$row['name']),
                 'url' => $row['url'],
                 'sort' => $row['sort'],
                 'status' => $row['status'] ? '<span class="label label-success">ON</span>' : '<span class="label label-danger">OFF</span>',

@@ -119,7 +119,7 @@
                 @endphp
                 <b>{{ trans('product.groups') }}</b>:<br>
                 @foreach ($groups as $group)
-                  <span class="sc-product-group" data-id="{{ $group->product_id }}">{!! sc_image_render($group->product->image,,,$group->product->name) !!}</span>
+                  <span class="sc-product-group" data-id="{{ $group->product_id }}">{!! sc_image_render($group->product->image,'','',$group->product->name) !!}</span>
                 @endforeach
               </div>
               @endif
@@ -130,9 +130,9 @@
                   $builds = $product->builds
                 @endphp
                 <b>{{ trans('product.builds') }}</b>:<br>
-                <span class="sc-product-build">{!! sc_image_render($product->image,,,$product->name) !!} = </span>
+                <span class="sc-product-build">{!! sc_image_render($product->image,'','',$product->name) !!} = </span>
                 @foreach ($builds as $k => $build)
-                  {!! ($k)?'<i class="fa fa-plus" aria-hidden="true"></i>':'' !!} <span class="sc-product-build">{{ $build->quantity }} x <a target="_new" href="{{ $build->product->getUrl() }}">{!! sc_image_render($build->product->image,,,$build->product->name) !!}</a></span>
+                  {!! ($k)?'<i class="fa fa-plus" aria-hidden="true"></i>':'' !!} <span class="sc-product-build">{{ $build->quantity }} x <a target="_new" href="{{ $build->product->getUrl() }}">{!! sc_image_render($build->product->image,'','',$build->product->name) !!}</a></span>
                 @endforeach
               </div>
               @endif
