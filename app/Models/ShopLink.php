@@ -15,7 +15,10 @@ class ShopLink extends Model
     public static function getGroup()
     {
         if (!self::$getGroup) {
-            self::$getGroup = self::where('status', 1)->orderBy('sort', 'desc')->orderBy('id', 'desc')->get()->groupBy('group');
+            self::$getGroup = self::where('status', 1)
+                ->orderBy('sort', 'desc')
+                ->orderBy('id', 'desc')
+                ->get()->groupBy('group');
         }
         return self::$getGroup;
     }

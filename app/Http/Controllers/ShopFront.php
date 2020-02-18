@@ -26,7 +26,7 @@ class ShopFront extends GeneralController
             array(
                 'products_new' => (new ShopProduct)->getProducts($type = null, $limit = sc_config('product_new'), $opt = null),
                 'products_hot' => (new ShopProduct)->getProducts($type = SC_PRODUCT_HOT, $limit = sc_config('product_hot'), $opt = 'random'),
-                'categories' => (new ShopCategory)->getCategoriesAll($onlyActive = true),
+                'categories' => (new ShopCategory)->getList(['status' => 1]),
                 'products_build' => (new ShopProduct)->getTopBuild($limit = 4),
                 'products_group' => (new ShopProduct)->getTopGroup($limit = 4),
                 'layout_page' => 'home',

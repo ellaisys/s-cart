@@ -58,7 +58,7 @@ class CmsCategory extends Model
 
     public function getTreeCategories($parent = 0, &$tree = null, $categories = null, &$st = '')
     {
-        $categories = $categories ?? $this->getCategoriesAll();
+        $categories = $categories ?? $this->getList();
         $tree = $tree ?? [];
         $lisCategory = $categories[$parent] ?? [];
         foreach ($lisCategory as $category) {
@@ -141,47 +141,60 @@ class CmsCategory extends Model
 
     }
 
-    public function getCategoriesAll($onlyActive = false, $sortBy = null, $sortOrder = 'asc')
+        /**
+     * Get list category
+     *
+     * @param   array  $arrOpt
+     * Example: ['status' => 1, 'top' => 1]
+     * @param   array  $arrSort
+     * Example: ['sortBy' => 'id', 'sortOrder' => 'asc']
+     * @param   array  $arrLimit  [$arrLimit description]
+     * Example: ['step' => 0, 'limit' => 20]
+     * @return  [type]             [return description]
+     */
+    public function getList($arrOpt = [], $arrSort = [], $arrLimit = [])
     {
-        $listFullCategory = [];
-        if (sc_config('cache_status')) {
-            if (!Cache::has('all_cms_cate_' . $onlyActive . $sortBy . $sortOrder)) {
-
-                if ($onlyActive) {
-                    $listFullCategory = $this->getCategoriesActive($sortBy = null, $sortOrder = 'asc');
-                } else {
-                    $listFullCategory = $this->getCategoriesFull($sortBy = null, $sortOrder = 'asc');
-                }
-                Cache::put('all_cms_cate_' . $onlyActive . $sortBy . $sortOrder, $listFullCategory, $seconds = sc_config('cache_time', 600));
+        if(sc_config('cache_status') && sc_config('cache_category_cms')) {
+            $prefix = implode('_', $arrOpt).'__'.implode('_', $arrLimit).'__'.implode('_', $arrSort);
+            if (!Cache::has('all_cate_cms_' . $prefix)) {
+                $listFullCategory = $this->processList($arrOpt = [], $arrSort = [], $arrLimit = []);
+                Cache::put('all_cate_cms_' . $prefix, $seconds = sc_config('cache_time', 600));
             }
-            return Cache::get('all_cms_cate_' . $onlyActive . $sortBy . $sortOrder);
+            return Cache::get('all_cate_cms_' . $prefix);
         } else {
-            if ($onlyActive) {
-                $listFullCategory = $this->getCategoriesActive($sortBy = null, $sortOrder = 'asc');
-            } else {
-                $listFullCategory = $this->getCategoriesFull($sortBy = null, $sortOrder = 'asc');
-            }
-            return $listFullCategory;
+            return $this->processList($arrOpt = [], $arrSort = [], $arrLimit = []);
         }
-
     }
 
-    public function getCategoriesActive($sortBy = null, $sortOrder = 'asc')
+    /**
+     * Process get list category
+     *
+     * @param   array  $arrSort   [$arrSort description]
+     * @param   array  $arrLimit  [$arrLimit description]
+     * @param   array  $arrOpt    [$arrOpt description]
+     *
+     * @return  collect
+     */
+    public function processList($arrOpt = [], $arrSort = [], $arrLimit = [])
     {
-        $lang = sc_get_locale();
-        $listFullCategory = $this->with(['descriptions' => function ($q) use ($lang) {
-            $q->where('lang', $lang);
-        }])->where('status', 1)->sort($sortBy, $sortOrder)->get()->groupBy('parent');
-        return $listFullCategory;
-    }
+        $sortBy = $arrSort['sortBy'] ?? null;
+        $sortOrder = $arrSort['sortOrder'] ?? 'asc';
+        $step = $arrLimit['step'] ?? 0;
+        $limit = $arrLimit['limit'] ?? 0;
 
-    public function getCategoriesFull($sortBy = null, $sortOrder = 'asc')
-    {
-        $lang = sc_get_locale();
-        $listFullCategory = $this->with(['descriptions' => function ($q) use ($lang) {
-            $q->where('lang', $lang);
-        }])->sort($sortBy, $sortOrder)->get()->groupBy('parent');
-        return $listFullCategory;
+        $data = $this->sort($sortBy, $sortOrder);
+        if(count($arrOpt = [])) {
+            foreach ($arrOpt as $key => $value) {
+                $data = $data->where($key, $value);
+            }
+        }
+        if((int)$limit) {
+            $start = $step * $limit;
+            $data = $data->offset((int)$start)->limit((int)$limit);
+        }
+        $data = $data->get()->groupBy('parent');
+
+        return $data;
     }
 
     /*

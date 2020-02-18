@@ -210,7 +210,6 @@ class InsertDatabaseAdmin extends Migration
             ['group' => 'Extensions', 'code' => 'Total', 'key' => 'Discount', 'value' => '1', 'sort' => '0', 'detail' => 'Extensions/Total/Discount::Discount.title', 'store_id' => '1'],
             ['group' => '', 'code' => 'cache', 'key' => 'cache_status', 'value' => '0', 'sort' => '0', 'detail' => 'lang::cache.config_manager.cache_status', 'store_id' => '1'],
             ['group' => '', 'code' => 'cache', 'key' => 'cache_time', 'value' => '600', 'sort' => '1', 'detail' => 'lang::cache.config_manager.cache_time', 'store_id' => '1'],
-            ['group' => '', 'code' => 'cache', 'key' => 'cache_all', 'value' => '0', 'sort' => '2', 'detail' => 'lang::cache.config_manager.cache_all', 'store_id' => '1'],
             ['group' => '', 'code' => 'cache', 'key' => 'cache_category', 'value' => '0', 'sort' => '3', 'detail' => 'lang::cache.config_manager.cache_category', 'store_id' => '1'],
             ['group' => '', 'code' => 'cache', 'key' => 'cache_product', 'value' => '0', 'sort' => '4', 'detail' => 'lang::cache.config_manager.cache_product', 'store_id' => '1'],
             ['group' => '', 'code' => 'cache', 'key' => 'cache_news', 'value' => '0', 'sort' => '5', 'detail' => 'lang::cache.config_manager.cache_news', 'store_id' => '1'],

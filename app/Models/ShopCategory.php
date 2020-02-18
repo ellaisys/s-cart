@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Model;
 class ShopCategory extends Model
 {
     public $timestamps = false;
-    public $table = SC_DB_PREFIX.'shop_category';
+    public $table = SC_DB_PREFIX . 'shop_category';
     protected $guarded = [];
     protected $connection = SC_CONNECTION;
     public $appends = [
@@ -21,7 +21,7 @@ class ShopCategory extends Model
 
     public function products()
     {
-        return $this->belongsToMany(ShopProduct::class, SC_DB_PREFIX.'shop_product_category', 'category_id', 'product_id');
+        return $this->belongsToMany(ShopProduct::class, SC_DB_PREFIX . 'shop_product_category', 'category_id', 'product_id');
     }
 
     public function descriptions()
@@ -29,13 +29,12 @@ class ShopCategory extends Model
         return $this->hasMany(ShopCategoryDescription::class, 'category_id', 'id');
     }
 
-/**
- * Get category parent
- */
+    /**
+     * Get category parent
+     */
     public function getParent()
     {
         return $this->find($this->parent);
-
     }
 
     protected static function boot()
@@ -48,15 +47,15 @@ class ShopCategory extends Model
         });
     }
 
-/**
- * [getCategories description]
- * @param  [type] $parent    [description]
- * @param  [type] $limit     [description]
- * @param  [type] $opt       [description]
- * @param  [type] $sortBy    [description]
- * @param  string $sortOrder [description]
- * @return [type]            [description]
- */
+    /**
+     * [getCategories description]
+     * @param  [type] $parent    [description]
+     * @param  [type] $limit     [description]
+     * @param  [type] $opt       [description]
+     * @param  [type] $sortBy    [description]
+     * @param  string $sortOrder [description]
+     * @return [type]            [description]
+     */
     public function getCategories($parent, $limit = null, $opt = null, $sortBy = null, $sortOrder = 'asc')
     {
         $query = $this->where('status', 1)->where('parent', $parent);
@@ -72,19 +71,18 @@ class ShopCategory extends Model
         } else {
             return $query->limit($limit)->get();
         }
-
     }
 
-/**
- * Get all ID category children of parent
- * @param  integer $parent     [description]
- * @param  [type]  &$arrayID      [description]
- * @param  [object]  $categories [description]
- * @return [array]              [description]
- */
+    /**
+     * Get all ID category children of parent
+     * @param  integer $parent     [description]
+     * @param  [type]  &$arrayID      [description]
+     * @param  [object]  $categories [description]
+     * @return [array]              [description]
+     */
     public function getIdCategories($parent = 0, &$arrayID = null, $categories = null)
     {
-        $categories = $categories ?? $this->getCategoriesAll();
+        $categories = $categories ?? $this->getList();
         $arrayID = $arrayID ?? [];
         $lisCategory = $categories[$parent] ?? [];
         if (count($lisCategory)) {
@@ -100,7 +98,7 @@ class ShopCategory extends Model
 
     public function getTreeCategories($parent = 0, &$tree = null, $categories = null, &$st = '')
     {
-        $categories = $categories ?? $this->getCategoriesAll();
+        $categories = $categories ?? $this->getList();
         $tree = $tree ?? [];
         $lisCategory = $categories[$parent] ?? [];
         foreach ($lisCategory as $category) {
@@ -115,16 +113,16 @@ class ShopCategory extends Model
         return $tree;
     }
 
-/**
- * [getCategoriesTop description]
- * @return [type] [description]
- */
+    /**
+     * [getCategoriesTop description]
+     * @return [type] [description]
+     */
     public function getCategoriesTop()
     {
         return $this->where('status', 1)->where('top', 1)->get();
     }
 
-/*
+    /*
 Get thumb
  */
     public function getThumb()
@@ -132,13 +130,12 @@ Get thumb
         return sc_image_get_path_thumb($this->image);
     }
 
-/*
+    /*
 Get image
  */
     public function getImage()
     {
         return sc_image_get_path($this->image);
-
     }
 
     public function getUrl()
@@ -146,7 +143,7 @@ Get image
         return route('category', ['alias' => $this->alias]);
     }
 
-//Fields language
+    //Fields language
     public function getName()
     {
         return $this->processDescriptions()['name'] ?? '';
@@ -160,7 +157,7 @@ Get image
         return $this->processDescriptions()['description'] ?? '';
     }
 
-//Attributes
+    //Attributes
     public function getNameAttribute()
     {
         return $this->getName();
@@ -168,15 +165,13 @@ Get image
     public function getKeywordAttribute()
     {
         return $this->getKeyword();
-
     }
     public function getDescriptionAttribute()
     {
         return $this->getDescription();
-
     }
 
-//Scort
+    //Scort
     public function scopeSort($query, $sortBy = null, $sortOrder = 'desc')
     {
         $sortBy = $sortBy ?? 'sort';
@@ -188,61 +183,76 @@ Get image
         return $this->descriptions->keyBy('lang')[sc_get_locale()] ?? [];
     }
 
-    public function getCategoriesAll($onlyActive = false, $sortBy = null, $sortOrder = 'asc')
+    /**
+     * Get list category
+     *
+     * @param   array  $arrOpt
+     * Example: ['status' => 1, 'top' => 1]
+     * @param   array  $arrSort
+     * Example: ['sortBy' => 'id', 'sortOrder' => 'asc']
+     * @param   array  $arrLimit  [$arrLimit description]
+     * Example: ['step' => 0, 'limit' => 20]
+     * @return  [type]             [return description]
+     */
+    public function getList($arrOpt = [], $arrSort = [], $arrLimit = [])
     {
-        if (sc_config('cache_status')) {
-            if (!Cache::has('all_cate_' . $onlyActive . $sortBy . $sortOrder)) {
-
-                if ($onlyActive) {
-                    $listFullCategory = $this->getCategoriesActive($sortBy = null, $sortOrder = 'asc');
-                } else {
-                    $listFullCategory = $this->getCategoriesFull($sortBy = null, $sortOrder = 'asc');
-                }
-                Cache::put('all_cate_' . $onlyActive . $sortBy . $sortOrder, $listFullCategory, $seconds = sc_config('cache_time', 600));
+        if(sc_config('cache_status') && sc_config('cache_category')) {
+            $prefix = implode('_', $arrOpt).'__'.implode('_', $arrLimit).'__'.implode('_', $arrSort);
+            if (!Cache::has('all_cate_' . $prefix)) {
+                $listFullCategory = $this->processList($arrOpt = [], $arrSort = [], $arrLimit = []);
+                Cache::put('all_cate_' . $prefix, $seconds = sc_config('cache_time', 600));
             }
-            return Cache::get('all_cate_' . $onlyActive . $sortBy . $sortOrder);
+            return Cache::get('all_cate_' . $prefix);
         } else {
-            if ($onlyActive) {
-                $listFullCategory = $this->getCategoriesActive($sortBy = null, $sortOrder = 'asc');
-            } else {
-                $listFullCategory = $this->getCategoriesFull($sortBy = null, $sortOrder = 'asc');
-            }
-            return $listFullCategory;
+            return $this->processList($arrOpt = [], $arrSort = [], $arrLimit = []);
         }
-
     }
 
-    public function getCategoriesActive($sortBy = null, $sortOrder = 'asc')
+    /**
+     * Process get list category
+     *
+     * @param   array  $arrSort   [$arrSort description]
+     * @param   array  $arrLimit  [$arrLimit description]
+     * @param   array  $arrOpt    [$arrOpt description]
+     *
+     * @return  collect
+     */
+    public function processList($arrOpt = [], $arrSort = [], $arrLimit = [])
     {
-        $lang = sc_get_locale();
-        $listFullCategory = $this->where('status', 1)
-            ->sort($sortBy, $sortOrder)
-            ->get()
-            ->groupBy('parent');
-        return $listFullCategory;
+        $sortBy = $arrSort['sortBy'] ?? null;
+        $sortOrder = $arrSort['sortOrder'] ?? 'asc';
+        $step = $arrLimit['step'] ?? 0;
+        $limit = $arrLimit['limit'] ?? 0;
+
+        $data = $this->sort($sortBy, $sortOrder);
+        if(count($arrOpt = [])) {
+            foreach ($arrOpt as $key => $value) {
+                $data = $data->where($key, $value);
+            }
+        }
+        if((int)$limit) {
+            $start = $step * $limit;
+            $data = $data->offset((int)$start)->limit((int)$limit);
+        }
+        $data = $data->get()->groupBy('parent');
+
+        return $data;
     }
 
-    public function getCategoriesFull($sortBy = null, $sortOrder = 'asc')
+
+    /**
+     * [getCategory description]
+     *
+     * @param   [int]  $id     [$id description]
+     * @param   [string]  $alias  [$alias description]
+     *
+     * @return  [type]          [return description]
+     */
+    public function getCategory($id = null, $alias = null)
     {
-        $lang = sc_get_locale();
-        $listFullCategory = $this->sort($sortBy, $sortOrder)
-            ->get()
-            ->groupBy('parent');
-        return $listFullCategory;
-    }
-
-/**
- * [getCategory description]
- *
- * @param   [int]  $id     [$id description]
- * @param   [string]  $alias  [$alias description]
- *
- * @return  [type]          [return description]
- */
-    public function getCategory($id = null, $alias = null) {
         $category = null;
-        if($id) {
-            $category = $this->where('id', (int)$id);
+        if ($id) {
+            $category = $this->where('id', (int) $id);
         } else {
             $category = $this->where('alias', $alias);
         }
@@ -250,5 +260,4 @@ Get image
             ->where('status', 1)
             ->first();
     }
-
 }
