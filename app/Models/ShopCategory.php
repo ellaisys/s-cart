@@ -47,31 +47,6 @@ class ShopCategory extends Model
         });
     }
 
-    /**
-     * [getCategories description]
-     * @param  [type] $parent    [description]
-     * @param  [type] $limit     [description]
-     * @param  [type] $opt       [description]
-     * @param  [type] $sortBy    [description]
-     * @param  string $sortOrder [description]
-     * @return [type]            [description]
-     */
-    public function getCategories($parent, $limit = null, $opt = null, $sortBy = null, $sortOrder = 'asc')
-    {
-        $query = $this->where('status', 1)->where('parent', $parent);
-        $query = $query->sort($sortBy, $sortOrder);
-        if (!(int) $limit) {
-            return $query->get();
-        } else
-        if ($opt == 'paginate') {
-            return $query->paginate((int) $limit);
-        } else
-        if ($opt == 'random') {
-            return $query->inRandomOrder()->limit($limit)->get();
-        } else {
-            return $query->limit($limit)->get();
-        }
-    }
 
     /**
      * Get all ID category children of parent
@@ -80,36 +55,47 @@ class ShopCategory extends Model
      * @param  [object]  $categories [description]
      * @return [array]              [description]
      */
-    public function getIdCategories($parent = 0, &$arrayID = null, $categories = null)
+    public function getIdCategories($parent = 0, &$arrayID = [], $categories = [])
     {
         $categories = $categories ?? $this->getList();
         $arrayID = $arrayID ?? [];
         $lisCategory = $categories[$parent] ?? [];
         if (count($lisCategory)) {
             foreach ($lisCategory as $category) {
-                $arrayID[] = $category->id;
-                if (!empty($categories[$category->id])) {
-                    $this->getIdCategories($category->id, $arrayID, $categories);
+                $arrayID[] = $category['id'];
+                if (!empty($categories[$category['id']])) {
+                    $this->getIdCategories($category['id'], $arrayID, $categories);
                 }
             }
         }
         return $arrayID;
     }
 
-    public function getTreeCategories($parent = 0, &$tree = null, $categories = null, &$st = '')
+    /**
+     * Get tree categories
+     *
+     * @param   [type]  $parent      [$parent description]
+     * @param   [type]  &$tree       [&$tree description]
+     * @param   [type]  $categories  [$categories description]
+     * @param   [type]  &$st         [&$st description]
+     *
+     * @return  [type]               [return description]
+     */
+    public function getTreeCategories($parent = 0, &$tree = [], $categories = null, &$st = '')
     {
         $categories = $categories ?? $this->getList();
         $tree = $tree ?? [];
         $lisCategory = $categories[$parent] ?? [];
-        foreach ($lisCategory as $category) {
-            $tree[$category->id] = $st . $category->name;
-            if (!empty($categories[$category->id])) {
-                $st .= '--';
-                $this->getTreeCategories($category->id, $tree, $categories, $st);
-                $st = '';
+        if ($lisCategory) {
+            foreach ($lisCategory as $category) {
+                $tree[$category['id']] = $st . $category['name'];
+                if (!empty($categories[$category['id']])) {
+                    $st .= '--';
+                    $this->getTreeCategories($category['id'], $tree, $categories, $st);
+                    $st = '';
+                }
             }
         }
-
         return $tree;
     }
 
@@ -200,7 +186,7 @@ Get image
             $prefix = implode('_', $arrOpt).'__'.implode('_', $arrLimit).'__'.implode('_', $arrSort);
             if (!Cache::has('all_cate_' . $prefix)) {
                 $listFullCategory = $this->processList($arrOpt = [], $arrSort = [], $arrLimit = []);
-                Cache::put('all_cate_' . $prefix, $seconds = sc_config('cache_time', 600));
+                Cache::put('all_cate_' . $prefix, $listFullCategory, $seconds = sc_config('cache_time', 600));
             }
             return Cache::get('all_cate_' . $prefix);
         } else {
@@ -217,7 +203,7 @@ Get image
      *
      * @return  collect
      */
-    public function processList($arrOpt = [], $arrSort = [], $arrLimit = [])
+    private function processList($arrOpt = [], $arrSort = [], $arrLimit = [])
     {
         $sortBy = $arrSort['sortBy'] ?? null;
         $sortOrder = $arrSort['sortOrder'] ?? 'asc';
@@ -260,4 +246,31 @@ Get image
             ->where('status', 1)
             ->first();
     }
+
+    /**
+     * [getCategories description]
+     * @param  [type] $parent    [description]
+     * @param  [type] $limit     [description]
+     * @param  [type] $opt       [description]
+     * @param  [type] $sortBy    [description]
+     * @param  string $sortOrder [description]
+     * @return [type]            [description]
+     */
+    public function getCategories($parent = 0, $limit = null, $opt = null, $sortBy = null, $sortOrder = 'asc')
+    {
+        $query = $this->where('status', 1)->where('parent', $parent);
+        $query = $query->sort($sortBy, $sortOrder);
+        if (!(int) $limit) {
+            return $query->get();
+        } else
+        if ($opt == 'paginate') {
+            return $query->paginate((int) $limit);
+        } else
+        if ($opt == 'random') {
+            return $query->inRandomOrder()->limit($limit)->get();
+        } else {
+            return $query->limit($limit)->get();
+        }
+    }
+
 }
