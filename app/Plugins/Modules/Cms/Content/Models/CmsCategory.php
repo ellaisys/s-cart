@@ -148,8 +148,8 @@ class CmsCategory extends Model
 
     }
 
-        /**
-     * Get list category
+     /**
+     * Get list category cms
      *
      * @param   array  $arrOpt
      * Example: ['status' => 1, 'top' => 1]
@@ -255,7 +255,7 @@ class CmsCategory extends Model
         return $this->getDescription();
 
     }
-    
+
     public function processDescriptions()
     {
         return $this->descriptions->keyBy('lang')[sc_get_locale()] ?? [];

@@ -159,7 +159,7 @@ class ShopFront extends GeneralController
  */
     public function productDetail($alias)
     {
-        $product = (new ShopProduct)->getProduct($id = null, $alias);
+        $product = (new ShopProduct)->getProduct($alias, 'alias' );
         if ($product && $product->status && (sc_config('product_display_out_of_stock') || $product->stock > 0)) {
             //Update last view
             $product->view += 1;

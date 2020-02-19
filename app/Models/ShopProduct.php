@@ -209,20 +209,32 @@ Get final price
 
 /**
  * Get product detail
- * @param  [int] $id [description]
- * @param  [string] $alias [description]
+ * @param  [string] $key [description]
+ * @param  [string] $type id, sku, alias
+ * @param  [int] $status 
+ * '' if is all status
  * @return [type]     [description]
  */
-    public function getProduct($id = null, $alias = null)
+    public function getProduct($key = null, $type = null,  $status = 1)
     {
-        if($id) {
-            $product = $this->where('id', $id);  
-        } else {
-            $product = $this->where('alias', $alias);
+        if(empty($key)) {
+            return null;
         }
+        if(empty($type)) {
+            $product = $this->where('id', (int)$key);  
+        } elseif ($type == 'alias') {
+            $product = $this->where('alias', $key);
+        } elseif ($type == 'sku') {
+            $product = $this->where('sku', $key);
+        } else {
+            return null;
+        }
+        if($status) {
+            $product = $product->where('status', (int)$status);
+        } 
         $product = $product
-            ->where('status', 1)
             ->with('images')
+            ->with('descriptions')
             ->with('promotionPrice');
         $product = $product->first();
         return $product;
@@ -574,4 +586,7 @@ Check promotion price
         }
 
     }
+
+
+
 }
