@@ -30,63 +30,6 @@ class CmsCategory extends Model
     }
 
 
-    /**
-     * Get list category
-     *
-     * @param   array  $arrOpt
-     * Example: ['status' => 1, 'top' => 1]
-     * @param   array  $arrSort
-     * Example: ['sortBy' => 'id', 'sortOrder' => 'asc']
-     * @param   array  $arrLimit  [$arrLimit description]
-     * Example: ['step' => 0, 'limit' => 20]
-     * @return  [type]             [return description]
-     */
-    public function getList($arrOpt = [], $arrSort = [], $arrLimit = [])
-    {
-        if(sc_config('cache_status') && sc_config('cache_category_cms')) {
-            $prefix = implode('_', $arrOpt).'__'.implode('_', $arrLimit).'__'.implode('_', $arrSort);
-            if (!Cache::has('all_cate_cms' . $prefix)) {
-                $listFullCategory = $this->processList($arrOpt = [], $arrSort = [], $arrLimit = []);
-                Cache::put('all_cate_cms' . $prefix, $listFullCategory, $seconds = sc_config('cache_time', 0)?:600);
-            }
-            return Cache::get('all_cate_cms' . $prefix);
-        } else {
-            return $this->processList($arrOpt = [], $arrSort = [], $arrLimit = []);
-        }
-    }
-
-    /**
-     * Process get list category
-     *
-     * @param   array  $arrSort   [$arrSort description]
-     * @param   array  $arrLimit  [$arrLimit description]
-     * @param   array  $arrOpt    [$arrOpt description]
-     *
-     * @return  collect
-     */
-    private function processList($arrOpt = [], $arrSort = [], $arrLimit = [])
-    {
-        $sortBy = $arrSort['sortBy'] ?? null;
-        $sortOrder = $arrSort['sortOrder'] ?? 'asc';
-        $step = $arrLimit['step'] ?? 0;
-        $limit = $arrLimit['limit'] ?? 0;
-
-        $data = $this->sort($sortBy, $sortOrder);
-        if(count($arrOpt = [])) {
-            foreach ($arrOpt as $key => $value) {
-                $data = $data->where($key, $value);
-            }
-        }
-        if((int)$limit) {
-            $start = $step * $limit;
-            $data = $data->offset((int)$start)->limit((int)$limit);
-        }
-        $data = $data->get()->groupBy('parent');
-
-        return $data;
-    }
-
-
 /**
  * Get category parent
  * @return [type]     [description]
