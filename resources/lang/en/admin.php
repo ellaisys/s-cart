@@ -136,6 +136,7 @@ return [
       'paypal_order_status_faild'         => 'Order status faild',
       'not_empty'                         => 'Data not empty!',
       'search_order'                      => 'Search order id, email, phone or name',
+      'gt_numeric_0'                      => 'Value must greater zero!',
       'only_numeric'                      => 'Please input numeric!',
       'order_year'                        => 'In 12 months',
       'order_month'                       => 'In 30 days',

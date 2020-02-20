@@ -391,7 +391,7 @@ function all_editable(){
     $('.updateStatus').editable({
         validate: function(value) {
             if (value == '') {
-                return '{{  trans('language.admin.not_empty') }}';
+                return '{{  trans('admin.not_empty') }}';
             }
         }
     });
@@ -399,7 +399,7 @@ function all_editable(){
     $('.updateInfoRequired').editable({
         validate: function(value) {
             if (value == '') {
-                return '{{  trans('language.admin.not_empty') }}';
+                return '{{  trans('admin.not_empty') }}';
             }
         }
     });
@@ -412,10 +412,10 @@ function all_editable(){
         },
         validate: function(value) {
           if (value == '') {
-              return '{{  trans('language.admin.not_empty') }}';
+              return '{{  trans('admin.not_empty') }}';
           }
           if (!$.isNumeric(value)) {
-              return '{{  trans('language.admin.only_numeric') }}';
+              return '{{  trans('admin.only_numeric') }}';
           }
         },
         success: function(response,newValue) {
@@ -443,10 +443,10 @@ function all_editable(){
         },
         validate: function(value) {
           if (value == '') {
-              return '{{  trans('language.admin.not_empty') }}';
+              return '{{  trans('admin.not_empty') }}';
           }
           if (!$.isNumeric(value)) {
-              return '{{  trans('language.admin.only_numeric') }}';
+              return '{{  trans('admin.only_numeric') }}';
           }
        },
 

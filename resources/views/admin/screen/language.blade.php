@@ -84,7 +84,7 @@
                                                 <a data-input="icon" data-preview="preview_icon" data-type="language"
                                                     class="btn btn-sm btn-primary lfm">
                                                     <i class="fa fa-picture-o"></i>
-                                                    {{trans('language.admin.choose_icon')}}
+                                                    {{trans('admin.choose_icon')}}
                                                 </a>
                                             </span>
                                         </div>

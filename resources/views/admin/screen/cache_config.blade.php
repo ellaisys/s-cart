@@ -17,11 +17,30 @@
            </tr>
          </thead>
          <tbody>
+          <tr>
+            <td colspan="2">
+              <button type="button" class="btn btn-block btn-success btn-sm">
+                <i class="fa fa-refresh"></i> {{ trans('cache.config_manager.cache_refresh') }}
+              </button>
+            </td>
+          </tr>
+          <tr>
+            <td>{{ trans('cache.config_manager.cache_status') }}</td>
+            <td>
+              <a href="#" class="fied-required editable editable-click" data-name="cache_status" data-type="select" data-pk="" data-source="{{ json_encode(['1'=>'ON','0'=>'OFF']) }}" data-url="{{ route('admin_store_value.update') }}" data-title="{{ trans('cache.config_manager.cache_status') }}" data-value="{{ sc_config('cache_status') }}" data-original-title="" title=""></a></td>
+          </tr>
+          <tr>
+            <td>{{ trans('cache.config_manager.cache_time') }}</td>
+            <td>
+              <a href="#" class="cache-time data-cache_time"  data-name="cache_time" data-type="text" data-pk="" data-url="{{ route('admin_store_value.update') }}" data-title="{{ trans('cache.config_manager.cache_time') }}">{{ sc_config('cache_time') }}</a>
+          </tr>
            @foreach ($configs as $config)
-             <tr>
-               <td>{{ sc_language_render($config->detail) }}</td>
-               <td><input type="checkbox" name="{{ $config->key }}"  {{ $config->value?"checked":"" }}></td>
-             </tr>
+           @if (!in_array($config->key, ['cache_status', 'cache_time']))
+           <tr>
+            <td>{{ sc_language_render($config->detail) }}</td>
+            <td><input type="checkbox" name="{{ $config->key }}"  {{ $config->value?"checked":"" }}></td>
+          </tr>
+           @endif
            @endforeach
          </tbody>
        </table>
@@ -49,7 +68,7 @@
   // Editable
 $(document).ready(function() {
 
-       $.fn.editable.defaults.mode = 'inline';
+       {{-- $.fn.editable.defaults.mode = 'inline'; --}}
       $.fn.editable.defaults.params = function (params) {
         params._token = "{{ csrf_token() }}";
         return params;
@@ -76,6 +95,68 @@ $(document).ready(function() {
           }
       }
     });
+
+    $('.cache-time').editable({
+      ajaxOptions: {
+      type: 'post',
+      dataType: 'json'
+      },
+      validate: function(value) {
+        if (value == '') {
+            return '{{  trans('admin.not_empty') }}';
+        }
+        if (!$.isNumeric(value)) {
+            return '{{  trans('admin.only_numeric') }}';
+        }
+        if (parseInt(value) < 0) {
+          return '{{  trans('admin.gt_numeric_0') }}';
+        }
+     },
+  
+      success: function(response, newValue) {
+            // console.log(response);
+    }
+  });
+  
+
+    $(function () {
+      $('input').iCheck({
+        checkboxClass: 'icheckbox_square-blue',
+        radioClass: 'iradio_square-blue',
+        increaseArea: '20%' /* optional */
+      }).on('ifChanged', function(e) {
+      var isChecked = e.currentTarget.checked;
+      isChecked = (isChecked == false)?0:1;
+      var name = $(this).attr('name');
+        $.ajax({
+          url: '{{ route('admin_store_value.update') }}',
+          type: 'POST',
+          dataType: 'JSON',
+          data: {"name": name,"value":isChecked,"_token": "{{ csrf_token() }}",},
+        })
+        .done(function(data) {
+          if(data.error == 0){
+            const Toast = Swal.mixin({
+              toast: true,
+              position: 'top-end',
+              showConfirmButton: false,
+              timer: 3000
+            });
+  
+            Toast.fire({
+              type: 'success',
+              title: '{{ trans('admin.msg_change_success') }}'
+            })
+          }
+        });
+  
+        });
+  
+    });
+  
+
+
+
 });
 </script>
 
@@ -189,43 +270,5 @@ $('.grid-trash').on('click', function() {
 {{--/ sweetalert2 --}}
 
 </script>
-<script>
 
-  // Update config
-  $(function () {
-    $('input').iCheck({
-      checkboxClass: 'icheckbox_square-blue',
-      radioClass: 'iradio_square-blue',
-      increaseArea: '20%' /* optional */
-    }).on('ifChanged', function(e) {
-    var isChecked = e.currentTarget.checked;
-    isChecked = (isChecked == false)?0:1;
-    var name = $(this).attr('name');
-      $.ajax({
-        url: '{{ route('admin_store_value.update') }}',
-        type: 'POST',
-        dataType: 'JSON',
-        data: {"name": name,"value":isChecked,"_token": "{{ csrf_token() }}",},
-      })
-      .done(function(data) {
-        if(data.error == 0){
-          const Toast = Swal.mixin({
-            toast: true,
-            position: 'top-end',
-            showConfirmButton: false,
-            timer: 3000
-          });
-
-          Toast.fire({
-            type: 'success',
-            title: '{{ trans('admin.msg_change_success') }}'
-          })
-        }
-      });
-
-      });
-
-  });
-  //End update config
-</script>
 @endpush

@@ -143,6 +143,7 @@ return [
     'not_empty' => 'Không được để trống!',
     'search_order' => 'Số order, email, phone hoặc tên',
     'only_numeric' => 'Vui lòng nhập số!',
+    'gt_numeric_0' => 'Giá trị  phải lớn hơn 0!',
     'order_year' => 'Đơn hàng trong 12 tháng',
     'order_month' => 'Đơn hàng trong 30 ngày',
     'dashboard' => 'Trang tổng quan',
