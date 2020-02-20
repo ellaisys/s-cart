@@ -9,8 +9,11 @@ return [
         'cache_time'=> 'Cache time (seconds)',
         'cache_clear'=> 'Clear cache',
         'cache_refresh'=> 'Refresh cache',
+        'cache_clear_processing'=> 'Procssing clear cache',
+        'cache_clear_all'=> 'Clear all cache',
+        'cache_clear_success'=> 'Clear cache success',
 
-        'cache_category'=> 'Cache Cactegory',
+        'cache_category'=> 'Cache Category',
         'cache_product'=> 'Cache Product',
         'cache_news'=> 'Cache News',
         'cache_category_cms'=> 'Cache Category CMS',

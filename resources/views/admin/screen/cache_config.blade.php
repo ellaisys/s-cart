@@ -18,27 +18,43 @@
          </thead>
          <tbody>
           <tr>
-            <td colspan="2">
-              <button type="button" class="btn btn-block btn-success btn-sm">
-                <i class="fa fa-refresh"></i> {{ trans('cache.config_manager.cache_refresh') }}
+            <td colspan="3">
+              <button type="button" data-loading-text="<i class='fa fa-spinner fa-spin'></i> {{ trans('cache.config_manager.cache_clear_processing')}}" class="btn btn-flat btn-success clear-cache" data-clear="cache_all">
+                <i class="fa fa-refresh"></i> {{ trans('cache.config_manager.cache_clear_all') }}
               </button>
             </td>
+            
           </tr>
           <tr>
             <td>{{ trans('cache.config_manager.cache_status') }}</td>
             <td>
-              <a href="#" class="fied-required editable editable-click" data-name="cache_status" data-type="select" data-pk="" data-source="{{ json_encode(['1'=>'ON','0'=>'OFF']) }}" data-url="{{ route('admin_store_value.update') }}" data-title="{{ trans('cache.config_manager.cache_status') }}" data-value="{{ sc_config('cache_status') }}" data-original-title="" title=""></a></td>
+              <a href="#" class="fied-required editable editable-click" data-name="cache_status" data-type="select" data-pk="" data-source="{{ json_encode(['1'=>'ON','0'=>'OFF']) }}" data-url="{{ route('admin_store_value.update') }}" data-title="{{ trans('cache.config_manager.cache_status') }}" data-value="{{ sc_config('cache_status') }}" data-original-title="" title=""></a>
+            </td>
+            <td></td>
           </tr>
           <tr>
             <td>{{ trans('cache.config_manager.cache_time') }}</td>
             <td>
               <a href="#" class="cache-time data-cache_time"  data-name="cache_time" data-type="text" data-pk="" data-url="{{ route('admin_store_value.update') }}" data-title="{{ trans('cache.config_manager.cache_time') }}">{{ sc_config('cache_time') }}</a>
+            </td>
+            <td></td>
           </tr>
            @foreach ($configs as $config)
            @if (!in_array($config->key, ['cache_status', 'cache_time']))
            <tr>
             <td>{{ sc_language_render($config->detail) }}</td>
             <td><input type="checkbox" name="{{ $config->key }}"  {{ $config->value?"checked":"" }}></td>
+            <td>
+              @if (\Cache::has($config->key))
+              <button type="button" data-loading-text="<i class='fa fa-spinner fa-spin'></i> {{ trans('cache.config_manager.cache_clear')}}" class="btn btn-flat btn-warning clear-cache" data-clear="{{ $config->key }}">
+                <i class="fa fa-refresh"></i> {{ trans('cache.config_manager.cache_clear') }}
+              </button>
+              @else
+              <button type="button" disabled data-loading-text="<i class='fa fa-spinner fa-spin'></i> {{ trans('cache.config_manager.cache_clear')}}" class="btn btn-flat btn-warning clear-cache" data-clear="{{ $config->key }}">
+                <i class="fa fa-refresh"></i> {{ trans('cache.config_manager.cache_clear') }}
+              </button>
+              @endif        
+            </td>
           </tr>
            @endif
            @endforeach
@@ -154,10 +170,52 @@ $(document).ready(function() {
   
     });
   
-
-
-
 });
+
+
+
+$('.clear-cache').click(function() {
+  $(this).button('loading');
+  $.ajax({
+    url: '{{ route('admin_cache_config.clear_cache') }}',
+    type: 'POST',
+    dataType: 'JSON',
+    data: {
+      action: $(this).data('clear'),
+        _token: '{{ csrf_token() }}',
+    },
+  })
+  .done(function(data) {
+    var obj = 'data-clear="'+data.action+'"';
+    $("["+obj+"]").button('reset');
+    if(data.error == 0){
+      const Toast = Swal.mixin({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 3000
+      });
+
+      Toast.fire({
+        type: 'success',
+        title: '{{ trans('cache.config_manager.cache_clear_success') }}'
+      })
+    } else {
+      const Toast = Swal.mixin({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 3000
+      });
+
+      Toast.fire({
+        type: 'error',
+        title: data.msg
+      })
+    }
+  });
+});
+
 </script>
 
     {{-- //Pjax --}}
@@ -175,7 +233,7 @@ $(document).ready(function() {
     $(document).on('pjax:complete', function() {
       $('#loading').hide()
     })
-    $(document).ready(function(){
+    $(document).ready(function() {
     // does current browser support PJAX
       if ($.support.pjax) {
         $.pjax.defaults.timeout = 2000; // time in milliseconds
@@ -206,68 +264,6 @@ var selectedRows = function () {
 
     return selected;
 }
-
-$('.grid-trash').on('click', function() {
-  var ids = selectedRows().join();
-  deleteItem(ids);
-});
-
-  function deleteItem(ids){
-  const swalWithBootstrapButtons = Swal.mixin({
-    customClass: {
-      confirmButton: 'btn btn-success',
-      cancelButton: 'btn btn-danger'
-    },
-    buttonsStyling: true,
-  })
-
-  swalWithBootstrapButtons.fire({
-    title: '{{ trans('admin.confirm_delete') }}',
-    text: "",
-    type: 'warning',
-    showCancelButton: true,
-    confirmButtonText: '{{ trans('admin.confirm_delete_yes') }}',
-    confirmButtonColor: "#DD6B55",
-    cancelButtonText: '{{ trans('admin.confirm_delete_no') }}',
-    reverseButtons: true,
-
-    preConfirm: function() {
-        return new Promise(function(resolve) {
-            $.ajax({
-                method: 'post',
-                url: '{{ $urlDeleteItem ?? '' }}',
-                data: {
-                  ids:ids,
-                    _token: '{{ csrf_token() }}',
-                },
-                success: function (data) {
-                    $.pjax.reload('#pjax-container');
-                    resolve(data);
-                }
-            });
-        });
-    }
-
-  }).then((result) => {
-    if (result.value) {
-      swalWithBootstrapButtons.fire(
-        '{{ trans('admin.confirm_delete_deleted') }}',
-        '{{ trans('admin.confirm_delete_deleted_msg') }}',
-        'success'
-      )
-    } else if (
-      // Read more about handling dismissals
-      result.dismiss === Swal.DismissReason.cancel
-    ) {
-      // swalWithBootstrapButtons.fire(
-      //   'Cancelled',
-      //   'Your imaginary file is safe :)',
-      //   'error'
-      // )
-    }
-  })
-}
-{{--/ sweetalert2 --}}
 
 </script>
 
