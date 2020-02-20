@@ -182,13 +182,8 @@ Get image
      */
     public function getList($arrOpt = [], $arrSort = [], $arrLimit = [])
     {
-        if(sc_config('cache_status') && sc_config('cache_category')) {
-            $prefix = implode('_', $arrOpt).'__'.implode('_', $arrLimit).'__'.implode('_', $arrSort);
-            if (!Cache::has('all_cate_' . $prefix)) {
-                $listFullCategory = $this->processList($arrOpt = [], $arrSort = [], $arrLimit = []);
-                Cache::put('all_cate_' . $prefix, $listFullCategory, $seconds = sc_config('cache_time', 0)?:600);
-            }
-            return Cache::get('all_cate_' . $prefix);
+        if(empty($arrOpt) && empty($arrSort) && empty($arrLimit)) {
+            return $this->processListFull();
         } else {
             return $this->processList($arrOpt = [], $arrSort = [], $arrLimit = []);
         }
@@ -223,6 +218,24 @@ Get image
         $data = $data->get()->groupBy('parent');
 
         return $data;
+    }
+
+    /**
+     * Process list full cactegory
+     *
+     * @return  [type]  [return description]
+     */
+    private function processListFull()
+    {
+        if(sc_config('cache_status') && sc_config('cache_category')) {
+            if (!Cache::has('cache_category')) {
+                $listFullCategory = $this->processList();
+                Cache::put('cache_category', $listFullCategory, $seconds = sc_config('cache_time', 0)?:600);
+            }
+            return Cache::get('cache_category');
+        } else {
+            return $this->processList();
+        }
     }
 
 

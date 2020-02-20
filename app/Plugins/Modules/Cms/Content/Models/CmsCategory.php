@@ -104,13 +104,8 @@ class CmsCategory extends Model
      */
     public function getList($arrOpt = [], $arrSort = [], $arrLimit = [])
     {
-        if(sc_config('cache_status') && sc_config('cache_category_cms')) {
-            $prefix = implode('_', $arrOpt).'__'.implode('_', $arrLimit).'__'.implode('_', $arrSort);
-            if (!Cache::has('all_cate_cms_' . $prefix)) {
-                $listFullCategory = $this->processList($arrOpt = [], $arrSort = [], $arrLimit = []);
-                Cache::put('all_cate_cms_' . $prefix, $listFullCategory, $seconds = sc_config('cache_time', 600)?:600);
-            }
-            return Cache::get('all_cate_cms_' . $prefix);
+        if(empty($arrOpt) && empty($arrSort) && empty($arrLimit)) {
+            return $this->processListFull();
         } else {
             return $this->processList($arrOpt = [], $arrSort = [], $arrLimit = []);
         }
@@ -145,6 +140,24 @@ class CmsCategory extends Model
         $data = $data->get()->groupBy('parent');
 
         return $data;
+    }
+
+    /**
+     * Process list full cactegory cms
+     *
+     * @return  [type]  [return description]
+     */
+    private function processListFull()
+    {
+        if(sc_config('cache_status') && sc_config('cache_category_cms')) {
+            if (!Cache::has('cache_category_cms')) {
+                $listFullCategory = $this->processList();
+                Cache::put('cache_category_cms', $listFullCategory, $seconds = sc_config('cache_time', 0)?:600);
+            }
+            return Cache::get('cache_category_cms');
+        } else {
+            return $this->processList();
+        }
     }
 
     /*
