@@ -120,7 +120,7 @@ class CmsCategory extends Model
      *
      * @return  collect
      */
-    public function processList($arrOpt = [], $arrSort = [], $arrLimit = [])
+    private function processList($arrOpt = [], $arrSort = [], $arrLimit = [])
     {
         $sortBy = $arrSort['sortBy'] ?? null;
         $sortOrder = $arrSort['sortOrder'] ?? 'asc';
