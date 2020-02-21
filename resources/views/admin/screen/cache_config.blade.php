@@ -188,6 +188,10 @@ $('.clear-cache').click(function() {
   .done(function(data) {
     var obj = 'data-clear="'+data.action+'"';
     $("["+obj+"]").button('reset');
+    setTimeout(function () {
+      $("["+obj+"]").prop('disabled', true);
+    }, 100);
+    
     if(data.error == 0){
       const Toast = Swal.mixin({
         toast: true,
