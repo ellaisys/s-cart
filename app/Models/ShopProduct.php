@@ -311,7 +311,7 @@ Get final price
     {
 
         $special = $this
-            ->select(DB::raw($this->getTable() . '.*'))
+            ->select(DB::connection(SC_CONNECTION)->raw($this->getTable() . '.*'))
             ->join(
                 (new ShopProductPromotion)->getTable(),
                 $this->getTable() . '.id', '=', (new ShopProductPromotion)->getTable() . '.product_id')
