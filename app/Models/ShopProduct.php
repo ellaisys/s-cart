@@ -10,7 +10,7 @@ use App\Models\ShopProductGroup;
 use App\Models\ShopProductPromotion;
 use DB;
 use Illuminate\Database\Eloquent\Model;
-
+use Cache;
 class ShopProduct extends Model
 {
     public $table = SC_DB_PREFIX.'shop_product';
@@ -561,7 +561,7 @@ Check promotion price
 
         return -1;
     }
-    
+
     /*
     Upate stock, sold
      */
@@ -588,6 +588,73 @@ Check promotion price
 
     }
 
+    /**
+     * Get list product
+     *
+     * @param   array  $arrOpt
+     * Example: ['status' => 1, 'top' => 1]
+     * @param   array  $arrSort
+     * Example: ['sortBy' => 'id', 'sortOrder' => 'asc']
+     * @param   array  $arrLimit  [$arrLimit description]
+     * Example: ['step' => 0, 'limit' => 20]
+     * @return  [type]             [return description]
+     */
+    public function getList($arrOpt = [], $arrSort = [], $arrLimit = [])
+    {
+        if(empty($arrOpt) && empty($arrSort) && empty($arrLimit)) {
+            return $this->processListFull();
+        } else {
+            return $this->processList($arrOpt = [], $arrSort = [], $arrLimit = []);
+        }
+    }
 
+    /**
+     * Process get list product
+     *
+     * @param   array  $arrSort   [$arrSort description]
+     * @param   array  $arrLimit  [$arrLimit description]
+     * @param   array  $arrOpt    [$arrOpt description]
+     *
+     * @return  collect
+     */
+    private function processList($arrOpt = [], $arrSort = [], $arrLimit = [])
+    {
+        $sortBy = $arrSort['sortBy'] ?? null;
+        $sortOrder = $arrSort['sortOrder'] ?? 'asc';
+        $step = $arrLimit['step'] ?? 0;
+        $limit = $arrLimit['limit'] ?? 0;
+
+        $data = $this->sort($sortBy, $sortOrder);
+        if(count($arrOpt = [])) {
+            foreach ($arrOpt as $key => $value) {
+                $data = $data->where($key, $value);
+            }
+        }
+        if((int)$limit) {
+            $start = $step * $limit;
+            $data = $data->offset((int)$start)->limit((int)$limit);
+        }
+        $data = $data->get()->groupBy('id');
+
+        return $data;
+    }
+
+    /**
+     * Process list full product
+     *
+     * @return  [type]  [return description]
+     */
+    private function processListFull()
+    {
+        if(sc_config('cache_status') && sc_config('cache_product')) {
+            if (!Cache::has('cache_product')) {
+                $listFullProduct = $this->processList();
+                Cache::put('cache_product', $listFullProduct, $seconds = sc_config('cache_time', 0)?:600);
+            }
+            return Cache::get('cache_product');
+        } else {
+            return $this->processList();
+        }
+    }
 
 }
