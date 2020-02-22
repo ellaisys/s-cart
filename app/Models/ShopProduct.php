@@ -518,11 +518,11 @@ Get image
     }
 
 /**
-//Condition:
-//Active
-//In of stock or allow order out of stock
-//Date availabe
-// Not SC_PRODUCT_GROUP
+*Condition:
+* -Active
+* -In of stock or allow order out of stock
+* -Date availabe
+* -Not SC_PRODUCT_GROUP
  */
     public function allowSale()
     {
@@ -561,6 +561,7 @@ Check promotion price
 
         return -1;
     }
+    
     /*
     Upate stock, sold
      */
